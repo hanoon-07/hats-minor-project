@@ -8,7 +8,7 @@ function Output() {
   const results = useSelector(selectResult);
 
   function getItem(item, index) {
-    return <div className='bg-secondaryGray width-full m-[20px] rounded-[4px] px-2'>
+    return <div key={item} className='bg-secondaryGray width-full m-[20px] rounded-[4px] px-2'>
       <span className='text-textGray'>case {index}</span>
       <p className='text-white'>{item}</p>
     </div>
