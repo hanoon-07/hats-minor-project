@@ -84,13 +84,13 @@ function Result_case({ cases, expectedResults }) {
 
         <div className="flex flex-col gap-2 mt-1">
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@ function Result_case({ cases, expectedResults }) {
 
 
   if (!isRunning) return (
-    <div className=" bg-darkGray h-[100%] flex flex-col rounded-sm gap-4">
+    <div className=" bg-darkGray h-[100%] flex flex-col rounded-sm ">
       <div className="flex gap-4 pl-[1rem] pt-[5px] items-center pb-[5px] rounded bg-secondaryGray relative ">
         {" "}
         <motion.div
@@ -121,9 +121,11 @@ function Result_case({ cases, expectedResults }) {
         <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
       </div>
 
-      {optionToggle === 'case' && <TestCase testCases={cases} />}
-      {optionToggle === 'result' && <TestResult results={results} expectedResults={expectedResults} />}
-      {optionToggle === 'outputScreen' && <Output />}
+      <div className="h-full m-2">
+        {optionToggle === 'case' && <TestCase testCases={cases} />}
+        {optionToggle === 'result' && <TestResult  />}
+        {optionToggle === 'outputScreen' && <Output />}
+      </div>
     </div>
   );
 }
