@@ -33,13 +33,13 @@ function Output() {
 
   if(errorOccured() != -1) {
     return <div className='bg-darkGray w-full p-0 h-[100%]'>
-      <div className='h-full bg-black rounded-md'>
+      <div className='h-full bg-black rounded-md pb-5'>
         <p className='p-4  rounded-md text-red-500 whitespace-pre-wrap w-full'>{results.stdErr[errorOccured()]}</p>
       </div>
     </div>
   }
 
-  return <div className='bg-black rounded-md w-full p-3 max-h-[80%] min-h-[70%] overflow-y-scroll'>
+  return <div className='bg-black rounded-md w-full p-3 max-h-[80%] min-h-[70%] overflow-y-scroll pb-5'>
     {results.stdOut.map(getItem)}
   </div>
 

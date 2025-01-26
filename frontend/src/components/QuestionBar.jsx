@@ -36,7 +36,7 @@ const QuestionBar = ({ questionDetails }) => {
             <div className='h-[90%] overflow-y-scroll scroller mb-2' >
                 <div className='m-6'>
                     {/* Title */}
-                    <h1 className="text-3xl  mb-4">{currentQuestion.title}</h1>
+                    <h1 className="text-3xl font-semibold mb-4">{currentQuestion.title}</h1>
 
                     {/* Problem Description */}
                     <div className="space-y-4 mb-6">
@@ -52,7 +52,7 @@ const QuestionBar = ({ questionDetails }) => {
                     <div className="space-y-6 ">
                         <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
                             <h2 className="text-md font-normal mb-3">Example -1</h2>
-                            <div className="p-4 rounded">
+                            <div className=" rounded">
                                 <div className="mb-2 flex flex-row gap-4">
                                     <span className="text-textGray">Input: </span>
                                     <span> {currentQuestion.firstExample}</span>
@@ -66,7 +66,7 @@ const QuestionBar = ({ questionDetails }) => {
 
                         <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
                             <h2 className="text-md font-normal mb-3">Example -2</h2>
-                            <div className="p-4 rounded">
+                            <div className=" rounded">
                                 <div className="mb-2 flex flex-row gap-4 ">
                                     <span className="text-textGray">Input: </span>
                                     <span> {currentQuestion.secondExample}</span>

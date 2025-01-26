@@ -8,6 +8,7 @@ import Output from "./Output";
 import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { selectResult } from "../../redux/examSelector";
+import Loadinganimation from "../animation/Loadinganimation";
 /*
 
 input sample format
@@ -51,20 +52,19 @@ function Result_case({ cases, expectedResults }) {
         <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row font-semibold">
           {text.split('').map((letter, index) => (
-            <motion.p className="text-textGreen"
+            <motion.p className="text-green-500 text-[20px]"
               key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{opacity: 1}}
               transition={{ duration: 0.2, delay: index * 0.1, }}
+              
             >
               {letter}
             </motion.p>
           ))}
         </div>
-        <div id="wave">
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>  
+        <div className="mt-2">
+          <Loadinganimation length={'5'}/>
         </div>
         </div>
       </div>
@@ -103,12 +103,12 @@ function Result_case({ cases, expectedResults }) {
         {" "}
         <motion.div
           className="absolute bottom-1 w-[6rem]  h-[2px] bg-buttonGreen2"
-          initial={{ left: 19 }}
+          initial={{ left: 25 }}
           animate={{
             left: {
-              case: 19,
-              result: 155,
-              outputScreen: 287
+              case: 23,
+              result: 168,
+              outputScreen: 305
             }[optionToggle]
           }}
           transition={{ type: "linear", damping: 0 }}
