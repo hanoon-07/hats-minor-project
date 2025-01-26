@@ -40,7 +40,7 @@ function TestResult() {
 
   function getItem(item, index) {
     if(item == null) return null;
-    return <div className="bg-black items-center justify-evenly rounded-md p-3 w-full flex flex-row">
+    return <div className=" bg-black items-center justify-evenly rounded-md p-3 w-full flex flex-row">
       <div>
         <p className={`${item.trim() == outputs[index]?"text-textGreen": "text-red-500"}`}>case {index+1}</p>
       </div>
@@ -70,7 +70,7 @@ function TestResult() {
 
 
   return (
-    <div className="flex flex-col gap-2 max-h-full overflow-y-scroll min-h-[90%]  p-3 rounded-md">
+    <div className="pb-10 flex flex-col gap-2 max-h-full overflow-y-scroll min-h-[90%]  p-3 rounded-md">
       {results.stdOut.map(getItem)}
     </div>
   );

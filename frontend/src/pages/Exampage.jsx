@@ -85,7 +85,7 @@ function Exampage() {
 
   return (
     <>
-      <div className={`h-screen px-4 bg-black pb-[10px] ${isOpen ? 'blur-lg' : ''}`}>
+      <div className={`font-inter h-screen px-4 bg-black pb-[10px] ${isOpen ? 'blur-lg' : ''}`}>
         <Examwindow timeStart={timeStart} />
       </div>
       {isOpen && (
