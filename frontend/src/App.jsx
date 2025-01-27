@@ -6,6 +6,7 @@ import { store } from './redux/store'
 
 
 import Exampage from './pages/Exampage'
+import Loadinganimation from './components/animation/Loadinganimation'
 
 const App = () => {
 
@@ -15,6 +16,10 @@ const App = () => {
         <Provider store={store}>
 
             <Exampage />
+            {/* <div className='w-screen h-screen grid place-content-center'>
+                <Loadinganimation length={'50'}/>
+            </div> */}
+
 
         </Provider>
     )

@@ -8,6 +8,7 @@ import Output from "./Output";
 import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { selectResult } from "../../redux/examSelector";
+import Loadinganimation from "../animation/Loadinganimation";
 /*
 
 input sample format
@@ -51,20 +52,19 @@ function Result_case({ cases, expectedResults }) {
         <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row font-semibold">
           {text.split('').map((letter, index) => (
-            <motion.p className="text-textGreen"
+            <motion.p className="text-green-500 text-[20px]"
               key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{opacity: 1}}
               transition={{ duration: 0.2, delay: index * 0.1, }}
+              
             >
               {letter}
             </motion.p>
           ))}
         </div>
-        <div id="wave">
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>  
+        <div className="mt-2">
+          <Loadinganimation length={'5'}/>
         </div>
         </div>
       </div>
@@ -84,13 +84,13 @@ function Result_case({ cases, expectedResults }) {
 
         <div className="flex flex-col gap-2 mt-1">
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
             <motion.div  variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[20%] h-[20px] bg-secondaryGray rounded-md"></motion.div>
-            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[80%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
+            <motion.div variants = {loadingAnimations} initial = "hidden" animate = "visible" className="w-[100%] h-[30px] bg-secondaryGray rounded-md"></motion.div>
         </div>
       </div>
     </div>
@@ -98,17 +98,17 @@ function Result_case({ cases, expectedResults }) {
 
 
   if (!isRunning) return (
-    <div className=" bg-darkGray h-[100%] flex flex-col rounded-sm gap-4">
+    <div className=" bg-darkGray h-[100%] flex flex-col rounded-sm ">
       <div className="flex gap-4 pl-[1rem] pt-[5px] items-center pb-[5px] rounded bg-secondaryGray relative ">
         {" "}
         <motion.div
           className="absolute bottom-1 w-[6rem]  h-[2px] bg-buttonGreen2"
-          initial={{ left: 19 }}
+          initial={{ left: 25 }}
           animate={{
             left: {
-              case: 19,
-              result: 155,
-              outputScreen: 287
+              case: 23,
+              result: 168,
+              outputScreen: 305
             }[optionToggle]
           }}
           transition={{ type: "linear", damping: 0 }}
@@ -121,9 +121,11 @@ function Result_case({ cases, expectedResults }) {
         <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
       </div>
 
-      {optionToggle === 'case' && <TestCase testCases={cases} />}
-      {optionToggle === 'result' && <TestResult results={results} expectedResults={expectedResults} />}
-      {optionToggle === 'outputScreen' && <Output />}
+      <div className="h-full m-2">
+        {optionToggle === 'case' && <TestCase testCases={cases} />}
+        {optionToggle === 'result' && <TestResult  />}
+        {optionToggle === 'outputScreen' && <Output />}
+      </div>
     </div>
   );
 }

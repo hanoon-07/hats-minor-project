@@ -14,44 +14,64 @@ const expectedResult = [
   {caseId: 3, result: "null"},
 ]; */
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { selectInputs, selectOutputs, selectResult } from "../../redux/examSelector";
 
-function TestResult({results, expectedResults}) {
+function TestResult() {
+  
+  const results = useSelector(selectResult);
+  const outputs = useSelector(selectOutputs);
+  const inputs = useSelector(selectInputs);
+
+  const errorOccured = useCallback(() => {
+    if(!results) return -1;
+      for(let i = 0;i < results.stdErr.length;i++) {
+        if(results.stdErr[i] != null) return i;
+      }
+
+      let flag = 0;
+      for(let i = 0;i < results.stdOut.length;i++) {
+        if(results.stdOut[i] != null) {flag++;break;}
+      }
+      if(flag == 0) return 0;
+      return -1;
+  }, [results]);
+
+  function getItem(item, index) {
+    if(item == null) return null;
+    return <div className=" bg-black items-center justify-evenly rounded-md p-3 w-full flex flex-row">
+      <div>
+        <p className={`${item.trim() == outputs[index]?"text-textGreen": "text-red-500"}`}>case {index+1}</p>
+      </div>
+      <div className="flex flex-col">
+        <p className="text-white">expected</p>
+        <p className="text-textGray">{outputs[index]}</p>
+      </div>
+      <div className="flex flex-col">
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"}`}>output</p>
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"}`}>{results.stdOut[index]}</p>
+      </div>
+      
+    </div>
+  }
+
+  if(results == null) {
+    return <RunTheCode />
+  }
+
+
+  if(errorOccured() != -1) {
+    return <div className="bg-black p-1 rounded-md h-full grid place-content-center">
+      <p className="text-center px-3 text-red-500">Something went wrong! check output tab</p>
+    </div>
+  }
+
+
+
   return (
-    <div className=" ml-3 pr-8 mt-1  max-h-[250px] overflow-y-scroll  scroller">
-      <main className=" flex flex-col gap-5 mb-6">
-        {results? (results.stdErr.length >= 200?(
-          results.stdOut.map((item) => {
-            const expect_item_result = expectedResults.find(
-              (thing) => thing.caseId === item.caseId
-            ).result;
-
-            const [clicked, setClicked] = useState(false);
-
-            return (
-              <section onClick={() => {setClicked(!clicked)}}
-                key={item.caseId}
-                className={`py-3 px-2 text-sm hover:opacity-70 bg-secondaryGray outline outline-1 outline-darkGray shadow-md rounded-[4px] flex flex-col gap-4 relative`}
-              >
-                <Tag expect_item_result={expect_item_result} item={item} />
-                <span
-                  className={`bg-buttonGray shadow-md font-semibold px-2 py-1 rounded-[4px] w-fit  text-white`}
-                >
-                  <p>Case {item.caseId}</p>
-                </span>
-                
-                {clicked && <div className={`bg-primaryDark p-2 rounded-[4px] min-h-[4rem] text-sm ${expect_item_result == item.result ? 'text-textGreen': 'text-textRed'}`}>
-                  <p className="font-md">{item.result}</p>
-                </div>}
-              </section>
-            );
-          })
-        ): <p className="text-textRed ">
-          Oops something went wrong! check output tab
-        </p>) : (
-          <RunTheCode />
-        )}
-      </main>
+    <div className="pb-10 flex flex-col gap-2 max-h-full overflow-y-scroll min-h-[90%]  p-3 rounded-md">
+      {results.stdOut.map(getItem)}
     </div>
   );
 }

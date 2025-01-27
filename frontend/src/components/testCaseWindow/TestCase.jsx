@@ -21,9 +21,9 @@ function TestCase({testCases}) {
   const selected = useSelector((state) => state['exam-data'].selected);
 
   return (
-    <div className="pl-[min(25px,2vw)]  pt-2 pb-4  overflow-y-scroll  scroller mb-4">
+    <div className="px-1  pt-1 pb-1  overflow-y-scroll min-h-[40%] max-h-[90%]  scroller mb-4 h-full">
       
-      <section className="flex flex-wrap gap-4">
+      <section className="flex flex-wrap gap-4 items-center">
         {testCases[0].input.map((item, i) => (
           <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={`bg-buttonGray text-white ${index == i?"outline outline-1 outline-textGreen":""}`}/>
         ))}
@@ -36,18 +36,17 @@ function TestCase({testCases}) {
             
             return <div key={item}>
               <div
-                  className=" flex flex-col gap-2 text-slate-300   w-[90%]"
-                
+                  className=" flex flex-col p-4 gap-2 rounded-md bg-black"  
               >
-                  <p className="text-textGray">{"input ="}</p>
-                  <p className="bg-secondaryGray py-1 px-5 rounded-[4px] text-white font-bold">{item.input[index]}</p>
+                  <p className="text-textGray">{"input"}</p>
+                  <p className="py-1 rounded-[4px] text-textGreen font-bold">{item.input[index]}</p>
               </div>
 
               <div
-                  className=" flex flex-col gap-2 text-slate-300   w-[90%]"
+                  className=" flex mt-3 flex-col p-4 gap-2 rounded-md bg-black "
                   >
-                  <p className="text-textGray">{"output ="}</p>
-                  <p className="bg-secondaryGray py-1 px-5 rounded-[4px] text-white font-bold">{item.output[index]}</p>
+                  <p className="text-textGray">{"output"}</p>
+                  <p className="py-1 rounded-[4px] text-textGreen font-bold">{item.output[index]}</p>
               </div>        
           </div>
           }

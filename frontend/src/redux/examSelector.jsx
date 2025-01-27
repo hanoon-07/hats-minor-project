@@ -36,3 +36,11 @@ export const selectResult = createSelector(
         return questionData.testResult;
     }
 );  
+
+export const selectOutputs = createSelector(
+    [questionData], 
+    (questionData) => {
+        if(!questionData) return [];
+        return questionData.testCases.output || [];
+    }
+)
