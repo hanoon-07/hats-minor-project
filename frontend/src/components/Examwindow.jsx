@@ -59,9 +59,6 @@ function Examwindow({timeStart}) {
     ];
 
 
-
-
-
     const [isHorizontalResizing, setIsHorizontalResizing] = useState(false);
     const [isVerticalResizing, setIsVerticalResizing] = useState(false);
     const [leftWidth, setLeftWidth] = useState(50);

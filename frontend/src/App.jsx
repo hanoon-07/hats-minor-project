@@ -9,7 +9,6 @@ import Textarea from './components/Textarea'
 const App = () => {
 
 
-
     return (
         <Provider store={store}>
 

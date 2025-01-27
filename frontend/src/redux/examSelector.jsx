@@ -3,7 +3,11 @@ import { createSelector } from "reselect";
 
 
 const questionData = (state) => state['exam-data'].questions[state['exam-data'].selected];
+const allquestions = (state) => state['exam-data'].questions
 
+export const selectQuestions = createSelector([allquestions], (questions) => {
+    return questions;
+});
 
 export const selectSourceCode = createSelector(
     [questionData],
