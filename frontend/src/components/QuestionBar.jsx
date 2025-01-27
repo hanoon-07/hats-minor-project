@@ -53,13 +53,13 @@ const QuestionBar = ({ questionDetails }) => {
                         <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
                             <h2 className="text-md font-normal mb-3">Example -1</h2>
                             <div className=" rounded">
-                                <div className="mb-2 flex flex-row gap-4">
-                                    <span className="text-textGray">Input: </span>
-                                    <span> {currentQuestion.firstExample}</span>
+                                <div className="mb-2  flex flex-col">
+                                    <span className="text-textGray">Input </span>
+                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExample}</span>
                                 </div>
                                 <div>
-                                    <span className="text-textGray">output: </span>
-                                    <span> {currentQuestion.firstExampleAns}</span>
+                                    <span className="text-textGray flex flex-col">output </span>
+                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExampleAns}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,13 +67,13 @@ const QuestionBar = ({ questionDetails }) => {
                         <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
                             <h2 className="text-md font-normal mb-3">Example -2</h2>
                             <div className=" rounded">
-                                <div className="mb-2 flex flex-row gap-4 ">
-                                    <span className="text-textGray">Input: </span>
-                                    <span> {currentQuestion.secondExample}</span>
+                                <div className="mb-2 flex flex-col">
+                                    <span className="text-textGray">Input </span>
+                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExample}</span>
                                 </div>
-                                <div>
-                                    <span className="text-textGray">output: </span>
-                                    <span> {currentQuestion.secondExampleAns}</span>
+                                <div className='flex flex-col'>
+                                    <span className="text-textGray">output </span>
+                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExampleAns}</span>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ const QuestionBar = ({ questionDetails }) => {
 
                         <div>
                             <h2 className="text-lg font-semibold mb-3">Constraints</h2>
-                            <ul className="list-disc list-inside text-gray-300 pl-4">
+                            <ul className="list-disc list-inside text-gray-300 pl-1">
                                 <li>{currentQuestion.constraint1}</li>
                                 <li>{currentQuestion.constraint2}</li>
                             </ul>

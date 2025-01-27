@@ -2,23 +2,23 @@
 
 let languages = ["java", "python", "javascript", "c", "c++"];
 const cases = [
-    { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
-    { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
+    { input: ["3\n1 2 3", "2\n4 8", "1\n 7"], output: ["2", "6", "7"] },
+    { input: ["1", "3", "2"], output: ["1", "3", "2"] },
 ];
 
 const questionDetails = [
     {
       si: "question-1",
-      title: "Bubble Sort",
+      title: "Average",
       problemStatement:
-        "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.You may assume the two numbers do not contain any leading zero, except the number 0 itself.",
-      assumption: "you may take assumptions for granted",
-      firstExample: "1 3 4 5 6 0",
-      firstExampleAns: "0 1 3 4 5 6",
-      secondExample: "1 3 4 5 6 0",
-      secondExampleAns: "0 1 3 4 5 6",
-      constraint1: " -100 <= num <= 100",
-      constraint2: " -100 <= num <= 100",
+        "First line of input is an integer(n), second line n no of integers(num), find the average of the n integers",
+      assumption: " ",
+      firstExample: "3\n1 4 6",
+      firstExampleAns: "3",
+      secondExample: "1\n4",
+      secondExampleAns: "4",
+      constraint1: "1 <= n <= 5",
+      constraint2: "0 <= num[i] <= 9",
       language: "C",
     },
     {

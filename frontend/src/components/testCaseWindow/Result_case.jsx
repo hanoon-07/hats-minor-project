@@ -7,7 +7,7 @@ import Button from '../Button';
 import Output from "./Output";
 import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { selectResult } from "../../redux/examSelector";
+import { selectInputs, selectOutputs, selectResult } from "../../redux/examSelector";
 import Loadinganimation from "../animation/Loadinganimation";
 /*
 
@@ -33,7 +33,7 @@ const expectedResults = [
  */
 
 
-function Result_case({ cases, expectedResults }) {
+function Result_case() {
   const [optionToggle, setToggle] = useState("case");
 
   const isRunning = useSelector((state) => state['code-run'].isRunning);
@@ -45,6 +45,10 @@ function Result_case({ cases, expectedResults }) {
   };
 
   const results = useSelector(selectResult);
+  const cases = {
+    input: useSelector(selectInputs),
+    output: useSelector(selectOutputs)
+  }
   
   if(isRunning) return <>
     <div className="relative bg-darkGray h-[100%] flex flex-col px-[5px] items-center rounded-sm gap-2">

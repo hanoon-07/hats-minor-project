@@ -47,4 +47,24 @@ export const selectOutputs = createSelector(
         if(!questionData) return [];
         return questionData.testCases.output || [];
     }
+);
+
+export const selectLangs = createSelector(
+    [allquestions], 
+    (questions) => {
+        if(!questions) return ['java'];
+        return questions[0].languages;
+    }
+);
+
+export const selectAllQuestions = createSelector(
+    [allquestions],
+    (questions) => {
+        if(!questions) return null;
+        var tempArr = [];
+        questions.map((item) => {
+            tempArr.push(item.questionDetails);
+        });
+        return tempArr;
+    }
 )
