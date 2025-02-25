@@ -17,12 +17,12 @@ export default {
         
         textGray: '#A8A8A8',
         buttonGray: '#494949',
-        secondaryGray: '#333333',
-        darkGray: '#262626',
+        secondaryGray: '#2B2E3C',
+        darkGray: '#15171A',
         
         textGreen: '#33E775',
-        buttonGreen: '#255B39',
-        buttonGreen2: '#23D98D',
+        buttonGreen: '#A8FF53',
+        buttonGreen2: '#A8FF53',
 
         orangeButton: '#381C09',
 

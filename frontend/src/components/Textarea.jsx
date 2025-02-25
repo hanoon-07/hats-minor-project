@@ -13,7 +13,7 @@ function Textarea() {
 
                 <textarea
                     id="input"
-                    className="bg-darkGray text-textGray w-full min-h-[120px] mt-1 md:mt-0 p-3 border rounded-md shadow-sm text-sm md:text-base  outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400"
+                    className="bg-darkGray text-textGray w-full min-h-[120px] mt-1 md:mt-0 p-3  rounded-md shadow-sm text-sm md:text-base outline outline-1 outline-buttonGray"
                     placeholder="Enter your text here..."
                 />
             </div>

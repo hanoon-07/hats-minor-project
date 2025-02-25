@@ -7,7 +7,7 @@ import Button from '../Button';
 import Output from "./Output";
 import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { selectResult } from "../../redux/examSelector";
+import { selectInputs, selectOutputs, selectResult } from "../../redux/examSelector";
 import Loadinganimation from "../animation/Loadinganimation";
 /*
 
@@ -33,7 +33,7 @@ const expectedResults = [
  */
 
 
-function Result_case({ cases, expectedResults }) {
+function Result_case() {
   const [optionToggle, setToggle] = useState("case");
 
   const isRunning = useSelector((state) => state['code-run'].isRunning);
@@ -45,6 +45,10 @@ function Result_case({ cases, expectedResults }) {
   };
 
   const results = useSelector(selectResult);
+  const cases = {
+    input: useSelector(selectInputs),
+    output: useSelector(selectOutputs)
+  }
   
   if(isRunning) return <>
     <div className="relative bg-darkGray h-[100%] flex flex-col px-[5px] items-center rounded-sm gap-2">
@@ -52,7 +56,7 @@ function Result_case({ cases, expectedResults }) {
         <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row font-semibold">
           {text.split('').map((letter, index) => (
-            <motion.p className="text-green-500 text-[20px]"
+            <motion.p className="text-[#A8FF53] font-light"
               key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{opacity: 1}}
@@ -116,7 +120,7 @@ function Result_case({ cases, expectedResults }) {
 
         <Button action={() => setToggle("case")} Icon={SquareCheckBig} buttonClass={' text-white '} iconStyle={{ size: 15, className: ' text-textGreen ' }} label={'TestCase'} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
-        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
+        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen' }} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
         <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
       </div>

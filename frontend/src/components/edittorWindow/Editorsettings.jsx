@@ -50,18 +50,18 @@ const Editorsettings = () => {
     return (
         <>
             <div className=''>
-                <div onClick={() => {setOpen(true);}} className='bg-buttonGray shadow-md hover:bg-darkGray grid place-content-center w-[30px] h-[30px] rounded-[4px]'>
+                <div onClick={() => {setOpen(true);}} className='bg-[#3B82F6] shadow-md hover:text-white grid place-content-center w-[30px] h-[30px] rounded-[4px]'>
                     <motion.div whileTap={{rotate: '180deg'}}>
                         <Settings className='text-white hover:text-textGray' size={15}/>
                     </motion.div>
                 </div>
 
                 {open && <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{delay: 0.2}} className='z-20  w-[100vw] backdrop-blur-[2px] absolute h-screen top-0 left-0 grid place-content-center'>
-                    <motion.div ref={settingsRef} initial={{opacity: 0, y: -30}} animate={{opacity: 1, y: 0}} transition={{delay: 0.2, duration: 0.1}} className=' opacity-100 flex rounded-md flex-row items-center w-[500px] min-h-[400px] bg-darkGray outline outline-1 outline-buttonGray'>
+                    <motion.div ref={settingsRef} initial={{opacity: 0, y: -30}} animate={{opacity: 1, y: 0}} transition={{delay: 0.2, duration: 0.1}} className=' opacity-100 flex rounded-md flex-row items-center w-[500px] min-h-[400px] bg-darkGray outline outline-1 outline-[#23324A]'>
                         <div className='w-[40%] h-[100%] flex flex-col gap-[20px] items-center box-border p-[20px]'>
-                            <Button  action={setSelected} param={'theme'} label={'theme'} buttonClass={classNames('bg-buttonGray text-white w-[160px] hover:bg-secondaryGray outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='theme'})}/>
-                            <Button  action={setSelected} param={'font-family'} label={'font-family' } buttonClass={classNames('bg-buttonGray text-white w-[160px] hover:bg-secondaryGray outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='font-family'})}/>
-                            <Button  action={setSelected} param={'font-size'} label={'font-size'} buttonClass={classNames('bg-buttonGray text-white w-[160px] hover:bg-secondaryGray outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='font-size'})}/>
+                            <Button  action={setSelected} param={'theme'} label={'theme'} buttonClass={classNames('bg-[#3B82F6] text-white w-[160px] hover:bg-[#2D2173] outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='theme'})}/>
+                            <Button  action={setSelected} param={'font-family'} label={'font-family' } buttonClass={classNames('bg-[#3B82F6] text-white w-[160px] hover:bg-[#2D2173] outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='font-family'})}/>
+                            <Button  action={setSelected} param={'font-size'} label={'font-size'} buttonClass={classNames('bg-[#3B82F6] text-white w-[160px] hover:bg-[#2D2173] outline outline-1 outline-none ',{'bg-darkGray outline-buttonGray':selected=='font-size'})}/>
                         </div>
                         <div className='min-w-[1px] h-[90%] bg-textGray'>
 

@@ -9,10 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addResult, updateCode, updateSelectedLang } from '../../features/examwindow/examSlice';
 import { changeStatus } from '../../features/coderun/codeRunSlice';
 import { batchRun } from '../../utils/CodeRunner';
-import { selectCodeValues, selectInputs, selectSourceCode } from '../../redux/examSelector';
+import { selectCodeValues, selectInputs, selectLangs, selectSourceCode } from '../../redux/examSelector';
 
 
-const Codeeditor = ({disabled, languages, runAction, language, defaultCode, tempHeight}) => {
+const Codeeditor = ({disabled, defaultCode}) => {
 
     /*
         Editor props
@@ -34,10 +34,11 @@ const Codeeditor = ({disabled, languages, runAction, language, defaultCode, temp
     const dispatch = useDispatch();
     const {fontSize, theme} = useSelector((state) => state['editor-settings']);
     const runStatus = useSelector((state) => state['code-run'].isRunning);
-    const qSelected = useSelector((state) => state['exam-data'].selected);
+    //const qSelected = useSelector((state) => state['exam-data'].selected);
     const sourceCode = useSelector(selectSourceCode);
     const inputs = useSelector(selectInputs);
-    //const inputs = useSelector();
+    const languages = useSelector(selectLangs);
+    console.log(languages);
 
     async function runCode() {
         let lang = languages[selectedLanguage];
@@ -54,7 +55,7 @@ const Codeeditor = ({disabled, languages, runAction, language, defaultCode, temp
 
         const response = await batchRun(lang, inputs, sourceCode, fileNames.get(lang));
 
-        //console.log(inputs);
+       
         console.log(response);
         dispatch(changeStatus(false));
         var stdErr  = [];
@@ -176,15 +177,15 @@ const Codeeditor = ({disabled, languages, runAction, language, defaultCode, temp
     return (
         <div className='rounded-[4px] h-[100%]'>
             <div className='head w-[100%] items-center h-11 flex flex-row justify-between px-2 rounded-t-[5px] bg-secondaryGray' >
-                <Dropdown action={(index) => {setSelectedLanguage(index); dispatch(updateSelectedLang(index))}} selected={languages?languages[selectedLanguage]: language} disabled={disabled ? disabled: false} items={languages?languages: [language]}/>
+                <Dropdown action={(index) => {setSelectedLanguage(index); dispatch(updateSelectedLang(index))}} selected={languages?languages[selectedLanguage]: languages[0]} disabled={disabled ? disabled: false} items={languages?languages: ['java']}/>
                 
                 <div className='flex flex-row gap-2'> 
                     <Editorsettings />
-                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-textGray text-white bg-green-700 hover:text-textGreen'}/>
+                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-black bg-[#A8FF53] hover:text-white'}/>
                 </div>
             </div>
 
-            <div className='p-[4px] pl-[10px] w-[100%]  bg-darkGray rounded-b-[4px] h-[calc(100%-2.75rem)]'  
+            <div className=' p-[4px] pl-[10px] w-[100%]  bg-darkGray rounded-b-[4px] h-[calc(100%-2.75rem)]'  
             >
 
                 <Editor value={values[selectedLanguage]|| ''} onChange={(value) => {dispatch(updateCode({value:value, language:languages[selectedLanguage]}))}} beforeMount={handleEditorBeforeMount} height="100%" width="100%" theme={theme} defaultValue={values[selectedLanguage] || defaultCode}  defaultLanguage={!disabled?languages[selectedLanguage]:language}  options={{ 
