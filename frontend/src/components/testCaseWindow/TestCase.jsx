@@ -28,7 +28,7 @@ function TestCase() {
       
       <section className="flex flex-wrap gap-4 items-center">
         {testCases.map((item, i) => (
-          <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={`bg-buttonGray text-white ${index == i?"outline outline-1 outline-textGreen":""}`}/>
+          <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={`bg-[#3B82F6] text-white ${index == i?" bg-[#FA3ABF]":""}`}/>
         ))}
       </section>
 

@@ -20,10 +20,10 @@ const QuestionBar = ({ questionDetails }) => {
 
 
     return (
-        <div className="bg-darkGray text-white w-[100%] h-[100%]   border-darkGray rounded-[4px]">
+        <div className="bg-darkGray text-white w-[100%] h-[100%] rounded-[4px]">
             {/* Header */}
             <div className="flex justify-between items-center mb-4 bg-secondaryGray h-11 p-[4px] rounded-t-[4px]">
-                <Button label='question' buttonClass={' text-white bg-blue-900 hover:text-blue-500'}/>
+                <Button label='question' buttonClass={' text-white bg-[#3B82F6] hover:tex-white'}/>
                 <Dropdown 
                     selected={currentQuestion.si} 
                     items={getQuestionItems()}
@@ -50,29 +50,29 @@ const QuestionBar = ({ questionDetails }) => {
 
                     {/* Examples */}
                     <div className="space-y-6 ">
-                        <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
-                            <h2 className="text-md font-normal mb-3">Example -1</h2>
+                        <div className='bg-[#241E46] rounded-[6px] p-2 pl-4 shadow-md'>
+                            <h2 className="text-md font-normal mb-3 text-[#F43F5E]">Example -1</h2>
                             <div className=" rounded">
                                 <div className="mb-2  flex flex-col">
-                                    <span className="text-textGray">Input </span>
+                                    <span className="text-[#A8FF53]">Input </span>
                                     <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExample}</span>
                                 </div>
                                 <div>
-                                    <span className="text-textGray flex flex-col">output </span>
+                                    <span className="text-[#A8FF53] flex flex-col">output </span>
                                     <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExampleAns}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='bg-buttonGray rounded-[6px] p-2 pl-4 shadow-md'>
-                            <h2 className="text-md font-normal mb-3">Example -2</h2>
+                        <div className='bg-[#241E46] rounded-[6px] p-2 pl-4 shadow-md'>
+                            <h2 className="text-md font-normal mb-3 text-[#F43F5E]">Example -2</h2>
                             <div className=" rounded">
                                 <div className="mb-2 flex flex-col">
-                                    <span className="text-textGray">Input </span>
+                                    <span className="text-[#A8FF53]">Input </span>
                                     <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExample}</span>
                                 </div>
                                 <div className='flex flex-col'>
-                                    <span className="text-textGray">output </span>
+                                    <span className="text-[#A8FF53]">output </span>
                                     <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExampleAns}</span>
                                 </div>
                             </div>

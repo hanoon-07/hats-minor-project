@@ -56,7 +56,7 @@ function Result_case() {
         <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row font-semibold">
           {text.split('').map((letter, index) => (
-            <motion.p className="text-green-500 text-[20px]"
+            <motion.p className="text-[#A8FF53] font-light"
               key={nanoid()}
               initial={{ opacity: 0 }}
               animate={{opacity: 1}}
@@ -120,7 +120,7 @@ function Result_case() {
 
         <Button action={() => setToggle("case")} Icon={SquareCheckBig} buttonClass={' text-white '} iconStyle={{ size: 15, className: ' text-textGreen ' }} label={'TestCase'} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
-        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
+        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen' }} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
         <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
       </div>

@@ -3,7 +3,7 @@
 let languages = ["java", "python", "javascript", "c", "c++"];
 const cases = [
     { input: ["3\n1 2 3", "2\n4 8", "1\n 7"], output: ["2", "6", "7"] },
-    { input: ["1", "3", "2"], output: ["1", "3", "2"] },
+    { input: ["1 4 5 2", "3 2", "1 2 3 4 5"], output: ["1 2 4 5", "2 3", "1 2 3 4 5"] },
 ];
 
 const questionDetails = [
@@ -40,8 +40,8 @@ const questionDetails = [
 
 export const getExam = (req, res) => {
     const examId = req.query.examId;  // need to fetch the data from backend using this examid
-      
-    setTimeout(() => {
-        res.json({questionDetails: questionDetails, languages: languages, cases: cases});   
-    }, 3000);
+    res.json({questionDetails: questionDetails, languages: languages, cases: cases});  
+    // setTimeout(() => {
+    //     res.json({questionDetails: questionDetails, languages: languages, cases: cases});   
+    // }, 3000);
 } 

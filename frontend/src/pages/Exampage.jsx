@@ -117,8 +117,8 @@ function Exampage({ examId }) {
             <Examwindow timeStart={timeStart} />
           </div>
           {isOpen && (
-            <div className="fixed inset-0 z-20 flex items-center justify-center">
-              <div className="h-[350px] w-[450px] rounded-lg bg-darkGray shadow-xl p-4 pt-4">
+            <div className="z-0 fixed inset-0  flex items-center justify-center">
+              <div className=" h-[350px] w-[450px] rounded-lg bg-darkGray outline outline-1 outline-[#1C3B6C] shadow-xl p-4 pt-4">
                 <div className="text-center text-white">
                   <h1 className="text-2xl mb-2">Ready to begin your exam</h1>
                   <p className="text-sm text-textGray">
@@ -153,7 +153,7 @@ function Exampage({ examId }) {
                     label={"START"}
                     disabled={false}
                     buttonClass={
-                      "text-textGray text-white bg-green-700 hover:shadow-xl"
+                      " text-black bg-[#A8FF53] hover:shadow-xl"
                     }
                     action={() => {
                       setIsOpen(false), setTimeStart(true);

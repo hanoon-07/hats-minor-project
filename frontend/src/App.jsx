@@ -12,15 +12,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-
             <Exampage />
-            {/* <div className='w-screen h-screen grid place-content-center'>
-                <Loadinganimation length={'50'}/>
-            </div> */}
-
-            {/* <Textarea />
-            <Input /> */}
-
         </Provider>
     )
 }

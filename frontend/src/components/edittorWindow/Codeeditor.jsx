@@ -181,11 +181,11 @@ const Codeeditor = ({disabled, defaultCode}) => {
                 
                 <div className='flex flex-row gap-2'> 
                     <Editorsettings />
-                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-textGray text-white bg-green-700 hover:text-textGreen'}/>
+                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-black bg-[#A8FF53] hover:text-white'}/>
                 </div>
             </div>
 
-            <div className='p-[4px] pl-[10px] w-[100%]  bg-darkGray rounded-b-[4px] h-[calc(100%-2.75rem)]'  
+            <div className=' p-[4px] pl-[10px] w-[100%]  bg-darkGray rounded-b-[4px] h-[calc(100%-2.75rem)]'  
             >
 
                 <Editor value={values[selectedLanguage]|| ''} onChange={(value) => {dispatch(updateCode({value:value, language:languages[selectedLanguage]}))}} beforeMount={handleEditorBeforeMount} height="100%" width="100%" theme={theme} defaultValue={values[selectedLanguage] || defaultCode}  defaultLanguage={!disabled?languages[selectedLanguage]:language}  options={{ 

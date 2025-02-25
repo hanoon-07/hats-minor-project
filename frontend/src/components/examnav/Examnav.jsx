@@ -21,14 +21,15 @@ function Examnav({timeStart}) {
 
   return (
     <div className='flex justify-between items-center h-full'>
-      <Button label='CST-303 Operating system' buttonClass={' text-orange-500 hover:text-orange-400 bg-orangeButton'} />
+      {/* the label -exam name will be updated later -note */}
+      <Button label='CST-303 Operating system' buttonClass={' text-white hover:text-orange-400 bg-[#FF6136]'} />
 
       <div className="flex-grow flex justify-center mx-auto">
         <Timer expiryTimestamp={time} timeStart={timeStart} />
       </div>
 
      
-      <Button label='finish exam' buttonClass={' text-white w-[150px] hover:text-red-400 bg-red-900'}/>
+      <Button label='finish exam' buttonClass={' text-white w-[150px] hover:text-red-400 bg-[#F51D42]'}/>
 
 
     </div>
