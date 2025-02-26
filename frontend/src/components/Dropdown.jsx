@@ -51,7 +51,7 @@ const Dropdown = ({ initial, items, selected, disabled, extraStyles, action }) =
 
     return (
         <div className='relative'>
-            <Button action={openDropDown} disabled={disabled} iconStyle={{ size: 17, className: disabled ? ' text-textRed ' : ' text-buttonGreen2 ' }} buttonClass={'text-white bg-[#212327] hover:text-white ' + `${disabled ? "outline outline-1 outline-[#212327] text-red-400" : ''}` + extraStyles} Icon={ArrowDropDownIcon} label={selectedItem}></Button>
+            <Button action={openDropDown} disabled={disabled} iconStyle={{ size: 17, className: disabled ? ' text-textRed ' : ' text-[#77e10c] ' }} buttonClass={'text-white bg-[#212327] hover:text-white ' + `${disabled ? "outline outline-1 outline-[#212327] text-red-400" : ''}` + extraStyles} Icon={ArrowDropDownIcon} label={selectedItem}></Button>
 
             {isOpen && !disabled &&
                 <motion.div ref={dropdownRef} initial={{ Opacity: 0, y: -20 }} animate={{ Opacity: 1, y: 0 }} transition={{ duration: 0.1 }} className='shadow-md z-50 rounded-[4px] absolute top-[43px] left-[0px] min-w-[150px] flex flex-col gap-[5px] p-[5px] bg-secondaryGray justify-center items-center '>

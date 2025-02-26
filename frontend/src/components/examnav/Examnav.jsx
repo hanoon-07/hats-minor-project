@@ -12,7 +12,9 @@ function Examnav({timeStart}) {
 
   useEffect(() => {
     const newTime = new Date();
-    newTime.setHours(newTime.getHours() + hrs);  
+    // newTime.setHours(newTime.getHours() + hrs);
+    newTime.setSeconds(newTime.getSeconds() + 60);
+    
     setTime(newTime);
 
    
@@ -22,14 +24,14 @@ function Examnav({timeStart}) {
   return (
     <div className='flex justify-between items-center h-full'>
       {/* the label -exam name will be updated later -note */}
-      <Button label='CST-303 Operating system' buttonClass={' text-white hover:text-orange-400 bg-[#FF6136]'} />
+      <Button label='CST-303 Operating system' buttonClass={'text-white bg-blue-500 border-[#A8FF53] '} />
 
       <div className="flex-grow flex justify-center mx-auto">
         <Timer expiryTimestamp={time} timeStart={timeStart} />
       </div>
 
      
-      <Button label='finish exam' buttonClass={' text-white w-[150px] hover:text-red-400 bg-[#F51D42]'}/>
+      <Button label='finish exam' buttonClass={' glow-on-hover text-white w-[150px] bg-blue-500'}/>
 
 
     </div>

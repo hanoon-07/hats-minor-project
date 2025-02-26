@@ -38,7 +38,7 @@ const Codeeditor = ({disabled, defaultCode}) => {
     const sourceCode = useSelector(selectSourceCode);
     const inputs = useSelector(selectInputs);
     const languages = useSelector(selectLangs);
-    console.log(languages);
+    // console.log(languages);
 
     async function runCode() {
         let lang = languages[selectedLanguage];

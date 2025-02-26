@@ -19,12 +19,19 @@ export default {
         buttonGray: '#494949',
         secondaryGray: '#2B2E3C',
         darkGray: '#15171A',
+
+
+
         
         textGreen: '#33E775',
         buttonGreen: '#A8FF53',
         buttonGreen2: '#A8FF53',
 
         orangeButton: '#381C09',
+
+
+
+        
 
       },
       
