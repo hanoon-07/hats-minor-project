@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exam Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1b26;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #1a1b26;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #30344f;
+        }
+        
+        .timer {
+            color: #ffa500;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timer-icon {
+            color: #ffa500;
+            margin-right: 8px;
+        }
+        
+        .finish-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .content {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        
+        .sidebar {
+            width: 25%;
+            background-color: #272b41;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .question-header {
+            background-color: #272b41;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .dropdown {
+            background-color: #2e3246;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 120px;
+        }
+        
+        .dropdown-arrow {
+            margin-left: 8px;
+        }
+        
+        .run-btn {
+            background-color: #4cd137;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .settings-btn {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .code-area {
+            background-color: #1a1b26;
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #30344f;
+        }
+        
+        .code-line {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        
+        .line-number {
+            color: #6c7293;
+            width: 30px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        
+        .code-content {
+            color: #a9b7c6;
+        }
+        
+        .comment {
+            color: #6c7293;
+        }
+        
+        .results-area {
+            background-color: #1a1b26;
+            height: 250px;
+            overflow-y: auto;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: #272b41;
+            border-bottom: 1px solid #30344f;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 2px solid #4cd137;
+            color: white;
+        }
+        
+        .tab-content {
+            padding: 15px;
+        }
+        
+        .case-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .case-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .case-1 {
+            background-color: #ff6b81;
+        }
+        
+        .case-2 {
+            background-color: #1e90ff;
+        }
+        
+        .case-3 {
+            background-color: #4169e1;
+        }
+        
+        .input-output {
+            background-color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .input-output h4 {
+            color: #a9b7c6;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .success {
+            color: #4cd137;
+        }
+        
+        .performance-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #2e3246;
+            border-radius: 5px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #4cd137;
+            width: 66%;
+        }
+        
+        .ai-feedback {
+            padding: 15px;
+            background-color: #2f3854;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 3px solid #1e90ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="question-info">
+            <span>Lab Exam Results</span>
+        </div>
+        <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span>Time elapsed: 1h 23m 45s</span>
+        </div>
+        <button class="finish-btn">Close Results</button>
+    </div>
+    
+    <div class="content">
+        <div class="sidebar">
+            <h3>Exam Summary</h3>
+            <div>
+                <p><strong>Questions:</strong> 5</p>
+                <p><strong>Attempted:</strong> 4</p>
+                <p><strong>Passed:</strong> 2</p>
+                <p><strong>Partially passed:</strong> 1</p>
+                <p><strong>Failed:</strong> 1</p>
+                <p><strong>Score:</strong> 65/100</p>
+            </div>
+            <div class="performance-summary">
+                <h3>Performance</h3>
+                <p>Test Cases Passed: 2/3</p>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <p>Time Efficiency: Good</p>
+                <p>Space Complexity: Average</p>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="question-header">
+                <div>
+                    <button class="dropdown">
+                        <span>question-1</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <button class="dropdown">
+                        <span>java</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                </div>
+                <div>
+                    <button class="settings-btn">⚙️</button>
+                    <button class="run-btn">run ▶</button>
+                </div>
+            </div>
+            
+            <div class="code-area">
+                <div class="code-line">
+                    <div class="line-number">1</div>
+                    <div class="code-content"><span class="comment">//Your submitted code</span></div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">2</div>
+                    <div class="code-content">import java.util.Scanner;</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">3</div>
+                    <div class="code-content"></div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">4</div>
+                    <div class="code-content">public class Main {</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">5</div>
+                    <div class="code-content">    public static void main(String[] args) {</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">6</div>
+                    <div class="code-content">        Scanner scanner = new Scanner(System.in);</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">7</div>
+                    <div class="code-content">        int n = scanner.nextInt();</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">8</div>
+                    <div class="code-content">        int[] numbers = new int[n];</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">9</div>
+                    <div class="code-content">        </div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">10</div>
+                    <div class="code-content">        for (int i = 0; i < n; i++) {</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">11</div>
+                    <div class="code-content">            numbers[i] = scanner.nextInt();</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">12</div>
+                    <div class="code-content">        }</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">13</div>
+                    <div class="code-content">        </div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">14</div>
+                    <div class="code-content">        int sum = 0;</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">15</div>
+                    <div class="code-content">        for (int num : numbers) {</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">16</div>
+                    <div class="code-content">            sum += num;</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">17</div>
+                    <div class="code-content">        }</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">18</div>
+                    <div class="code-content">        </div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">19</div>
+                    <div class="code-content">        System.out.println(sum / n);</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">20</div>
+                    <div class="code-content">    }</div>
+                </div>
+                <div class="code-line">
+                    <div class="line-number">21</div>
+                    <div class="code-content">}</div>
+                </div>
+            </div>
+            
+            <div class="results-area">
+                <div class="tabs">
+                    <div class="tab active">TestCase ✓</div>
+                    <div class="tab">TestResult ✓</div>
+                    <div class="tab">Output ✓</div>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="case-buttons">
+                        <button class="case-btn case-1">Case 1</button>
+                        <button class="case-btn case-2">Case 2</button>
+                        <button class="case-btn case-3">Case 3</button>
+                    </div>
+                    
+                    <div class="input-output">
+                        <h4>input</h4>
+                        <p class="success">3 1 2 3</p>
+                    </div>
+                    
+                    <div class="input-output">
+                        <h4>output</h4>
+                        <p class="success">2</p>
+                    </div>
+                    
+                    <div class="ai-feedback">
+                        <h4>AI Feedback</h4>
+                        <p>Your solution correctly calculates the average for all test cases. However, consider handling integer division more carefully for more accurate results. For example, you could cast to double before division.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
