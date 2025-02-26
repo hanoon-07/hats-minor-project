@@ -28,7 +28,7 @@ function TestCase() {
       
       <section className="flex flex-wrap gap-4 items-center">
         {testCases.map((item, i) => (
-          <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={`bg-[#3B82F6] text-white ${index == i?" bg-[#FA3ABF]":""}`}/>
+          <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={` text-textGray ${index == i?" border border-[#A8FF53]":""}`}/>
         ))}
       </section>
 
@@ -42,14 +42,14 @@ function TestCase() {
                   className=" flex flex-col p-4 gap-2 rounded-md bg-black"  
               >
                   <p className="text-textGray">{"input"}</p>
-                  <p className="py-1 rounded-[4px] text-textGreen font-bold">{testCases[index]}</p>
+                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold">{testCases[index]}</p>
               </div>
 
               <div
                   className=" flex mt-3 flex-col p-4 gap-2 rounded-md bg-black "
                   >
                   <p className="text-textGray">{"output"}</p>
-                  <p className="py-1 rounded-[4px] text-textGreen font-bold">{outputs[index]}</p>
+                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold">{outputs[index]}</p>
               </div>        
           </div>
           }

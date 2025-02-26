@@ -23,7 +23,7 @@ const QuestionBar = ({ questionDetails }) => {
         <div className="bg-darkGray text-white w-[100%] h-[100%] rounded-[4px]">
             {/* Header */}
             <div className="flex justify-between items-center mb-4 bg-secondaryGray h-11 p-[4px] rounded-t-[4px]">
-                <Button label='question' buttonClass={' text-white bg-[#3B82F6] hover:tex-white'}/>
+                <Button label='question' buttonClass={' text-black bg-[#A8FF53] border-[1px] border-[#A8FF53] '}/>
                 <Dropdown 
                     selected={currentQuestion.si} 
                     items={getQuestionItems()}
@@ -36,7 +36,7 @@ const QuestionBar = ({ questionDetails }) => {
             <div className='h-[90%] overflow-y-scroll scroller mb-2' >
                 <div className='m-6'>
                     {/* Title */}
-                    <h1 className="text-3xl font-semibold mb-4">{currentQuestion.title}</h1>
+                    <h1 className="text-3xl font-semibold mb-4 text-[#A8FF53]">{currentQuestion.title}</h1>
 
                     {/* Problem Description */}
                     <div className="space-y-4 mb-6">
@@ -50,30 +50,30 @@ const QuestionBar = ({ questionDetails }) => {
 
                     {/* Examples */}
                     <div className="space-y-6 ">
-                        <div className='bg-[#241E46] rounded-[6px] p-2 pl-4 shadow-md'>
-                            <h2 className="text-md font-normal mb-3 text-[#F43F5E]">Example -1</h2>
+                        <div className='bg-[#2B2E3C] rounded-[6px] p-2 pl-4 shadow-md'>
+                            <h2 className="text-md font-medium mb-3 text-[#A8FF53]">Example -1</h2>
                             <div className=" rounded">
                                 <div className="mb-2  flex flex-col">
-                                    <span className="text-[#A8FF53]">Input </span>
-                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExample}</span>
+                                    <span className="text-white">Input </span>
+                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExample}</span>
                                 </div>
                                 <div>
-                                    <span className="text-[#A8FF53] flex flex-col">output </span>
-                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExampleAns}</span>
+                                    <span className="text-white flex flex-col">output </span>
+                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExampleAns}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='bg-[#241E46] rounded-[6px] p-2 pl-4 shadow-md'>
-                            <h2 className="text-md font-normal mb-3 text-[#F43F5E]">Example -2</h2>
+                        <div className='bg-[#2B2E3C] rounded-[6px] p-2 pl-4 shadow-md'>
+                            <h2 className="text-md font-medium mb-3 text-[#A8FF53]">Example -2</h2>
                             <div className=" rounded">
                                 <div className="mb-2 flex flex-col">
-                                    <span className="text-[#A8FF53]">Input </span>
-                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExample}</span>
+                                    <span className="text-white">Input </span>
+                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExample}</span>
                                 </div>
                                 <div className='flex flex-col'>
-                                    <span className="text-[#A8FF53]">output </span>
-                                    <span className='px-2 text-textGreen' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExampleAns}</span>
+                                    <span className="text-white">output </span>
+                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExampleAns}</span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@ const QuestionBar = ({ questionDetails }) => {
 
 
                         <div>
-                            <h2 className="text-lg font-semibold mb-3">Constraints</h2>
+                            <h2 className="text-lg font-semibold mb-3 text-[#A8FF53]">Constraints</h2>
                             <ul className="list-disc list-inside text-gray-300 pl-1">
                                 <li>{currentQuestion.constraint1}</li>
                                 <li>{currentQuestion.constraint2}</li>

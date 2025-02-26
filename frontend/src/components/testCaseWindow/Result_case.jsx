@@ -118,11 +118,11 @@ function Result_case() {
           transition={{ type: "linear", damping: 0 }}
         ></motion.div>
 
-        <Button action={() => setToggle("case")} Icon={SquareCheckBig} buttonClass={' text-white '} iconStyle={{ size: 15, className: ' text-textGreen ' }} label={'TestCase'} />
+        <Button action={() => setToggle("case")} Icon={SquareCheckBig} buttonClass={' text-white '} iconStyle={{ size: 15, className: ' text-[#A8FF53] ' }} label={'TestCase'} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
-        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen' }} />
+        <Button buttonClass={' text-white'} action={() => setToggle('result')} label={'TestResult'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-[#A8FF53]' }} />
         <div className="w-[1px] h-5/6 bg-textGray"></div>
-        <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-textGreen ' }} />
+        <Button buttonClass={' text-white'} action={() => setToggle('outputScreen')} label={'Output'} Icon={SquareTerminal} iconStyle={{ size: 15, className: ' text-[#A8FF53] ' }} />
       </div>
 
       <div className="h-full m-2">

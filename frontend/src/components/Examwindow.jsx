@@ -138,8 +138,8 @@ function Examwindow({timeStart}) {
                 </div>
 
                 <div
-                    className="bg-black cursor-col-resize"
-                    style={{ width: `${RESIZER_WIDTH}px` }}
+                    className="bg-black cursor-col-resize resizer1"
+                    style={{ width: `${RESIZER_WIDTH}px`}}
                     onMouseDown={startHorizontalResizing}
                 />
 
@@ -160,7 +160,7 @@ function Examwindow({timeStart}) {
                     </div>
 
                     <div
-                        className="bg-black cursor-row-resize"
+                        className="bg-black cursor-row-resize resizer2"
                         style={{ height: `${RESIZER_HEIGHT}px` }}
                         onMouseDown={startVerticalResizing}
                     />
