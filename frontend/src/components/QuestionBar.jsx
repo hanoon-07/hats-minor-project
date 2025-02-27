@@ -36,7 +36,7 @@ const QuestionBar = ({ questionDetails }) => {
             <div className='h-[90%] overflow-y-scroll scroller mb-2' >
                 <div className='m-6'>
                     {/* Title */}
-                    <h1 className="text-3xl font-semibold mb-4 text-[#A8FF53]">{currentQuestion.title}</h1>
+                    <h1 className="text-3xl font-semibold mb-4 text-white">{currentQuestion.title}</h1>
 
                     {/* Problem Description */}
                     <div className="space-y-4 mb-6">
@@ -82,7 +82,7 @@ const QuestionBar = ({ questionDetails }) => {
 
 
                         <div>
-                            <h2 className="text-lg font-semibold mb-3 text-[#A8FF53]">Constraints</h2>
+                            <h2 className="text-lg font-semibold mb-3 text-white">Constraints</h2>
                             <ul className="list-disc list-inside text-gray-300 pl-1">
                                 <li>{currentQuestion.constraint1}</li>
                                 <li>{currentQuestion.constraint2}</li>
