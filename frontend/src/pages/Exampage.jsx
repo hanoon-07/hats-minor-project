@@ -55,7 +55,7 @@ function Exampage({ examId }) {
     var data = null;
     async function getExamDetails() {
       const response = await axios.get(
-        "http://localhost:3000/exam?examId=1234"
+        "http://localhost:3000/exam?examId=1"
       );
       //console.log(response.data);
       data = response.data;
@@ -87,9 +87,7 @@ function Exampage({ examId }) {
       );
       //console.log(data);
       setLoaded(true);
-      setTimeout(() => {
-        setLoadingAnim(false);
-      }, 2000);
+      setLoadingAnim(false);
     }
 
     getExamDetails();

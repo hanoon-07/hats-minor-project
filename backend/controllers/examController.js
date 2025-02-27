@@ -1,10 +1,12 @@
-
+import { getExamDetails } from "../models/examModel.js";
 
 let languages = ["java", "python", "javascript", "c", "c++"];
-const cases = [
-    { input: ["3\n1 2 3", "2\n4 8", "1\n 7"], output: ["2", "6", "7"] },
-    { input: ["1 4 5 2", "3 2", "1 2 3 4 5"], output: ["1 2 4 5", "2 3", "1 2 3 4 5"] },
-];
+// const cases = [
+//     { input: ["3\n1 2 3", "2\n4 8", "1\n 7"], output: ["2", "6", "7"] },
+//     { input: ["1 4 5 2", "3 2", "1 2 3 4 5"], output: ["1 2 4 5", "2 3", "1 2 3 4 5"] },
+// ];
+
+
 
 const questionDetails = [
     {
@@ -38,10 +40,41 @@ const questionDetails = [
 ];
 
 
-export const getExam = (req, res) => {
+export const getExam = async (req, res) => {
     const examId = req.query.examId;  // need to fetch the data from backend using this examid
-    res.json({questionDetails: questionDetails, languages: languages, cases: cases});  
-    // setTimeout(() => {
-    //     res.json({questionDetails: questionDetails, languages: languages, cases: cases});   
-    // }, 3000);
+    const examDetails = await getExamDetails(examId);
+    console.log(examDetails);
+
+    var tempQuestionObj = [];
+    for(let i = 0;i < examDetails.length;i++) {
+      tempQuestionObj.push({
+        si: `question-${i+1}`,
+        title: examDetails[i].name,
+        problemStatement: examDetails[i].description,
+        assumption: "nothing",
+        firstExample: "1 2 3 4 5 6",
+        firstExampleAns: "123",
+        secondExample: "2 3",
+        secondExampleAns: "12",
+        constraint1: examDetails[i].constraints.split("\r")[0],
+        constraint2: examDetails[i].constraints.split("\r")[1],
+        language: examDetails[i].support_langs[0]
+      });
+    }
+
+    const cases = [];
+    for(let i = 0;i < examDetails.length;i++) {
+     
+      var test_input = examDetails[i].test_inputs.replace(/\\n/g, '\n');
+      var test_output = examDetails[i].test_outputs.replace(/\\n/g, '\n');
+      // console.log(test_input.split("\\r"));
+      cases.push({
+        input: test_input.split("\\r"),
+        output: test_output.split("\\r")
+      });
+
+    }
+
+    res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases});  
+    
 } 

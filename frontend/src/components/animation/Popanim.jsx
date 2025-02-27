@@ -1,6 +1,4 @@
 import React from 'react';
-import Loadinganimation from './Loadinganimation';
-import WaveLoading from './Loading';
 
 function Popanim() {
   return (
@@ -12,12 +10,6 @@ function Popanim() {
         Please do not leave the page
       </div>
       <div className="loader"></div>
-
-      
-      
-      
-
-   
       <style jsx>{`
         
         .shimmering-text {

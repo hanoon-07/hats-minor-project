@@ -42,14 +42,14 @@ function TestCase() {
                   className=" flex flex-col p-4 gap-2 rounded-md bg-black"  
               >
                   <p className="text-textGray">{"input"}</p>
-                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold">{testCases[index]}</p>
+                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold whitespace-pre-line">{testCases[index]}</p>
               </div>
 
               <div
                   className=" flex mt-3 flex-col p-4 gap-2 rounded-md bg-black "
                   >
                   <p className="text-textGray">{"output"}</p>
-                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold">{outputs[index]}</p>
+                  <p className="py-1 rounded-[4px] text-[#A8FF53] font-bold whitespace-pre-line">{outputs[index]}</p>
               </div>        
           </div>
           }
