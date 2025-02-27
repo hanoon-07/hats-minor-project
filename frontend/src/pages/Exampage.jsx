@@ -6,12 +6,13 @@ import Button from "../components/Button";
 import { initialize } from "../features/examwindow/examSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Loading from "../components/animation/Loading";
+
+import Codeflowanim from "../components/animation/codeflowanim";
 
 function Exampage({ examId }) {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [loadingAnim, setLoadingAnim] = useState(true);
+  // const [loadingAnim, setLoadingAnim] = useState(true);
 
   // const questionDetails = [
   //   {
@@ -87,7 +88,9 @@ function Exampage({ examId }) {
       );
       //console.log(data);
       setLoaded(true);
-      setLoadingAnim(false);
+      // setTimeout(() => {
+      //   setLoadingAnim(false);
+      // }, 2000);
     }
 
     getExamDetails();
@@ -104,9 +107,8 @@ function Exampage({ examId }) {
 
   return (
     <>
-      {/* {loadingAnim && <Loading />} */}
+      {!loaded &&  <Codeflowanim/>}
 
-      {loadingAnim && <Loading />}
       {loaded && (
         <>
           <div
