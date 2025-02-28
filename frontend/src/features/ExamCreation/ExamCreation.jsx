@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useFormValidation} from "./ValidationHook";
 import QuestionSelector from "./QuestionNumberSelector";
 import ErrorBox from "./ErrorBox";
-import QuestionBar from "./QuestionBar";
+import QuestionSection from "./QuestionBar";
 import TimeInput from "./TImeInput";
 const initialState = {
   examName: "",
@@ -13,14 +13,6 @@ const initialState = {
 
   questions: [],
 };
-/* const QUESTION_INITIAL_STATE = {
-  questionName: "",
-  description: "",
-
-  exampleCases: [""],
-  testCases: [],
-  constraintCases: [],
-}; */
 
 import LanguageSelect from "./LanguageSelect";
 function About() {
@@ -83,6 +75,9 @@ function About() {
     setIsSubmitting(false);
     console.log(errorObject);
   }
+  function handleDuration(hours, minutes, seconds) {
+    setExamDetails((prev) => ({...prev, duration: {hours, minutes, seconds}}));
+  }
   return (
     <div className="px-3 md:px-4 pt-4 w-screen   min-h-screen bg-black ">
       <form onSubmit={handleSubmit}>
@@ -106,7 +101,7 @@ function About() {
               examDetails={examDetails}
               handleLanguageCheck={handleLanguageCheck}
             />
-            <TimeInput />
+            <TimeInput handleDuration={handleDuration} />
           </div>
 
           <QuestionSelector
@@ -117,7 +112,7 @@ function About() {
 
           {showQuestions
             ? Array.from({length: examDetails.questions.length}, (_, i) => (
-                <QuestionBar
+                <QuestionSection
                   key={i}
                   index={i}
                   examDetails={examDetails}

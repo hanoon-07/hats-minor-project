@@ -7,7 +7,7 @@ import NameChevron from "./NameChevron";
 import IOSection from "./IOsection";
 import Constraints from "./Constraints";
 
-function QuestionBar({index, examDetails, setExamDetails}) {
+function QuestionSection({index, examDetails, setExamDetails}) {
   const [numExamples, setNumExamples] = useState(1);
   const [numTestCases, setNumTestCases] = useState(5);
   const [numConstraints, setNumConstraints] = useState(2);
@@ -140,4 +140,4 @@ function QuestionBar({index, examDetails, setExamDetails}) {
   );
 }
 
-export default QuestionBar;
+export default QuestionSection;

@@ -1,5 +1,5 @@
 import {useState} from "react";
-const TimeInput = ({onTimeChange}) => {
+const TimeInput = ({handleDuration}) => {
   const [hours, setHours] = useState(1);
   const [minutes, setMinutes] = useState(30);
   const [seconds, setSeconds] = useState(0);
@@ -7,21 +7,24 @@ const TimeInput = ({onTimeChange}) => {
   const handleHoursChange = (e) => {
     const value = Math.min(Math.max(parseInt(e.target.value)), 10);
     setHours(value);
+    handleDuration(hours, minutes, seconds);
   };
 
   const handleMinutesChange = (e) => {
     const value = Math.min(Math.max(0, parseInt(e.target.value)), 59);
     setMinutes(value);
+    handleDuration(hours, minutes, seconds);
   };
 
   const handleSecondsChange = (e) => {
     const value = Math.min(Math.max(0, parseInt(e.target.value)), 59);
     setSeconds(value);
+    handleDuration(hours, minutes, seconds);
   };
 
   return (
-    <>
-      <p className="text-semibold text-textGray  text-sm md:text-base mt-2">
+    <div>
+      <p className="text-semibold text-textGray  text-sm md:text-base mt-2 mb-2">
         Enter the Duration
       </p>
       <div className="flex items-center gap-2">
@@ -89,7 +92,7 @@ const TimeInput = ({onTimeChange}) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
