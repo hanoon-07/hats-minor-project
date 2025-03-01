@@ -6,10 +6,11 @@ import Button from "../components/Button";
 import { initialize } from "../features/examwindow/examSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import Codeflowanim from "../components/animation/codeflowanim";
 
-function Exampage({ examId }) {
+function Exampage() {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   // const [loadingAnim, setLoadingAnim] = useState(true);
@@ -51,12 +52,13 @@ function Exampage({ examId }) {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
-
+  const {examId} = useParams()
   useEffect(() => {
+    
     var data = null;
     async function getExamDetails() {
       const response = await axios.get(
-        "http://localhost:3000/exam?examId=1"
+        `http://localhost:3000/exam?examId=${examId}`
       );
       //console.log(response.data);
       data = response.data;
@@ -81,6 +83,7 @@ function Exampage({ examId }) {
           testResult: null,
         });
       });
+      
 
       //reserved for intializing the redux state
       dispatch(

@@ -2,9 +2,12 @@ import Button from '../Button'
 import Timer from './Timer'
 import {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 function Examnav({timeStart}) {
+
+  const navigate = useNavigate()
 
   let hrs = useSelector((state) => state['exam-data'].proposedTime)
  
@@ -13,7 +16,7 @@ function Examnav({timeStart}) {
   useEffect(() => {
     const newTime = new Date();
     // newTime.setHours(newTime.getHours() + hrs);
-    newTime.setSeconds(newTime.getSeconds() + 60);
+    newTime.setMinutes(newTime.getMinutes() + 25);
     
     setTime(newTime);
 
@@ -31,7 +34,8 @@ function Examnav({timeStart}) {
       </div>
 
      
-      <Button label='finish exam' buttonClass={' glow-on-hover text-white w-[150px] bg-blue-500'}/>
+      <Button label='finish exam' buttonClass={' glow-on-hover text-white w-[150px] bg-blue-500'} 
+      action={()=>navigate('/check')}/>
 
 
     </div>

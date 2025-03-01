@@ -2,130 +2,113 @@ import React, { useEffect, useState } from 'react';
 import Popanim from '../components/animation/Popanim';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import JSON5 from 'json5';
-import POPwindow from '../components/POPwindow';
+import { useNavigate } from 'react-router-dom';
+import Codeflowanim from '../components/animation/codeflowanim';
 
 function AfterSubmissionpage() {
-    const [step, setStep] = useState(0); // 0: initial text animation, 1: API call/loading, 2: final page
+    
+    
     const questions = useSelector((state) => state['exam-data'].questions);
     const [aiInfo, setAiInfo] = useState(null);
+    const [loading, setLoading] = useState(1);
+    const [fullCase, setFullCase] = useState(0)
+    const navigate = useNavigate();
 
 
-
-    // Step 0: Initial text animation
-    useEffect(() => {
-        if (step === 0) {
-            const texts = ['CODEFLOW'];
-            let textIndex = 0;
-            let charIndex = 0;
-            const typingSpeed = 80;
-            const textElement = document.getElementById('text');
-
-            if (textElement) {
-                textElement.textContent = '';
-
-                function type() {
-                    if (charIndex < texts[textIndex].length) {
-                        textElement.textContent += texts[textIndex].charAt(charIndex);
-                        charIndex++;
-                        setTimeout(type, typingSpeed);
-                    } else {
-                        setTimeout(() => {
-                            textElement.textContent = '';
-                            setStep(1); // Move to next step after animation
-                        }, 170);
-                    }
+    useEffect(()=>{
+        let testCaseResult = questions.map((question) => {
+            let count = 0;
+            let tci = question.testCases.output; // These are expected outputs
+            let tco = question.testResult?.stdOut || []; // These are actual outputs
+    
+            console.log(tci);
+            console.log(tco);
+    
+            // Compare corresponding elements
+            for (let i = 0; i < tci.length; i++) {
+                if (i < tco.length && tci[i] === tco[i].trim()) {
+                    count++;
                 }
-
-                setTimeout(() => {
-                    type();
-                }, 500);
             }
-        }
-    }, [step]);
+    
+            return count;
+        });
 
-    // Step 1: API call
+
+        console.log(testCaseResult.reduce((acc, curr) => acc + curr, 0))
+        console.log(questions.reduce((acc,curr)=>acc+curr.testCases.input.length,0))
+
+        setFullCase(testCaseResult.reduce((acc, curr) => acc + curr, 0)==questions.reduce((acc,curr)=>acc+curr.testCases.input.length,0))
+
+
+
+        
+
+    },[])
+    
+
+
+
+    
+
+  
     useEffect(() => {
-        if (step === 1) {
+
+        if (loading === 0 && !fullCase) {
+            console.log('api call gone')
             const fetchData = async () => {
-                let message = '';
-                
+                let message = 'Given are two questions whose answers are given. Evaluate it a single score out of 100 for the given questions. the response should be a single score out of 100\n';
                 
                 questions.map((item, index) => {
-                    message = message + `Q${index+1}:${item.questionDetails.problemStatement} the answer given was ${item.codeValues[item.selected]}`;
-
-                    const info = "above is question and student answered code, evaluate the code according to the question of it and give some mark out of 100, if very close to actual solution give 90 above OR else if very incorrect solution give around 30. Importantly the the answer should be just the mark nothing else IN THE FORM OF {30,85}";
-
-                    message = message + info;
-                    
-                    
+                    message = message + `Q${index+1}:${item.questionDetails.problemStatement} the answer given was:${item.codeValues[item.selected]}\n`;
+                    console.log(item.questionDetails.problemStatement)
+                    console.log(item.codeValues[item.selected])
                 });
 
-                
-
+            
                 
                 try {
                     const res = await axios.post(
                         "https://openrouter.ai/api/v1/chat/completions",
                         {
-                            model: "openai/gpt-3.5-turbo-0613",
-                            messages: [{ role: "user", content: message }]
+                            model: "deepseek/deepseek-r1:free",
+                            messages: [{ role: "user", content: message }],
+                            logprobs:null
                         },
                         {
                             headers: {
-                                Authorization: "Bearer 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",
-                                "HTTP-Referer": "<YOUR_SITE_URL>", // Optional
-                                "X-Title": "<YOUR_SITE_NAME>", // Optional
+                                Authorization: "Bearer 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",
+                                "HTTP-Referer": "", 
+                                "X-Title": "", 
                                 "Content-Type": "application/json",
                             }
                         }
                     );
 
                     const responseContent = res.data.choices[0]?.message?.content || "No response received";
-                    console.log(responseContent)
-                    setAiInfo(responseContent.slice(1, -1).split(',').map(item => Number(item.trim())))
-                    setStep(2)
                     
+                    navigate('/result',{state:{pop:`${responseContent}`}})
+
                 } catch (error) {
                     console.error("Error fetching data:", error);
-                    // Even on error, we might want to proceed to the next step
-                    setStep(2);
                 }
             };
-
             fetchData();
+            
         }
-    }, [step, questions]);
 
-    // Render different components based on the current step
-    const renderContent = () => {
-        switch (step) {
-            case 0:
-                return (
-                    <div
-                        id="text"
-                        className="orbitron-font text-white text-4xl font-bold"
-                        style={{
-                            minHeight: '60px',
-                            paddingRight: '8px',
-                            display: 'inline-block'
-                        }}
-                    ></div>
-                );
-            case 1:
-                return <Popanim />;
-            case 2:
-                return (
-                    <POPwindow score1={aiInfo[0]} score2={aiInfo[1]} />
-                );
-            default:
-                return null;
+        else if(fullCase){
+            //backend addtional testing
+            setTimeout(()=>{navigate('/result',{state:{pop:'not applicable'}})},3000)
+            
         }
-    };
+    }, [loading,fullCase]);
 
     return (
-        <div className="flex justify-center items-center h-screen bg-black">
-            {renderContent()}
+        <div>
+            {loading && <Codeflowanim setLoading={setLoading} />}
+
+            {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>}
         </div>
     );
 }
