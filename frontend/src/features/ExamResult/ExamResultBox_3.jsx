@@ -1,15 +1,19 @@
-function ExamResultBox_3() {
-  const arr = [
-    "meow \n 1\n 2",
-    "meow \n 1\n 2",
-    "meow \n 1\n 2",
-    "meow \n 1\n 2",
-  ];
+/* eslint-disable react/prop-types */
+function ExamResultBox_3({queIndex, questionData}) {
   return (
     <section className=" mt-14 rounded-lg gap-2 p-4 pt-6 pb-6 border-[1px] border-[#479DEC] flex flex-wrap justify-between bg-[#000000]">
-      <ExamQuestionInfo title={"Inputs"} dataArray={arr} />
-      <ExamQuestionInfo title={"Expected Output"} dataArray={arr} />
-      <ExamQuestionInfo title={"Output"} dataArray={arr} />
+      <ExamQuestionInfo
+        title={"Inputs"}
+        dataArray={questionData[queIndex].inputs}
+      />
+      <ExamQuestionInfo
+        title={"Expected Output"}
+        dataArray={questionData[queIndex].expectedOutputs}
+      />
+      <ExamQuestionInfo
+        title={"Output"}
+        dataArray={questionData[queIndex].outputs}
+      />
     </section>
   );
 }
