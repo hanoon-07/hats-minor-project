@@ -41,7 +41,7 @@ function ExamResultPage({examResponse}) {
   }
   return (
     <section className="bg-[#1E1E1E] min-h-screen text-white p-5 px-8 pb-5 ">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         <Button
           iconStyle={{size: 14, className: " translate-y-0 "}}
           Icon={ChevronLeft}
@@ -56,7 +56,7 @@ function ExamResultPage({examResponse}) {
         </p>
       </div>
       <main className="max-w-[110rem] mx-auto">
-        <div className="lg:grid flex flex-col    lg:grid-cols-[30%_65%] justify-between ">
+        <div className="lg:grid flex flex-col  gap-5  lg:grid-cols-[30%_65%] justify-between ">
           <ExamResultBox_1 examResponse={examResponse} />
 
           <ExamResultBox_2

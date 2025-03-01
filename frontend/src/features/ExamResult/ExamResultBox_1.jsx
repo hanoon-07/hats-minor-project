@@ -3,7 +3,7 @@ function ExamResultBox_1({examResponse}) {
   let hours = examResponse.timelapsed / 60;
   let minutes = examResponse.timelapsed % 60;
   return (
-    <section className=" mt-12 ">
+    <section className=" lg:mt-12 mt-5 ">
       <div className=" border-[1px] border-[#A8FF53]  p-6 pt-8  pb-8 rounded-lg flex flex-col gap-3  bg-[#000000]">
         <h1 className="text-[1.2rem] font-semibold">
           {examResponse.studentName}
@@ -59,7 +59,7 @@ const ExamMarkCard = ({mark, partial}) => {
       <div className="flex  gap-3 justify-between mx-5 py-1 place-items-center">
         <p className="font-semibold flex place-items-center gap-3 flex-wrap justify-center tracking-wide">
           Mark :{" "}
-          <span className="py-2 px-2 bg-[#479DEC] rounded-lg">{mark}%</span>
+          <span className="py-2 px-2 bg-[#479DEC] rounded-lg ">{mark}%</span>
         </p>
         <p className="font-semibold flex place-items-center gap-3 flex-wrap justify-center tracking-wide">
           Partial :{" "}

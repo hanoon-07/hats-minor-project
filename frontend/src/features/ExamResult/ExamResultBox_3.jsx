@@ -22,7 +22,7 @@ export default ExamResultBox_3;
 
 function ExamQuestionInfo({title, dataArray}) {
   return (
-    <div className="flex flex-col  gap-2">
+    <div className="flex flex-col  gap-2 border-[1px] border-[#4E4747] rounded-lg p-3">
       <p className="font-semibold whitespace-pre-line tracking-wide">{title}</p>
       <div className="flex flex-wrap gap-2    rounded-md">
         {dataArray.map((data, index) => {

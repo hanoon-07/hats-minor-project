@@ -40,7 +40,6 @@ function CodeDisplay({code}) {
           parameterHints: {enabled: false},
           lineNumbersMinChars: 1,
         }}
-        onChange={(value) => setCode && setCode(value)}
       />
     </div>
   );
