@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
-function Codeflowanim() {
+function Codeflowanim({setLoading=null}) {
     useEffect(() => {
         const texts = ['CODEFLOW'];
         let textIndex = 0;
@@ -18,6 +18,7 @@ function Codeflowanim() {
             }
             else {
                 setTimeout(() => textElement.textContent = '', 170);
+                if (setLoading) setLoading(0)
             }
         }
 
@@ -26,7 +27,6 @@ function Codeflowanim() {
         }, 500);
 
     }, []);
-
     return (
         <div className="flex justify-center items-center h-screen bg-black">
             <div

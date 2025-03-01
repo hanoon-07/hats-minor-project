@@ -2,12 +2,12 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import { Clock } from "lucide-react";
-import { useDispatch, useSelector } from 'react-redux';
-import { changeTimerStatus } from '../../features/timer/timerOverSlice';
+import { useNavigate } from 'react-router-dom';
 
 
-function Timer({ expiryTimestamp, onExpireCallback, timeStart }) {
-  const dispatch = useDispatch()
+function Timer({ expiryTimestamp, timeStart }) {
+
+  const navigate = useNavigate()
   const {
     seconds,
     minutes,
@@ -21,7 +21,9 @@ function Timer({ expiryTimestamp, onExpireCallback, timeStart }) {
   } = useTimer({
     expiryTimestamp,
     onExpire: ()=>{
-        dispatch(changeTimerStatus(true))
+        navigate('/check')
+        
+
     },
     autoStart: false,
   });
@@ -29,7 +31,6 @@ function Timer({ expiryTimestamp, onExpireCallback, timeStart }) {
 
   useEffect(() => {
     restart(expiryTimestamp);
-    console.log(expiryTimestamp)
   }, [expiryTimestamp]);
 
   useEffect(() => {

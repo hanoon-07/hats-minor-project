@@ -55,8 +55,7 @@ const Codeeditor = ({disabled, defaultCode}) => {
 
         const response = await batchRun(lang, inputs, sourceCode, fileNames.get(lang));
 
-       
-        console.log(response);
+    
         dispatch(changeStatus(false));
         var stdErr  = [];
         var stdOut = [];
