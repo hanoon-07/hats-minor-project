@@ -6,7 +6,7 @@ const Input = ({
   changeAction,
   textValue,
   inputTitle,
-  width = "60",
+  width = "40",
   height = "12",
 }) => {
   const getWidthClass = () => {
@@ -37,11 +37,11 @@ const Input = ({
 
   return (
     <div className="flex flex-wrap sm:gap-8 gap-2 place-items-center ">
-      <p className="text-textGray font-semibold text-sm  w-[100px]">
+      <p className="text-white text-md font-normal  w-[100px]">
         {inputTitle}
       </p>
       <input
-        className={` bg-darkGray text-white placeholder-textGray py-2 rounded-md px-3 block max-w-[60rem] w-full
+        className={` bg-[#3B3E45] text-[#A8FF53] placeholder-textGray py-2 rounded-md px-3 block max-w-[30rem] w-full
           focus:outline-none text-sm md:text-base   ${getHeightClass()}`}
         placeholder={placeholder}
         value={textValue}

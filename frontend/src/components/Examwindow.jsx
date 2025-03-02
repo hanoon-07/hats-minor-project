@@ -7,7 +7,7 @@ import Examnav from './examnav/Examnav';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllQuestions } from '../redux/examSelector';
 
-function Examwindow({timeStart}) {
+function Examwindow({timeStart, setFinish}) {
     // const questionDetails =
     //     [
     //         {
@@ -62,7 +62,7 @@ function Examwindow({timeStart}) {
 
     const [isHorizontalResizing, setIsHorizontalResizing] = useState(false);
     const [isVerticalResizing, setIsVerticalResizing] = useState(false);
-    const [leftWidth, setLeftWidth] = useState(50);
+    const [leftWidth, setLeftWidth] = useState(30);
     const [topHeight, setTopHeight] = useState(50);
 
     // Constants for resizer dimensions
@@ -120,7 +120,7 @@ function Examwindow({timeStart}) {
     return (
         <div className='h-full flex-col flex'>
             <div className='h-[55px] bg-black'>
-                <Examnav timeStart={timeStart} />
+                <Examnav timeStart={timeStart} setFinish={setFinish}/>
             </div>
 
             <div

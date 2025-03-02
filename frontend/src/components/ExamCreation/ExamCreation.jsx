@@ -1,10 +1,14 @@
 import Input from "./Input";
-import {useEffect, useState} from "react";
-import {useFormValidation} from "./ValidationHook";
+import { useEffect, useState } from "react";
+import { useFormValidation } from "./ValidationHook";
 import QuestionSelector from "./QuestionNumberSelector";
 import ErrorBox from "./ErrorBox";
-import QuestionSection from "./QuestionBar";
+import QuestionSection from "./QuestionSection";
 import TimeInput from "./TImeInput";
+import LanguageSelect from "./LanguageSelect";
+import { Movebutton } from "../Movebutton";
+import axios from 'axios';
+
 const initialState = {
   examName: "",
   duration: "",
@@ -14,16 +18,14 @@ const initialState = {
   questions: [],
 };
 
-import LanguageSelect from "./LanguageSelect";
-function About() {
+function About({classroomName}) {
   const [examDetails, setExamDetails] = useState(initialState);
   const [numQuestions, setNumQuestions] = useState(1);
   const [showQuestions, setShowQuestions] = useState(false);
   const [error, setError] = useState({});
-  const {validateForm, isSubmitting, setIsSubmitting} =
-    useFormValidation(initialState);
+  const { validateForm, isSubmitting, setIsSubmitting } = useFormValidation(initialState);
   function handleExamNameInput(e) {
-    setExamDetails((prev) => ({...prev, examName: e.target.value}));
+    setExamDetails((prev) => ({ ...prev, examName: e.target.value }));
   }
   const handleLanguageCheck = (e) => {
     if (examDetails.languages.includes(e.target.name)) {
@@ -43,7 +45,7 @@ function About() {
     }
   };
   function handleSubjectNameInput(e) {
-    setExamDetails((prev) => ({...prev, subject: e.target.value}));
+    setExamDetails((prev) => ({ ...prev, subject: e.target.value }));
   }
   useEffect(() => {
     console.log(examDetails);
@@ -51,7 +53,7 @@ function About() {
   function handleCreateQuestions() {
     console.log("wow");
     if (numQuestions > 0) {
-      const newQuestions = Array.from({length: numQuestions}, () => ({
+      const newQuestions = Array.from({ length: numQuestions }, () => ({
         questionName: "",
         description: "",
 
@@ -59,7 +61,7 @@ function About() {
         testCases: [],
         constraintCases: [],
       }));
-      setExamDetails((prev) => ({...prev, questions: [...newQuestions]}));
+      setExamDetails((prev) => ({ ...prev, questions: [...newQuestions] }));
       setShowQuestions(true);
     }
   }
@@ -75,11 +77,44 @@ function About() {
     setIsSubmitting(false);
     console.log(errorObject);
   }
+
+
   function handleDuration(hours, minutes, seconds) {
-    setExamDetails((prev) => ({...prev, duration: {hours, minutes, seconds}}));
+    setExamDetails((prev) => ({
+      ...prev,
+      duration: { hours, minutes, seconds },
+    }));
   }
-  return (
-    <div className="px-3 md:px-4 pt-4 w-screen   min-h-screen bg-black ">
+
+
+  const [createExamState, setCreateExamState] = useState('creating'); //possible state 'sucess' , 'duplicate' exam
+
+  async function createExam() {
+
+    //backend api call to check whether the exam already exists or not,
+    //if not create exam, if already exist edit it,
+    //after succesfully editing or creating exam return to the main menu,
+    
+    try {
+      const response = await axios.post("http://localhost:3000/createExam", examDetails, {
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      console.log(response.data); //recieving the exam id if success , if duplicate exam exist it returns the msg: duplicate exam
+      if(response.data.msg == 'duplicate exam!') {
+        setCreateExamState('duplicate');
+      }
+    } catch(error) {console.log(error);}
+  }
+
+
+  return (<>
+    
+    {<div className="h-screen w-screen md:px-[100px] px-[20px] py-[40px] box-border">
+    <div className="mb-[20px]">
+      <h2 className="text-white text-2xl font-semibold"><span className="text-[#BEFF7F]">{classroomName}</span> - create exam</h2>
+    </div>
+    <div className="outline outline-1 outline-[#5F5D5D] rounded-md min-h-[80%] p-[20px] bg-black ">
       <form onSubmit={handleSubmit}>
         <section className="bg-black flex flex-col gap-4 md:gap-8  rounded-lg">
           <div className=" flex flex-col gap-3">
@@ -111,7 +146,7 @@ function About() {
           />
 
           {showQuestions
-            ? Array.from({length: examDetails.questions.length}, (_, i) => (
+            ? Array.from({ length: examDetails.questions.length }, (_, i) => (
                 <QuestionSection
                   key={i}
                   index={i}
@@ -121,19 +156,48 @@ function About() {
               ))
             : null}
           <div className="flex justify-end">
-            <button
-              className="bg-darkGray hover:bg-gray-600  rounded-lg w-[120px] transition delay-100 text-textGray h-10"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
+            {createExamState == 'duplicate'? <p className="text-red-400 translate-y-1 mr-2"></p>:null}
+            <Movebutton action={createExam} direction={'right'} label={'submit'} disabled={isSubmitting} extraStyleDiv={' max-w-[120px]'}/>
           </div>
         </section>
       </form>
       <ErrorBox errors={error} />
     </div>
+  </div>}
+  </>
   );
 }
 
 export default About;
+
+/*
+
+  output format
+
+  object
+  name: examDetails
+  
+  examDetails = {
+    examName: name of exam,
+    subject: cst123 os,
+    duration: {
+      hours: 2,
+      minutes: 10,
+      seconds: don't care
+    },
+    languages: [java, c, etc..],
+    questions: [
+      {
+        questionName: name,
+        description: desc,
+        constraintCases: [{input: 'constraint'}, {}],
+        testCases: [
+          {input: '1\netc.', output: '2'}, {}, etc...
+        ]
+      }
+    
+    ] - array of objects for each question
+  }
+
+*/
+

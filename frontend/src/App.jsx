@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import FullExampage from './pages/fullExampage'
 import { TempStartPage } from './pages/TempStartPage'
+import ExamCreation from '../src/components/ExamCreation/ExamCreation'
 
 const App = () => {
 
@@ -29,8 +30,9 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            {(state == 'exam') &&<FullExampage/>}
-            {(state == 'waiting') && <TempStartPage setExamId={setExamId} startExam={startExam}/>}
+            {/* {(state == 'exam') &&<FullExampage/>}
+            {(state == 'waiting') && <TempStartPage setExamId={setExamId} startExam={startExam}/>} */}
+            <ExamCreation classroomName={'test class'}/>
         </Provider>
     )
 }

@@ -180,7 +180,7 @@ const Codeeditor = ({disabled, defaultCode}) => {
                 
                 <div className='flex flex-row gap-2'> 
                     <Editorsettings />
-                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-black bg-[#A8FF53] hover:text-white'}/>
+                    <Button  action={() => {if(!runStatus) {dispatch(changeStatus(true)); runCode()}}} iconStyle={{size: 14, className: ' translate-y-0 '}} Icon={Play} label={runStatus?"running": "run"} disabled={false} buttonClass={'text-black bg-[#A8FF53] hover:bg-[#BEFF7F]'}/>
                 </div>
             </div>
 

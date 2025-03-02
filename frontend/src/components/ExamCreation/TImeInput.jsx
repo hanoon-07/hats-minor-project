@@ -24,7 +24,7 @@ const TimeInput = ({handleDuration}) => {
 
   return (
     <div>
-      <p className="text-semibold text-textGray  text-sm md:text-base mt-2 mb-2">
+      <p className="text-normal text-white  text-md md:text-base mt-2 mb-2">
         Enter the Duration
       </p>
       <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ const TimeInput = ({handleDuration}) => {
         }
       `}</style>
         <div className="flex flex-col ml-0 pl-0">
-          <label className="text-sm font-medium text-gray-500 mb-1">
+          <label className="text-sm font-normal text-white mb-1">
             Hours
           </label>
           <input
@@ -52,14 +52,14 @@ const TimeInput = ({handleDuration}) => {
             max="10"
             value={hours}
             onChange={handleHoursChange}
-            className="w-12 px-3 py-2   bg-darkGray rounded-md focus:outline-none text-textGray"
+            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md focus:outline-none text-white"
           />
         </div>
 
         <div className="flex flex-col">
           <label
             htmlFor="minutes"
-            className="text-sm font-medium text-gray-500 mb-1"
+            className="text-sm font-medium text-white mb-1"
           >
             Minutes
           </label>
@@ -70,14 +70,14 @@ const TimeInput = ({handleDuration}) => {
             max="59"
             value={minutes}
             onChange={handleMinutesChange}
-            className="w-12 px-3 py-2   bg-darkGray rounded-md border-0 focus:outline-none text-textGray"
+            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md border-0 focus:outline-none text-white"
           />
         </div>
 
         <div className="flex flex-col">
           <label
             htmlFor="seconds"
-            className="text-sm font-medium text-gray-500 mb-1"
+            className="text-sm font-medium text-white mb-1"
           >
             Seconds
           </label>
@@ -88,7 +88,7 @@ const TimeInput = ({handleDuration}) => {
             max="59"
             value={seconds}
             onChange={handleSecondsChange}
-            className="w-12 px-3 py-2   bg-darkGray rounded-md focus:outline-none text-textGray"
+            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md focus:outline-none text-white"
           />
         </div>
       </div>

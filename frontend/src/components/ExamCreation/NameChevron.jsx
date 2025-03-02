@@ -19,12 +19,12 @@ function NameChevron({
       />
       {showQuestion ? (
         <ChevronUp
-          className=" md:w-8 md:h-8  w-5 h-5   text-gray-300 absolute right-1 md:right-2 md:top-[20%] top-[5%]"
+          className=" md:w-5 md:h-5  w-5 h-5 text-white absolute md:right-2 md:top-[20%] top-[5%] right-1"
           onClick={() => setShowQuestion(!showQuestion)}
         />
       ) : (
         <ChevronDown
-          className=" md:w-8 md:h-8  w-5 h-5   text-gray-300 absolute md:right-2 md:top-[20%] top-[5%] right-1"
+          className=" md:w-5 md:h-5  w-5 h-5 text-white absolute md:right-2 md:top-[20%] top-[5%] right-1"
           onClick={() => setShowQuestion(!showQuestion)}
         />
       )}
