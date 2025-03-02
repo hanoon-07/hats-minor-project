@@ -47,10 +47,6 @@ function AfterSubmissionpage() {
     },[])
     
 
-
-
-    
-
   
     useEffect(() => {
 
@@ -77,7 +73,7 @@ function AfterSubmissionpage() {
                         },
                         {
                             headers: {
-                                Authorization: "Bearer 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",
+                                Authorization: "Bearer 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",
                                 "HTTP-Referer": "", 
                                 "X-Title": "", 
                                 "Content-Type": "application/json",
