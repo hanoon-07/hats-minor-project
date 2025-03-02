@@ -4,7 +4,7 @@ const langArray = ["java", "python", "javascript", "c++", "c"];
 function LanguageSelect({examDetails, handleLanguageCheck}) {
   return (
     <section>
-      <p className="text-semibold text-textGray mb-2 text-sm md:text-base mt-2">
+      <p className="text-normal text-white  text-md mb-4 md:text-base mt-2">
         Select Required Languages
       </p>
       <div className="flex gap-3 flex-wrap">
@@ -20,11 +20,11 @@ function LanguageSelect({examDetails, handleLanguageCheck}) {
               ></input>
               <span
                 className=" min-w-[4rem] text-center 
-                 h-[25px]
-                md:h-[40px]  outline outline-1 outline-gray-400 rounded-sm 
-              peer-checked:outline-buttonGreen2 peer-checked:text-gray-200 text-textGray text-sm px-2 flex items-center justify-center"
+                h-[30px]
+                  bg-[#3B3E45] rounded-[6px]
+              peer-checked:bg-[#A8FF53] peer-checked:text-black text-white text-md font-normal px-2 flex items-center justify-center"
               >
-                <p className="select-none font-semibold text-sm">{item}</p>
+                <p className="select-none font-semibold text-md">{item}</p>
               </span>
             </label>
           );

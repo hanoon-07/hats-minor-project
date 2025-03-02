@@ -5,15 +5,15 @@ import Textarea from "./Textarea";
 import DropDown from "./DropDown";
 import NameChevron from "./NameChevron";
 import IOSection from "./IOsection";
-import Constraints from "./Constraints";
+
 
 function QuestionSection({index, examDetails, setExamDetails}) {
-  const [numExamples, setNumExamples] = useState(1);
+ 
   const [numTestCases, setNumTestCases] = useState(5);
   const [numConstraints, setNumConstraints] = useState(2);
 
   const [showConstraints, setShowConstraints] = useState(false);
-  const [showExamples, setShowExamples] = useState(false);
+  
 
   const [showTestCases, setShowTestCases] = useState(false);
 
@@ -44,21 +44,7 @@ function QuestionSection({index, examDetails, setExamDetails}) {
     });
   }
 
-  function handleCreateExamples() {
-    const newExamples = Array.from({length: numExamples}, () => ({
-      input: "",
-      output: "",
-    }));
-
-    const newQuestions = [...examDetails.questions];
-    newQuestions[index].exampleCases = newExamples.map(() => ({
-      input: "",
-      output: "",
-    }));
-
-    setExamDetails((prev) => ({...prev, questions: [...newQuestions]}));
-    setShowExamples(true);
-  }
+  
 
   function handleCreateTestCases() {
     const newExamples = Array.from({length: numTestCases}, () => ({
@@ -83,7 +69,7 @@ function QuestionSection({index, examDetails, setExamDetails}) {
   }
 
   return (
-    <section className=" p-3 relative border border-slate-600 flex flex-col gap-4 rounded-lg">
+    <section className=" p-3 relative border border-slate-600 flex flex-col gap-4 rounded-md">
       <NameChevron
         examDetails={examDetails}
         setShowQuestion={setShowQuestion}
@@ -99,18 +85,7 @@ function QuestionSection({index, examDetails, setExamDetails}) {
           inputTitle={"Description"}
           changeAction={handleQuestionDescription}
         />
-        {/* Example section */}
-        <IOSection
-          num={numExamples}
-          setNum={setNumExamples}
-          examDetails={examDetails}
-          handleCreate={handleCreateExamples}
-          action={handleAllInputs}
-          show={showExamples}
-          index={index}
-          caseType={"example"}
-          minValue={1}
-        />
+        
         {/* Test Cases Section  🎈🎈*/}
         <IOSection
           num={numTestCases}

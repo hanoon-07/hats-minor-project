@@ -49,8 +49,8 @@ function TestResult() {
         <p className="text-textGray">{outputs[index]}</p>
       </div>
       <div className="flex flex-col">
-        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"}`}>output</p>
-        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"}`}>{results.stdOut[index]}</p>
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px]`}>output</p>
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px]`}>{results.stdOut[index]}</p>
       </div>
       
     </div>

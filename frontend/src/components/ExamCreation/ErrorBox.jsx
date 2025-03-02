@@ -18,22 +18,7 @@ function ErrorBox({errors}) {
       errorMessages.push(`Question ${index + 1} description is required`);
     }
 
-    question.exampleCases?.forEach((example, exampleIndex) => {
-      console.log(example);
-      if (example.input === "This field is required") {
-        errorMessages.push(
-          `Question ${index + 1} example ${exampleIndex + 1} input is required`
-        );
-      }
-      if (example.output === "This field is required") {
-        errorMessages.push(
-          `Question ${index + 1} example ${exampleIndex + 1} output is required`
-        );
-      }
-      if (example.caseCount) {
-        errorMessages.push(`Question ${index} examples ` + example.caseCount);
-      }
-    });
+    
     question.testCases?.forEach((test, testCaseIndex) => {
       if (test.input === "This field is required") {
         errorMessages.push(
