@@ -120,7 +120,7 @@ function Examwindow({timeStart}) {
     return (
         <div className='h-full flex-col flex'>
             <div className='h-[55px] bg-black'>
-                <Examnav timeStart={timeStart} setFinish={setFinish}/>
+                <Examnav timeStart={timeStart}/>
             </div>
 
             <div
