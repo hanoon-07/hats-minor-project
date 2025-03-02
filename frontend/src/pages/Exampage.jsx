@@ -119,7 +119,7 @@ function Exampage() {
               isOpen ? "blur-lg" : ""
             }`}
           >
-            <Examwindow timeStart={timeStart} setFinish={setFinish}/>
+            <Examwindow timeStart={timeStart} />
           </div>
           
           {isOpen && (

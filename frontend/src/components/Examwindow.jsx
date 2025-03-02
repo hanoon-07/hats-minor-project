@@ -7,7 +7,7 @@ import Examnav from './examnav/Examnav';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllQuestions } from '../redux/examSelector';
 
-function Examwindow({timeStart, setFinish}) {
+function Examwindow({timeStart}) {
     // const questionDetails =
     //     [
     //         {
