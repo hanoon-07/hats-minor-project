@@ -45,7 +45,7 @@ const TempStartPage = () => {
         <>
             <div className="h-screen  w-screen  bg-black flex box-border flex-col items-center pt-[56px]">
                 <div className="w-[400px] flex flex-col text-[1.3rem] gap-[3rem]">
-                    <h1><span className="text-white font-semibold ">CODE FLOW - </span> <span className="text-[#A8FF53] font-semibold">EXAM</span></h1>
+                    <h1><span className="text-white font-semibold orbitron-font">CODE FLOW - </span> <span className="text-white font-semibold">EXAM</span></h1>
                 
                     <div className="flex flex-col gap-4">
                         <p className="text-white font-light text-[1.2rem]">Enter the exam code</p>

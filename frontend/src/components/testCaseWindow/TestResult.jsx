@@ -42,15 +42,15 @@ function TestResult() {
     if(item == null) return null;
     return <div className=" bg-black items-center justify-evenly rounded-md p-3 w-full flex flex-row">
       <div>
-        <p className={`${item.trim() == outputs[index]?"text-textGreen": "text-red-500"}`}>case {index+1}</p>
+        <p className={`${item.trim() == outputs[index]?"text-textGreen": "text-red-500"} font-normal`}>case {index+1}</p>
       </div>
       <div className="flex flex-col">
         <p className="text-white">expected</p>
         <p className="text-textGray">{outputs[index]}</p>
       </div>
       <div className="flex flex-col">
-        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px]`}>output</p>
-        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px]`}>{results.stdOut[index]}</p>
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px] font-normal`}>output</p>
+        <p className={`${item.trim() == outputs[index]? "text-textGreen": "text-red-500"} w-[100px] font-normal`}>{results.stdOut[index]}</p>
       </div>
       
     </div>
@@ -93,7 +93,7 @@ function Tag({expect_item_result, item}) {
         !result ? "text-textRed" : "text-textGreen"
       } `}
     >
-      <p className="font-semibold">{result ? "passed" : "failed"}</p>
+      <p className="font-normal">{result ? "passed" : "failed"}</p>
     </div>
   );
 }
