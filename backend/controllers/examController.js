@@ -1,4 +1,4 @@
-import { getExamDetails, storeExam } from "../models/examModel.js";
+import { getExamDetails, getHeaders, storeExam } from "../models/examModel.js";
 
 // let languages = ["java", "python", "javascript", "c", "c++"];
 // const cases = [
@@ -55,7 +55,10 @@ export const createExam = async (req, res) => {
 export const getExam = async (req, res) => {
     const examId = req.query.examId;  // need to fetch the data from backend using this examid
     const examDetails = await getExamDetails(examId);
-    //console.log(examDetails);
+    if(examDetails.msg) {
+      res.json({msg: examDetails.msg});
+      return;
+    }
 
     var tempQuestionObj = [];
     for(let i = 0;i < examDetails.length;i++) {
@@ -87,6 +90,13 @@ export const getExam = async (req, res) => {
 
     }
 
+    //res.json({msg: 'test'});
     res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases});  
     
 } 
+
+export const getExamHeaders = async(req, res) => {
+    const examHeaders = await getHeaders();
+    //console.log(examHeaders);
+    res.json({data: examHeaders});
+}

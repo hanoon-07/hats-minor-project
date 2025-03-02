@@ -15,6 +15,7 @@ function AfterSubmissionpage() {
 
 
     useEffect(()=>{
+        
         let testCaseResult = questions.map((question) => {
             let count = 0;
             let tci = question.testCases.output; // These are expected outputs
@@ -35,14 +36,9 @@ function AfterSubmissionpage() {
     },[])
     
 
-
-
-    
-
-  
     useEffect(() => {
 
-        if (loading === 0 && !fullCase) {
+        if (loading === 0) {
             console.log('api call gone')
             let testCaseResult = questions.map((question) => {
                 let count = 0;
@@ -107,8 +103,7 @@ function AfterSubmissionpage() {
     return (
         <div>
             {loading && <Codeflowanim setLoading={setLoading} />}
-
-            {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>}
+            {/* {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>} */}
         </div>
     );
 }

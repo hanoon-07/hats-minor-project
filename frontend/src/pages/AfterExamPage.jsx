@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Editor from '@monaco-editor/react'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Movebutton } from '../components/Movebutton';
 
 function AfterExamPage({ }) {
   const location = useLocation();
@@ -49,14 +50,14 @@ function AfterExamPage({ }) {
 
   const totalInputPassed = testCaseResult.reduce((acc, curr) => acc + curr, 0)
   const totalInput = questions.reduce((acc, curr) => acc + curr.testCases.input.length, 0)
-
+  const navigate = useNavigate();
 
 
   return (
     <>
 
-      <div className="dashboard bg-[#12141D]">
-        <div className="header">
+      <div className="dashboard bg-black">
+        <div className="header flex justify-between">
           <div className="orbitron-font text-2xl">CODEFLOW</div>
           <div className="actions">
 
@@ -66,13 +67,15 @@ function AfterExamPage({ }) {
             </div> */}
 
           </div>
+
+          <Movebutton label={'submit'} extraStyleDiv={' max-w-[130px] '} action={() => {navigate('/');}}></Movebutton>
         </div>
 
-        <div className="exam-overview">
+        <div className="exam-overview outline outline-1 outline-[#A8FF53]">
           <div className="overview-header">
             <div className="course-title-wrapper">
               <div className="course-code">CST-332</div>
-              <div className="course-title text-white">Operating Systems</div>
+              <div className="text-3xl text-white font-semibold">Operating Systems</div>
             </div>
           </div>
 
@@ -94,7 +97,7 @@ function AfterExamPage({ }) {
             <div className="stat-card">
               <div className="stat-icon">⏱️</div>
               <div className="stat-info">
-                <div className="stat-value">{pop}</div>
+                {/* <div className="stat-value">{pop}</div> */}
                 <div className="stat-label">PARTIAL OUTPUT</div>
               </div>
             </div>
@@ -172,7 +175,7 @@ function AfterExamPage({ }) {
               Exam Assessment
             </div>
             <div className="summary-score">
-              <span>{pop}</span>
+              {/* <span>{pop}</span> */}
               <span style={{ fontSize: "14px", color: "var(--grey-text)" }}>Partial Output</span>
             </div>
           </div>

@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import { initialize } from "../features/examwindow/examSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Codeflowanim from "../components/animation/codeflowanim";
 
@@ -53,6 +53,8 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
   const {examId} = useParams()
+  const navigate = useNavigate();
+
   useEffect(() => {
     
     var data = null;
@@ -62,6 +64,11 @@ function Exampage() {
       );
       //console.log(response.data);
       data = response.data;
+      console.log(data);
+      if(data.msg) {
+        sessionStorage.setItem("errorMsg", data.msg);
+        navigate('/');
+      } 
 
       const tempArr = [];
       data.questionDetails.map((item, index) => {

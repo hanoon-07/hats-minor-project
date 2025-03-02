@@ -20,7 +20,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
-    color: #77e10c;
+    color: #A8FF53;
 }
 
 
@@ -370,9 +370,9 @@ body {
 }
 
 .exam-overview {
-    background: linear-gradient(to right, rgba(30, 33, 48, 0.9), rgba(30, 33, 48, 0.7)),
-        url('/api/placeholder/1400/300') center/cover no-repeat;
-    border-radius: 12px;
+    /* background: linear-gradient(to right, rgba(30, 33, 48, 0.9), rgba(30, 33, 48, 0.7)),
+        url('/api/placeholder/1400/300') center/cover no-repeat; */
+    border-radius: 8px;
     padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -479,8 +479,10 @@ body {
 }
 
 .questions-panel {
-    background-color: var(--card-bg);
-    border-radius: 12px;
+    background-color: #1F2125;
+    border-radius: 8px;
+    outline-width: 1px;
+    outline:  solid #4E4747 1px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -611,11 +613,13 @@ body {
 
 .code-panel {
     background-color: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    outline: solid #479DEC 1px;
+    
 }
 
 .tab-header {
@@ -696,7 +700,8 @@ body {
 
 .results-summary {
     background-color: var(--card-bg);
-    border-radius: 12px;
+    outline:  solid #4E4747 1px;
+    border-radius: 8px;
     padding: 20px;
     margin-top: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);

@@ -45,9 +45,7 @@ const QuestionBar = ({ questionDetails }) => {
                         <p className="text-textGray text-base">
                             {currentQuestion.problemStatement}
                         </p>
-                        <p className="text-textGray">
-                            {currentQuestion.assumption}
-                        </p>
+                        
                     </div>
 
                     {/* Examples */}
