@@ -33,7 +33,7 @@ function IOSection({
         />
         {exampleAccordionOpen ? (
           <ChevronUp
-            className=" w-8 h-8   text-gray-300 absolute right-8 md:right-5 "
+            className=" w-5 h-5   text-white absolute right-8 md:right-5 "
             onClick={() => setExampleAccordionOpen(!exampleAccordionOpen)}
           />
         ) : (

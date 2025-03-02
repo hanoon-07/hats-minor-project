@@ -3,6 +3,7 @@ import Button from './Button';
 import Dropdown from './Dropdown'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelected } from '../features/examwindow/examSlice';
+import { selectInputs, selectOutputs } from '../redux/examSelector';
 
 const QuestionBar = ({ questionDetails }) => {
 
@@ -17,7 +18,8 @@ const QuestionBar = ({ questionDetails }) => {
     }
 
     const dispatch = useDispatch();
-
+    const inputs = useSelector(selectInputs);
+    const outputs = useSelector(selectOutputs);
 
     return (
         <div className="bg-darkGray text-white w-[100%] h-[100%] rounded-[4px]">
@@ -29,7 +31,7 @@ const QuestionBar = ({ questionDetails }) => {
                     items={getQuestionItems()}
                     disabled={false} 
                     action={
-                        (index) => {setCurrentQuestion(questionDetails[index]); dispatch(setSelected(index))}
+                        (index) => {setCurrentQuestion(questionDetails[index]); console.log(currentQuestion); dispatch(setSelected(index))}
                     } 
                 />
             </div>
@@ -55,11 +57,11 @@ const QuestionBar = ({ questionDetails }) => {
                             <div className=" rounded">
                                 <div className="mb-2  flex flex-col">
                                     <span className="text-white">Input </span>
-                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExample}</span>
+                                    <span className='px-2 text-[#3B82F6]' style={{whiteSpace: 'pre'}}>{inputs[0]}</span>
                                 </div>
                                 <div>
                                     <span className="text-white flex flex-col">output </span>
-                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.firstExampleAns}</span>
+                                    <span className='px-2 text-[#3B82F6]' style={{whiteSpace: 'pre'}}>{outputs[0]}</span>
                                 </div>
                             </div>
                         </div>
@@ -69,11 +71,11 @@ const QuestionBar = ({ questionDetails }) => {
                             <div className=" rounded">
                                 <div className="mb-2 flex flex-col">
                                     <span className="text-white">Input </span>
-                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExample}</span>
+                                    <span className='px-2 text-[#3B82F6]' style={{whiteSpace: 'pre'}}>{inputs[1]}</span>
                                 </div>
                                 <div className='flex flex-col'>
                                     <span className="text-white">output </span>
-                                    <span className='px-2 text-white' style={{whiteSpace: 'pre'}}> {currentQuestion.secondExampleAns}</span>
+                                    <span className='px-2 text-[#3B82F6]' style={{whiteSpace: 'pre'}}>{outputs[1]}</span>
                                 </div>
                             </div>
                         </div>
