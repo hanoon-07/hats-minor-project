@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 function AfterExamPage({ }) {
   const location = useLocation();
-  const { pop } = location.state || {};
+  const { pop, reasoning } = location.state || {};
 
   let noq = useSelector((state) => state["exam-data"].questions.length)
   let questions = useSelector((state) => state["exam-data"].questions)
@@ -20,17 +20,12 @@ function AfterExamPage({ }) {
       inherit: true,
       rules: [],
       colors: {
-        "editor.background": "#12141D"
+        "editor.background": "#12141D",
+        "editorCursor.foreground": "#FFFFFF",  // Cursor color (white)
+        "editorLineNumber.foreground": "#FFFFFF", // Line numbers (white)
       }
     });
-
-
-  }, []);
-
-
-
-
-
+  });
 
 
   let testCaseResult = questions.map((question) => {
@@ -60,7 +55,7 @@ function AfterExamPage({ }) {
   return (
     <>
 
-      <div className="dashboard">
+      <div className="dashboard bg-[#12141D]">
         <div className="header">
           <div className="orbitron-font text-2xl">CODEFLOW</div>
           <div className="actions">
@@ -85,7 +80,7 @@ function AfterExamPage({ }) {
             <div className="stat-card">
               <div className="stat-icon">📊</div>
               <div className="stat-info">
-                <div className="stat-value">{100 * totalInputPassed / totalInput}%</div>
+                <div className="stat-value">{Math.round(100 * totalInputPassed / totalInput)}%</div>
                 <div className="stat-label">OVERALL SCORE</div>
               </div>
             </div>
@@ -131,7 +126,7 @@ function AfterExamPage({ }) {
                   <div className="progress-container">
                     <div className="progress-info">
                       <span>Progress</span>
-                      <span>{100 * testCaseResult[index] / question.testCases.input.length}%</span>
+                      <span>{Math.round(100 * testCaseResult[index] / question.testCases.input.length)}%</span>
                     </div>
                     <div className="progress-bar">
                       <div className="progress-fill"
@@ -181,8 +176,12 @@ function AfterExamPage({ }) {
               <span style={{ fontSize: "14px", color: "var(--grey-text)" }}>Partial Output</span>
             </div>
           </div>
-
+          <div className="text-white max-h-[200px] overflow-scroll overflow-x-hidden scroller">
+            <h1>AI reasoning</h1>
+            <p>{reasoning}</p>
+          </div>
         </div>
+
       </div>
 
     </>
