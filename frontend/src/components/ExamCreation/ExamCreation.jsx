@@ -8,17 +8,18 @@ import TimeInput from "./TImeInput";
 import LanguageSelect from "./LanguageSelect";
 import { Movebutton } from "../Movebutton";
 import axios from 'axios';
+import { useNavigate, useParams } from "react-router-dom";
+import Popanim from "../animation/Popanim";
 
 const initialState = {
   examName: "",
   duration: "",
   subject: "",
   languages: ["java"],
-
   questions: [],
 };
 
-function About({classroomName}) {
+function About() {
   const [examDetails, setExamDetails] = useState(initialState);
   const [numQuestions, setNumQuestions] = useState(1);
   const [showQuestions, setShowQuestions] = useState(false);
@@ -88,6 +89,9 @@ function About({classroomName}) {
 
 
   const [createExamState, setCreateExamState] = useState('creating'); //possible state 'sucess' , 'duplicate' exam
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   async function createExam() {
 
@@ -95,28 +99,42 @@ function About({classroomName}) {
     //if not create exam, if already exist edit it,
     //after succesfully editing or creating exam return to the main menu,
     
+
     try {
       const response = await axios.post("http://localhost:3000/createExam", examDetails, {
         headers: { "Content-Type": "application/json" },
       });
   
-      console.log(response.data); //recieving the exam id if success , if duplicate exam exist it returns the msg: duplicate exam
+      setLoading(false);
+      //console.log(response.data); //recieving the exam id if success , if duplicate exam exist it returns the msg: duplicate exam
       if(response.data.msg == 'duplicate exam!') {
         setCreateExamState('duplicate');
+        sessionStorage.setItem('errorMsg', 'exam already exists!');
+        navigate('/');
+      } else {
+        navigate('/');
       }
     } catch(error) {console.log(error);}
   }
 
+  const {classRoom} = useParams();
+
+  if(loading) {
+    return <>
+      <Popanim message={'creating exam...'}/>
+    </>
+  }
 
   return (<>
     
     {<div className="h-screen w-screen md:px-[100px] px-[20px] py-[40px] box-border">
-    <div className="mb-[20px]">
-      <h2 className="text-white text-2xl font-semibold"><span className="text-[#BEFF7F]">{classroomName}</span> - create exam</h2>
+    <div className="mb-[20px] flex flex-row justify-between w-full">
+      <h2 className="text-white text-2xl font-semibold"><span className="text-[#BEFF7F]">{classRoom}</span> - create exam</h2>
+      <Movebutton action={() => {sessionStorage.setItem('errorMsg', 'exam creation cancelled!'); navigate('/');}} direction={'left'} label={'cancel'} extraStyleDiv={' max-w-[130px]'}></Movebutton>
     </div>
     <div className="outline outline-1 outline-[#5F5D5D] rounded-md min-h-[80%] p-[20px] bg-black ">
-      <form onSubmit={handleSubmit}>
-        <section className="bg-black flex flex-col gap-4 md:gap-8  rounded-lg">
+      <form onSubmit={handleSubmit} className="flex lg:flex-row flex-col">
+        <section className="bg-black flex flex-col gap-4 md:gap-8 w-[70%] rounded-lg">
           <div className=" flex flex-col gap-3">
             <Input
               placeholder="Exam name"
@@ -155,13 +173,17 @@ function About({classroomName}) {
                 />
               ))
             : null}
-          <div className="flex justify-end">
+          <div className="flex justify-start">
             {createExamState == 'duplicate'? <p className="text-red-400 translate-y-1 mr-2"></p>:null}
-            <Movebutton action={createExam} direction={'right'} label={'submit'} disabled={isSubmitting} extraStyleDiv={' max-w-[120px]'}/>
+            <Movebutton action={() => {setLoading(true); createExam();}} direction={'right'} label={'submit'} disabled={isSubmitting} extraStyleDiv={' max-w-[120px]'}/>
           </div>
         </section>
+
+        <section>
+          <ErrorBox errors={error} />
+        </section>
       </form>
-      <ErrorBox errors={error} />
+      
     </div>
   </div>}
   </>

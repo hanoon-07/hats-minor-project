@@ -66,8 +66,8 @@ function ErrorBox({errors}) {
     return null;
   }
   return (
-    <div className="bg-black border-l-4 border-red-800 p-4 rounded-md mb-4 mt-5">
-      <div className="flex items-start">
+    <div className=" outline outline-1 outline-red-800 p-4 rounded-md mb-4 mt-5 ">
+      <div className="flex items-start lg:w-[350px]">
         <div className="flex-shrink-0">
           <svg
             className="h-5 w-5 text-red-500"

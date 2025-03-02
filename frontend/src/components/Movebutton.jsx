@@ -70,7 +70,7 @@ export const Movebutton = ({
     return (
       <motion.div
         whileHover="hover"
-        className="w-[150px]  h-[2rem] rounded-md cursor-pointer bg-[#F43F5E] hover:bg-[#FF5E7A] flex flex-row items-center justify-around"
+        className={`w-[150px]  h-[2rem] rounded-md cursor-pointer bg-[#F43F5E] hover:bg-[#FF5E7A] flex flex-row items-center justify-around ` + extraStyleDiv}
         onClick={action}
       >
         <p className="text-black text-[1.1rem] font-medium translate-y-[-2px]">

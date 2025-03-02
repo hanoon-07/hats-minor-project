@@ -2,6 +2,9 @@ import pool from '../config/db.js';
 
 const getExamDetails =  async (examdId) => {
     const result = await pool.query("select * from exam join question on exam.exam_id = question.exam_id where exam.exam_id = $1", [examdId]);
+    if(result.rowCount == 0) {
+        return {msg: 'error! no exam found with this id'}
+    }
     return result.rows;
 }
 
@@ -59,4 +62,12 @@ const storeExam = async (examDetails, classId) => {
     
 }
 
-export {getExamDetails, storeExam};
+const getHeaders = async () => {
+
+    const result = await pool.query("select exam_id, name from exam;");
+
+    return result.rows;
+
+}
+
+export {getExamDetails, storeExam, getHeaders};
