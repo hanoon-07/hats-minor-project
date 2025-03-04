@@ -15,6 +15,7 @@ import { createRoutesFromElements } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
+import { Teacher } from './pages/Teacher';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +23,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<Layout />}>
-            <Route path='' element={<TempStartPage/>}/>
+            <Route path='' element={<Teacher/>}/>
             <Route path='editor/:examId' element={<Exampage/>}/>
             <Route path='check' element={<AfterSubmissionPage/>}/>
             <Route path='result' element={<AfterExamPage/>}/>

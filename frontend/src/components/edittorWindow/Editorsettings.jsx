@@ -25,6 +25,8 @@ const Editorsettings = () => {
     };
 
     useEffect(() => {
+        
+
         document.addEventListener("mousedown", handleClickOutside);
         
         return () => {
