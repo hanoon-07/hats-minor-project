@@ -58,7 +58,7 @@ const TempStartPage = () => {
                         </div>
                         <div className="flex flex-row gap-2">
                             <Movebutton label={"return home"} direction={"left"}/>
-                            <Movebutton action={() => {navigate('/create-exam/operating-systems')}} label={'create exam'} direction={'right'} extraStyleDiv={' bg-blue-500 hover:bg-blue-400 '}></Movebutton>
+                            <Movebutton action={() => {navigate('/create-exam/test-classroom')}} label={'create exam'} direction={'right'} extraStyleDiv={' bg-blue-500 hover:bg-blue-400 '}></Movebutton>
                         </div>
                         <div className="flex flex-col">
                             <p className="text-[#F43F5E] font-light text-[1.1rem]"></p>

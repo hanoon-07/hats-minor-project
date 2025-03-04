@@ -88,7 +88,7 @@ function AfterSubmissionpage() {
 
                 } catch (error) {
                     console.error("Error fetching data:", error);
-                    navigate('/result',{state:{pop:null}})
+                    navigate('/result',{state:{pop:'api error!'}})
                 }
             };
             fetchData();
