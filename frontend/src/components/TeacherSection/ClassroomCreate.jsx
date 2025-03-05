@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Movebutton } from './Movebutton';
+import { Movebutton } from '../Movebutton';
 import { motion } from 'framer-motion';
 
 export const ClassroomCreate = ({setData, setOpenClassCreator, teacherId}) => {

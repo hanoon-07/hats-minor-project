@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { LoadingRingSmall } from './animation/LoadingRingSmall';
+import { LoadingRingSmall } from '../animation/LoadingRingSmall';
 import axios from 'axios';
-import { LoadingRing } from './animation/LoadingRing';
+import { LoadingRing } from '../animation/LoadingRing';
+import { StudentsView } from './StudentsView';
 
 export const ClassView = ({classId, classroomName, subjectName}) => {
 
@@ -10,6 +11,7 @@ export const ClassView = ({classId, classroomName, subjectName}) => {
   const [copyMsg, setCopyMsg] = useState('');
   const [loadingStudents, setLoadingStudents] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [studentInfo, setStudentInfo] = useState(false);
 
   async function getClassCode() {
     try {
@@ -86,6 +88,7 @@ export const ClassView = ({classId, classroomName, subjectName}) => {
 
   return (<>
     {loading && <LoadingRing />}
+    {studentInfo && <StudentsView setStudentInfo={setStudentInfo} />}
     <div className='h-full w-full flex flex-col gap-4 p-10 '>
         <div className='flex flex-col gap-2'>
           <h1 className='text-4xl text-[#C1C4C7] font-bold'>{classroomName}</h1>
@@ -133,7 +136,7 @@ export const ClassView = ({classId, classroomName, subjectName}) => {
               </div>
             })}
             <div>
-              <button className='hover:bg-[#5E8834] h-[30px] px-2 absolute bottom-2 font-semibold right-2 bg-[#A8FF53] text-black rounded-sm'>view full</button>
+              <button className='hover:bg-[#5E8834] h-[30px] px-2 absolute bottom-2 font-semibold right-2 bg-[#A8FF53] text-black rounded-sm' onClick={() => {setStudentInfo(true)}}>view full</button>
             </div>
           </div>
 

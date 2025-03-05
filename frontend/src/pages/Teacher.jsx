@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { TeacherNavBar } from '../components/TeacherNavBar'
+import { TeacherNavBar } from '../components/TeacherSection/TeacherNavBar'
 import { motion } from 'framer-motion';
 import { Movebutton } from '../components/Movebutton';
-import { ClassroomCreate } from '../components/ClassroomCreate';
+import { ClassroomCreate } from '../components/TeacherSection/ClassroomCreate';
 import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
-import { ClassView } from '../components/ClassView';
+import { ClassView } from '../components/TeacherSection/ClassView';
 
 export const Teacher = ({teacherId = 1, teacherName}) => {
 
@@ -84,7 +84,7 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
         {loading && <LoadingRing />}
         {createClassroom && <ClassroomCreate setOpenClassCreator={setCreateClassRoom} setData={setClassData} teacherId={teacherId}/>}
         <div className='h-screen w-screen flex flex-row bg-[#15171a]'>
-            {<TeacherNavBar selected={selected} setSelected={setSelected} setOpen={setOpen}/>}
+            {<TeacherNavBar currentClass={currentClass} showingClass={showingClass} clearClass={clearClass} selected={selected} setSelected={setSelected} setOpen={setOpen}/>}
             {selected == 'classes' && showingClass && <ClassView clearClass={clearClass} classId={currentClass.classId} classroomName={currentClass.className} subjectName={currentClass.subject}/>}
             {selected == 'classes' && !showingClass && <div className='h-screen w-full p-10'>
                 <div className='flex flex-col'>
