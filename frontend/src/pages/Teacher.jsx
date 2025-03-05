@@ -5,6 +5,7 @@ import { Movebutton } from '../components/Movebutton';
 import { ClassroomCreate } from '../components/ClassroomCreate';
 import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
+import { ClassView } from '../components/ClassView';
 
 export const Teacher = ({teacherId = 1, teacherName}) => {
 
@@ -13,6 +14,8 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
     const [createClassroom, setCreateClassRoom] = useState(false);
     const [classData, setClassData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showingClass, setShowingClass] = useState(false);
+    const [currentClass, setCurrentClass] = useState(null);
 
     const [currentClasses, setCurrentClasses] = useState([]);
 
@@ -30,7 +33,7 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
             });
             // console.log("Response:", response.data);
             // console.log(response.data);
-            setCurrentClasses([...currentClasses, {className: response.data.className, studentCount: response.data.studentCount, activeExam: response.data.activeExam}]);
+            setCurrentClasses([...currentClasses, {className: response.data.className, studentCount: response.data.studentCount, activeExam: response.data.activeExam, subject: response.data.subject}]);
         } catch (error) {
             console.error("Error posting class data:", error);
         } finally {
@@ -56,6 +59,15 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
         }
     }
 
+    function selectClass(item) {
+        setCurrentClass({className: item.className, subject: item.subject, classId: item.classId})
+        setShowingClass(true);
+    }
+
+    function clearClass() {
+        setCurrentClass(false);
+        setShowingClass(false);
+    }
 
     useEffect(() => {
         getClases();
@@ -73,16 +85,17 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
         {createClassroom && <ClassroomCreate setOpenClassCreator={setCreateClassRoom} setData={setClassData} teacherId={teacherId}/>}
         <div className='h-screen w-screen flex flex-row bg-[#15171a]'>
             {<TeacherNavBar selected={selected} setSelected={setSelected} setOpen={setOpen}/>}
-            {selected == 'classes' && <div className='h-screen w-full p-10'>
+            {selected == 'classes' && showingClass && <ClassView clearClass={clearClass} classId={currentClass.classId} classroomName={currentClass.className} subjectName={currentClass.subject}/>}
+            {selected == 'classes' && !showingClass && <div className='h-screen w-full p-10'>
                 <div className='flex flex-col'>
                     <div className='flex flex-row justify-between items-center'>
                         <h1 className='text-[#c1c4c7] text-3xl font-bold'>My Classes</h1>      
                     </div>
 
-                    <div className='flex flex-row flex-wrap gap-3 mt-[20px] overflow-y-scroll max-h-[70vh]'>
+                    <div className='scroller flex flex-row flex-wrap gap-3 mt-[20px] overflow-y-scroll max-h-[70vh]'>
                         
                         {currentClasses.map((item, index) => {
-                            return <motion.div initial={{opacity: 0.4}} animate={{opacity: 1}} transition={{duration: (index+1) * 0.04}} className='w-[250px] h-[150px] rounded-md bg-[#272a2e] hover:bg-[#212327] p-4 flex flex-col gap-2 justify-around'>
+                            return <motion.div onClick={() => {selectClass(item);}} initial={{opacity: 0.4}} animate={{opacity: 1}} transition={{duration: (index+1) * 0.04}} className='w-[250px] h-[150px] rounded-md bg-[#272a2e] hover:bg-[#212327] p-4 flex flex-col gap-2 justify-around'>
                                 <p className='font-semibold text-lg text-[#c1c4c7]'>{item.className}</p>
                                 <div>
                                     <p className='text-[#c1c4c7]'><span className='font-bold text-2xl text-[#474aa5]'>{item.studentCount}</span> students</p> 

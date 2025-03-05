@@ -1,4 +1,4 @@
-import { getClassesDb, getClassCountDB, createClassDB } from "../models/teacherModel.js";
+import { getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB } from "../models/teacherModel.js";
 
 export const createNewClass = async (req, res) => {
 
@@ -14,6 +14,19 @@ export const createNewClass = async (req, res) => {
     
 }
 
+export const getClassCode = async (req, res) => {
+    const {classId} = req.query;
+    const classCode = await getClassCodeDB(classId);
+    //console.log(classCode);
+    res.json(classCode);
+}
+
+export const getClassStudents = async (req, res) => {
+    const {classId} = req.query;
+    const studentData = await getClassStudentsDB(classId);
+    res.json(studentData);
+}
+
 export const getClasses = async (req, res) => {
     const {teacherId} = req.query;
     const data = await getClassesDb(teacherId);
@@ -25,14 +38,16 @@ export const getClasses = async (req, res) => {
         })
     );
 
-    //console.log(data);
+    console.log(data);
     //console.log(counts);
     const resultData = [];
     data.map((item, index) => {
         resultData.push({
             className: item.name,
             studentCount: counts[index],
-            activeExam: 2 //will be calculated and changed later
+            activeExam: 2 ,
+            subject: item.subject,
+            classId: item.class_id
         })
     });
 

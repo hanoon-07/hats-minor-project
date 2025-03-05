@@ -34,4 +34,14 @@ const createClassDB = async (teacherId, className , maxCount, subjectName) => {
     }
 }
 
-export {getClassesDb, getClassCountDB, createClassDB}
+const getClassCodeDB =  async (classId) => {
+    const response = await pool.query("select unique_code from classroom where class_id  = $1", [classId]);
+    return response.rows[0];
+}
+
+const getClassStudentsDB = async (classId) => {
+    const response = await pool.query(`select * from class_students inner join student_info on class_students.student_id = student_info.student_id inner join "User" on student_info.student_id = "User".user_id where class_students.class_id = $1`, [classId]);
+    return response.rows;
+}
+
+export {getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB}
