@@ -88,7 +88,7 @@ export const ClassView = ({classId, classroomName, subjectName}) => {
 
   return (<>
     {loading && <LoadingRing />}
-    {studentInfo && <StudentsView setStudentInfo={setStudentInfo} />}
+    {studentInfo && <StudentsView studentData={studentData} setStudentInfo={setStudentInfo} />}
     <div className='h-full w-full flex flex-col gap-4 p-10 '>
         <div className='flex flex-col gap-2'>
           <h1 className='text-4xl text-[#C1C4C7] font-bold'>{classroomName}</h1>
