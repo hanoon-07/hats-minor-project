@@ -128,7 +128,7 @@ export const ClassView = ({classId, classroomName, subjectName}) => {
             </div>
           </div>
 
-          <div className='relative box-border p-4 gap-2 w-full max-h-[300px] min-h-[130px] bg-[#1B1D1F] overflow-y-scroll flex flex-row flex-wrap'>
+          <div className='relative box-border p-4 gap-2 w-full max-h-[300px] min-h-[130px] bg-[#1B1D1F] scroller overflow-y-scroll flex flex-row flex-wrap'>
             {loadingStudents && <LoadingRingSmall />}
             {!loadingStudents && studentData.map((item, index) => {
               return <div className='h-[40px] w-[40px] rounded-[50%] bg-gradient-to-r from-[#474AA5] to-[#333571] grid place-content-center'>

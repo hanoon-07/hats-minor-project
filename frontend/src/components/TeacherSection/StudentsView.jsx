@@ -33,29 +33,15 @@ export const StudentsView = ({studentData, setStudentInfo}) => {
                        
                     </div>
 
-                    <div className='w-full flex justify-around md:items-center md:p-0 p-3 md:flex-row flex-col md:gap-0 gap-2 bg-[#15161A] md:min-h-[50px] rounded-sm outline outline-1 outline-[black]'>
-                        <p className='text-white text-md font-normal'>Tom Sebastian</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>65</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>KNR22CS065</p>
-                        <p className='text-[#474AA5] text-md font-normal'>12/12/2024:5PM</p>
+                    {studentData.map((item, index) => {
+                        return <div className='w-full flex justify-around md:items-center md:p-0 p-3 md:flex-row flex-col md:gap-0 gap-2 bg-[#15161A] md:min-h-[50px] rounded-sm outline outline-1 outline-[black]'>
+                            <p className='text-white text-md font-normal'>{item.name}</p>
+                            <p className='text-[#A8FF53] text-md font-normal'>{item.roll_no}</p>
+                            <p className='text-[#A8FF53] text-md font-normal'>{item.admission_no}</p>
+                            <p className='text-[#474AA5] text-md font-normal'>{item.joined_at}</p>
                        
-                    </div>
-
-                    <div className='w-full flex justify-around md:items-center md:p-0 p-3 md:flex-row flex-col md:gap-0 gap-2 bg-[#15161A] md:min-h-[50px] rounded-sm outline outline-1 outline-[black]'>
-                        <p className='text-white text-md font-normal'>Tom Sebastian</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>65</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>KNR22CS065</p>
-                        <p className='text-[#474AA5] text-md font-normal'>12/12/2024:5PM</p>
-                       
-                    </div>
-
-                    <div className='w-full flex justify-around md:items-center md:p-0 p-3 md:flex-row flex-col md:gap-0 gap-2 bg-[#15161A] md:min-h-[50px] rounded-sm outline outline-1 outline-[black]'>
-                        <p className='text-white text-md font-normal'>Tom Sebastian</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>65</p>
-                        <p className='text-[#A8FF53] text-md font-normal'>KNR22CS065</p>
-                        <p className='text-[#474AA5] text-md font-normal'>12/12/2024:5PM</p>
-                       
-                    </div>
+                        </div>
+                    })}
 
                 </div>
             </div>
