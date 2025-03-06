@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Movebutton } from './Movebutton'
+import { Movebutton } from '../Movebutton'
 import { motion, AnimatePresence } from 'framer-motion'
 
 
-export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen}) => {
+export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen, clearClass, showingClass, currentClass}) => {
 
     const navBarDiv = useRef(null); 
-    const [openHere, setOpenHere] = useState(false);
+    const [openHere, setOpenHere] = useState(true);
 
     const handleClickOutside = (event) => {
         if (navBarDiv.current && !navBarDiv.current.contains(event.target)) {
@@ -17,11 +17,11 @@ export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen}) => {
     
     useEffect(() => {
         
-        document.addEventListener("mousedown", handleClickOutside);
+        // document.addEventListener("mousedown", handleClickOutside);
             
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };    
+        // return () => {
+        //     document.removeEventListener("mousedown", handleClickOutside);
+        // };    
     }, []);
 
     return (
@@ -44,8 +44,10 @@ export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen}) => {
 
                 <div className='w-full flex flex-col h-[70%] gap-2 mt-4 justify-between'>
                     <div className='flex flex-col gap-2'>
-                        <button onClick={() => {setSelected('profile')}} className={`p-2 mr-2 rounded-sm text-[#c1c4c7] text-lg text-start hover:bg-[#272a2e] ${selected == 'profile'?"bg-[#A8FF53] hover:bg-[#A8FF53] text-black":null}`}>👤 profile</button>
-                        <button onClick={() => {setSelected('classes')}} className={`p-2 mr-2 rounded-sm text-[#c1c4c7] text-lg text-start hover:bg-[#272a2e] ${selected == 'classes'?"bg-[#A8FF53] hover:bg-[#A8FF53] text-black":null}`}>📚 classes</button>
+                        <button onClick={() => {setSelected('profile'); clearClass()}} className={`p-2 mr-2 rounded-sm text-[#c1c4c7] text-lg text-start hover:bg-[#272a2e] ${selected == 'profile'?"bg-[#A8FF53] hover:bg-[#A8FF53] text-black":null}`}>👤 profile</button>
+                        <button onClick={() => {if(showingClass) {setSelected('classes'); clearClass()} else {setSelected('classes')}}} className={`p-2 mr-2 rounded-sm text-[#c1c4c7] text-lg text-start hover:bg-[#272a2e] ${selected == 'classes' && !showingClass?"bg-[#A8FF53] hover:bg-[#A8FF53] text-black":null}`}>📚 classes</button>
+                        {showingClass && <button className={`p-2 mr-2 rounded-sm text-[#c1c4c7] text-lg text-start hover:bg-[#272a2e] ${showingClass?"bg-[#A8FF53] hover:bg-[#A8FF53] text-black":null}`}>📓{currentClass.className}</button>}
+                        
                     </div>
                 </div>
 
