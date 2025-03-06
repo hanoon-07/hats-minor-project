@@ -1,1 +1,0 @@
-directory contains functions (or related code) that interact with database models 

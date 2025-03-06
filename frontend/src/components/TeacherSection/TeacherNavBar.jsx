@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Movebutton } from '../Movebutton'
 import { motion, AnimatePresence } from 'framer-motion'
 
 
-export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen, clearClass, showingClass, currentClass}) => {
+export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen, clearClass, showingClass, currentClass,name,initial}) => {
 
     const navBarDiv = useRef(null); 
     const [openHere, setOpenHere] = useState(true);
