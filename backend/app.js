@@ -2,6 +2,7 @@ import express from 'express';
 import testRoute from './routes/testRoutes.js';
 import cors from 'cors';
 import examRoute from './routes/examRoutes.js';
+import teacherRoute from './routes/teacherRoutes.js'
 import pool from './config/db.js';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors(corsOptions));
 
 app.use('', testRoute); // endpoint is /testserver
 app.use('', examRoute) // endpoin is /exam
+app.use('', teacherRoute);
 
 app.get("/test-db", async (req, res) => {
     try {
