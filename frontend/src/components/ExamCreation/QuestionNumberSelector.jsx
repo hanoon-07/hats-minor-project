@@ -20,7 +20,7 @@ const QuestionSelector = ({
             min="1"
             readOnly
             value={numValue}
-            className="bg-zinc-800 w-[100px] text-white px-3 py-1 rounded border border-zinc-700  focus:outline-none focus:border-blue-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="bg-zinc-800 w-[100px] text-white px-3 py-1 rounded-sm      [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
           <div className="absolute right-2 top-0 bottom-0  overflow-hidden flex flex-col ">
             <button
@@ -46,7 +46,7 @@ const QuestionSelector = ({
           </div>
         </div>
 
-        <Movebutton action={handleNum} label={'apply'} direction={'right'} extraStyleDiv={' max-w-[100px]'}/>
+        <Movebutton action={handleNum} label={'apply'} direction={'right'} extraStyleDiv={' max-w-[100px] rounded-sm'}/>
       </div>
     </div>
   );

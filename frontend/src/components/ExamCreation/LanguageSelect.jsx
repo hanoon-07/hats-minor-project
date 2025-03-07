@@ -21,7 +21,7 @@ function LanguageSelect({examDetails, handleLanguageCheck}) {
               <span
                 className=" min-w-[4rem] text-center 
                 h-[30px]
-                  bg-[#3B3E45] rounded-[6px]
+                  bg-[#272A2E] rounded-sm
               peer-checked:bg-[#A8FF53] peer-checked:text-black text-white text-md font-normal px-2 flex items-center justify-center"
               >
                 <p className="select-none font-semibold text-md">{item}</p>

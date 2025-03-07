@@ -41,7 +41,7 @@ const Input = ({
         {inputTitle}
       </p>
       <input
-        className={` bg-[#3B3E45] text-[#A8FF53] placeholder-textGray py-2 rounded-md px-3 block max-w-[30rem] w-full
+        className={` bg-[#272A2E] text-[#A8FF53] placeholder-textGray py-2 rounded-sm px-3 block max-w-[30rem] w-full
           focus:outline-none text-sm md:text-base   ${getHeightClass()}`}
         placeholder={placeholder}
         value={textValue}

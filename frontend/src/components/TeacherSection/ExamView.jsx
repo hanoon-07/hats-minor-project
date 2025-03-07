@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LoadingRingSmall } from "../animation/LoadingRingSmall";
+import ExamCreation from '../ExamCreation/ExamCreation';
 
-export const ExamView = ({ type = "upcoming", loaded = true, upcomingData = null, historyData=null}) => {
+export const ExamView = ({classId ,type = "upcoming", loaded = true, upcomingData = null, historyData=null}) => {
+
+
+  const [showCreateExam, setCreateExam] = useState(false);
 
   useEffect(() => {
     //console.log(upcomingData);
     //console.log(historyData);
     console.log(historyData);
+    
   }, []);
 
   if(!loaded) {
@@ -68,7 +73,10 @@ export const ExamView = ({ type = "upcoming", loaded = true, upcomingData = null
 
   if (type == "upcoming")
     return (
+      <>
+      {showCreateExam && <ExamCreation classId={classId} setCreateExam={setCreateExam}/>}
       <div className="relative lg:w-[50%] outline outline-1 outline-[#1f2124] w-[100%] min-h-[200px] flex flex-col rounded-sm bg-[#1B1D1F]">
+        
         <div className=" w-full h-[30px] rounded-[4px 4px 0px 0px] bg-[#15161A] box-border p-1">
           <p className="ml-1 text-sm font-normal text-[#A8FF53]">upcoming</p>
         </div>
@@ -111,7 +119,7 @@ export const ExamView = ({ type = "upcoming", loaded = true, upcomingData = null
               whileHover="hover"
               className="flex flex-row gap-1 items-center bg-[#A8FF53] hover:bg-[#669934] px-2 rounded-[2px]"
             >
-              <p className="translate-y-[-2px]">create</p>
+              <p className="translate-y-[-2px]" onClick={() => {setCreateExam(true);}}>create</p>
               <motion.svg
                 variants={{ hover: { rotate: 360 } }}
                 width="14"
@@ -157,5 +165,6 @@ export const ExamView = ({ type = "upcoming", loaded = true, upcomingData = null
           </div>
         </div>
       </div>
+      </>
     );
 };

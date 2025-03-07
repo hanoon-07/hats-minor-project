@@ -271,7 +271,7 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
           <div className="border-t-2 border-dashed border-gray-500 p-2"></div>
           <h1 className="text-3xl text-[#C1C4C7] font-bold mb-4">Exams</h1>
           <div className="flex lg:flex-row flex-col lg:gap-4 gap-2 w-full">
-            <ExamView loaded={!loadingExams} upcomingData={examData.upcoming} />
+            <ExamView loaded={!loadingExams} upcomingData={examData.upcoming} classId={classId}/>
             <ExamView
               loaded={!loadingExams}
               historyData={examData.history}

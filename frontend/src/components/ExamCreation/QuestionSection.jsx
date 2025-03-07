@@ -69,7 +69,7 @@ function QuestionSection({index, examDetails, setExamDetails}) {
   }
 
   return (
-    <section className=" p-3 relative border border-slate-600 flex flex-col gap-4 rounded-md">
+    <section className=" p-3 relative bg-[#1B1D1F] outline outline-1 outline-[#1f2124] flex flex-col gap-4 rounded-sm">
       <NameChevron
         examDetails={examDetails}
         setShowQuestion={setShowQuestion}

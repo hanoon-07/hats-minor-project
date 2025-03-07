@@ -11,6 +11,7 @@ const getExamDetails =  async (examdId) => {
 const storeExam = async (examDetails, classId) => {
     //check already exist or not
     const result1 = await pool.query("select * from exam where name = $1 and class_id = $2;", [examDetails.examName, 1]); // exam name
+    
     //console.log(result1.rows);
     if(result1.rowCount > 0) {
         return {msg: 'duplicate exam!'}
@@ -18,7 +19,7 @@ const storeExam = async (examDetails, classId) => {
         var duration = 0;
         duration += (parseInt(examDetails.duration.hours) * 60);
         duration += (parseInt(examDetails.duration.minutes));
-        const result2 = await pool.query("insert into exam(class_id, name, created_at, duration) values($1, $2, $3, $4)", [classId,examDetails.examName , "now()", duration]); //creatin the exam with the class id =1
+        const result2 = await pool.query("insert into exam(class_id, name, created_at, duration, active) values($1, $2, $3, $4, $5)", [classId,examDetails.examName , "now()", duration, "upcoming"]); //creatin the exam with the class id =1
         const result3 = await pool.query("select exam_id from exam where name = $1 and class_id = $2;", [examDetails.examName, classId]);
         //console.log(result3.rows);
         //console.log(result1);
