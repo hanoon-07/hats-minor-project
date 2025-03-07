@@ -20,7 +20,7 @@ export const StudentsView = ({studentData, setStudentInfo}) => {
                     
 
                     {studentData.map((item, index) => {
-                        console.log(item);
+                        //console.log(item);
                         return <div className='w-full flex justify-around md:items-center md:p-0 p-3 md:flex-row flex-col md:gap-0 gap-2 bg-[#15161A] md:min-h-[50px] rounded-sm outline outline-1 outline-[black]'>
                             <p className='text-white text-md font-normal'>{item.Name}</p>
                             <p className='text-[#A8FF53] text-md font-normal'>{item.RollNo}</p>

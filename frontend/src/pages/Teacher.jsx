@@ -7,7 +7,7 @@ import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
 import { ClassView } from '../components/TeacherSection/ClassView';
 
-export const Teacher = ({teacherId = 1, teacherName}) => {
+export const Teacher = ({teacherId = 22, teacherName}) => {
 
     const [selected, setSelected] = useState('classes');
     const [open, setOpen] = useState(false);
@@ -31,9 +31,10 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
                     "Content-Type": "application/json",
                 },
             });
+            const newClassId = response.data.newClassId;
             // console.log("Response:", response.data);
             // console.log(response.data);
-            setCurrentClasses([...currentClasses, {className: response.data.className, studentCount: response.data.studentCount, activeExam: response.data.activeExam, subject: response.data.subject}]);
+            setCurrentClasses([...currentClasses, {className: response.data.className, studentCount: response.data.studentCount, activeExam: response.data.activeExam, subject: response.data.subjectm, classId: newClassId}]);
         } catch (error) {
             console.error("Error posting class data:", error);
         } finally {
@@ -50,7 +51,7 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
                     teacherId: teacherId
                 }
             });
-            console.log("Response:", response.data);
+            //console.log("Response:", response.data);
             setCurrentClasses(response.data.classData);
         } catch (error) {
             console.error("Error posting class data:", error);
@@ -60,6 +61,7 @@ export const Teacher = ({teacherId = 1, teacherName}) => {
     }
 
     function selectClass(item) {
+        //console.log(item);
         setCurrentClass({className: item.className, subject: item.subject, classId: item.classId})
         setShowingClass(true);
     }
