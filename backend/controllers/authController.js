@@ -5,7 +5,7 @@ import {
   getUsersWithEmail,
   getAll,
 } from "../models/authModel.js";
-import sendMail from "../services/mailService.js";
+/* import sendMail from "../services/mailService.js"; */
 import passport from "../services/passport.js";
 
 export const getAllUsers = async (req, res) => {
@@ -98,7 +98,7 @@ export const checkAuthControl = async (req, res) => {
   res.status(401).json({success: false, message: "Unauthorized"});
 };
 
-export const sendPassMail = async (req, res) => {
+/* export const sendPassMail = async (req, res) => {
   const {email} = req.body;
   console.log(email);
   try {
@@ -115,7 +115,7 @@ export const sendPassMail = async (req, res) => {
     console.log(error);
     res.status(500).json({error: "Something went wrong"});
   }
-};
+}; */
 
 export const logoutControl = async (req, res) => {
   req.logout((error) => {

@@ -5,7 +5,6 @@ import {
   loginControl,
   logoutControl,
   checkAuthControl,
-  sendPassMail,
 } from "../controllers/authController.js";
 import {ensureAuthenticated, checkRole} from "../middlewares/auth.js";
 const router = express.Router();
