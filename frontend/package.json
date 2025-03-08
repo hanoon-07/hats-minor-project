@@ -60,7 +60,11 @@
 
         "react-timer-hook": "^3.0.8",
 
-        "reselect": "^5.1.1"
+        "react-toastify": "^11.0.5",
+
+        "reselect": "^5.1.1",
+
+        "validator": "^13.12.0"
 
     },
 
