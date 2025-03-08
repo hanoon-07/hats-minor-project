@@ -111,7 +111,6 @@ export const sendPassMail = async (req, res) => {
       return res.status(404).json({error: "Invalid Email"});
     }
     const user = result[0];
-    console.log(user.password);
   } catch (error) {
     console.log(error);
     res.status(500).json({error: "Something went wrong"});

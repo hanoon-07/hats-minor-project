@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+/* import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   secure: true,
@@ -19,3 +19,4 @@ function sendMail(to, sub, msg) {
 }
 //sendMail("22b299@gcek.ac.in", "Subject", "This is hte mail");
 export default sendMail;
+ */
