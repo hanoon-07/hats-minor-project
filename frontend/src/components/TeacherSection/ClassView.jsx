@@ -232,8 +232,10 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
             {!loadingStudents &&
               studentData.map((item, index) => {
                 return (
-                  <div className="h-[40px] w-[40px] rounded-[50%] bg-gradient-to-r from-[#474AA5] to-[#333571] grid place-content-center">
+                  <div className="h-[40px] w-[40px] rounded-full relative bg-[#132B52]">
+                    <div className="absolute left-[-4px] h-[40px] w-[40px] rounded-[50%] bg-gradient-to-r to-[#474AA5] from-[#3B82F6] grid place-content-center">
                     <h1 className="text-white font-bold">{item.RollNo}</h1>
+                    </div>
                   </div>
                 );
               })}

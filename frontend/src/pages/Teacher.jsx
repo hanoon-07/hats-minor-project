@@ -82,43 +82,99 @@ export const Teacher = ({teacherId = 22, teacherName}) => {
         }
     }, [classData])
 
-    return (<>
+    return (
+      <>
         {loading && <LoadingRing />}
-        {createClassroom && <ClassroomCreate setOpenClassCreator={setCreateClassRoom} setData={setClassData} teacherId={teacherId}/>}
-        <div className='h-screen w-screen flex flex-row bg-[#15171a]'>
-            {<TeacherNavBar currentClass={currentClass} showingClass={showingClass} clearClass={clearClass} selected={selected} setSelected={setSelected} setOpen={setOpen}/>}
-            {selected == 'classes' && showingClass && <ClassView clearClass={clearClass} classId={currentClass.classId} classroomName={currentClass.className} subjectName={currentClass.subject}/>}
-            {selected == 'classes' && !showingClass && <div className='h-screen w-full p-10'>
-                <div className='flex flex-col'>
-                    <div className='flex flex-row justify-between items-center'>
-                        <h1 className='text-[#c1c4c7] text-3xl font-bold'>My Classes</h1>      
-                    </div>
-
-                    <div className='scroller flex flex-row flex-wrap gap-3 mt-[20px] overflow-y-scroll max-h-[70vh]'>
-                        
-                        {currentClasses.map((item, index) => {
-                            return <motion.div onClick={() => {selectClass(item);}} initial={{opacity: 0.4}} animate={{opacity: 1}} transition={{duration: (index+1) * 0.04}} className='w-[250px] h-[150px] rounded-md bg-[#272a2e] hover:bg-[#212327] p-4 flex flex-col gap-2 justify-around'>
-                                <p className='font-semibold text-lg text-[#c1c4c7]'>{item.className}</p>
-                                <div>
-                                    <p className='text-[#c1c4c7]'><span className='font-bold text-2xl text-[#474aa5]'>{item.studentCount}</span> students</p> 
-                                </div>
-                                <div className='w-[70%] h-[30px] bg-[#1a1b1f]  rounded-sm grid place-content-center'>
-                                    <p className='text-[#A8FF53]'>active exam: {item.activeExam}</p>
-                                </div>
-                            </motion.div>
-                        })}
-                        
-                    </div>
-
-                    <div className='flex flex-row mt-6 gap-2'>
-                        <Movebutton action={() => {setCreateClassRoom(true)}} label={'create class'} extraStyleDiv={' rounded-sm '}/>
-                        <Movebutton label={'delete class'} direction={'left'} extraStyleDiv={' rounded-sm '}/>
-                    </div>
-
-                    
+        {createClassroom && (
+          <ClassroomCreate
+            setOpenClassCreator={setCreateClassRoom}
+            setData={setClassData}
+            teacherId={teacherId}
+          />
+        )}
+        <div className="h-screen w-screen flex flex-row bg-[#15171a]">
+          {
+            <TeacherNavBar
+              currentClass={currentClass}
+              showingClass={showingClass}
+              clearClass={clearClass}
+              selected={selected}
+              setSelected={setSelected}
+              setOpen={setOpen}
+            />
+          }
+          {selected == "classes" && showingClass && (
+            <ClassView
+              clearClass={clearClass}
+              classId={currentClass.classId}
+              classroomName={currentClass.className}
+              subjectName={currentClass.subject}
+            />
+          )}
+          {selected == "classes" && !showingClass && (
+            <div className="h-screen w-full p-10">
+              <div className="flex flex-col">
+                <div className="flex flex-row justify-between items-center">
+                  <h1 className="text-[#c1c4c7] text-3xl font-bold">
+                    My Classes
+                  </h1>
                 </div>
-            </div>}
+
+                <div className="scroller flex flex-row flex-wrap gap-3 mt-[20px] overflow-y-scroll max-h-[70vh]">
+                  {currentClasses.map((item, index) => {
+                    return (
+                      <motion.div
+                        onClick={() => {
+                          selectClass(item);
+                        }}
+                        initial={{ opacity: 0.4 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: (index + 1) * 0.04 }}
+                        className="w-[250px] h-[150px] rounded-md bg-[#272a2e] hover:bg-[#212327] p-4 flex flex-col gap-2 justify-around"
+                      >
+                        <p className="font-semibold text-lg text-[#c1c4c7]">
+                          {item.className}
+                        </p>
+
+                        <div className="flex flex-row gap-4 items-center">
+                          <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#132B52] relative translate-x-2">
+                            <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#3B82F6] absolute left-[-5px] top-[0px]">
+                              <p className="font-semibold text-white text-lg">
+                                {item.studentCount}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="font-medium text-md text-[#c1c4c7]">
+                            students
+                          </p>
+                        </div>
+
+                        <div className="flex flex-row gap-4 items-center">
+                          <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#132B52] relative translate-x-2">
+                            <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#2A7D67] absolute left-[-5px] top-[0px]">
+                              <p className="font-semibold text-white text-lg">
+                                1
+                              </p>
+                            </div>
+                          </div>
+                          <p className="font-medium text-md text-[#c1c4c7]">
+                            upcoming exams
+                          </p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                <div className="border-t-2 border-dashed border-gray-500 mt-4"></div>
+                <div className="flex flex-row mt-3 gap-2">
+                  <Movebutton label={'create class'} action={() => {setCreateClassRoom(true)}} extraStyleDiv={" rounded-sm"}/>
+                  <Movebutton label={'delete class'} direction={'left'} extraStyleDiv={" rounded-sm"}/>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        </>
-    )
+      </>
+    );
 }
