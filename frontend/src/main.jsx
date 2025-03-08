@@ -78,7 +78,7 @@ const router = createBrowserRouter(
 
       <Route element={<Protected authRoles={["teacher"]} />}>
         <Route path="" element={<Teacher />} />
-        <Route path="/teacherDashboard" element={<teacherDash />} />
+        <Route path="/teacherDashboard" element={<Teacher />} />
         <Route path="/create-exam/:classRoom" element={<CreateExam />} />
       </Route>
 

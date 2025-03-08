@@ -7,7 +7,7 @@ import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
 import { ClassView } from '../components/TeacherSection/ClassView';
 
-export const Teacher = ({teacherId = 22, teacherName}) => {
+export const Teacher = ({teacherId = 23, teacherName}) => {
 
     const [selected, setSelected] = useState('classes');
     const [open, setOpen] = useState(false);

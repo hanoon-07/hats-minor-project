@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:5174",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
@@ -44,6 +44,7 @@ app.use(passport.session());
 app.use("", testRoute); // endpoint is /testserver
 app.use("", examRoute); // endpoin is /exam
 app.use("", authRoutes); // auth end point
+app.use("", teacherRoute);
 app.get("/test-db", async (req, res) => {
   try {
     const result = await pool.query("select now()");
