@@ -10,6 +10,8 @@ import {
   setError,
   clearError,
 } from "../authControl/authSlice";
+
+
 import axios from "axios";
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,12 +43,15 @@ const LoginPage = () => {
         loginDetails,
         {withCredentials: true}
       );
-      //console.log(response.data);
+      
       dispatch(setUser(response.data));
       if (response.data.role == "student") {
+        
         navigate("/tempPage", {replace: true});
       } else {
-        navigate("/teacherDashboard");
+        console.log("hello teacher");
+        console.log(response.data);
+        navigate(`/teacherDashboard/${response.data.user_id}/${response.data.name}`);
       }
     } catch (error) {
       console.log(error);

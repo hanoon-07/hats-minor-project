@@ -52,7 +52,7 @@ const TimeInput = ({handleDuration}) => {
             max="10"
             value={hours}
             onChange={handleHoursChange}
-            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md focus:outline-none text-white"
+            className="w-12 px-3 py-1   bg-[#272A2E] rounded-sm focus:outline-none text-white"
           />
         </div>
 
@@ -70,7 +70,7 @@ const TimeInput = ({handleDuration}) => {
             max="59"
             value={minutes}
             onChange={handleMinutesChange}
-            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md border-0 focus:outline-none text-white"
+            className="w-12 px-3 py-1   bg-[#272A2E] rounded-sm border-0 focus:outline-none text-white"
           />
         </div>
 
@@ -88,7 +88,7 @@ const TimeInput = ({handleDuration}) => {
             max="59"
             value={seconds}
             onChange={handleSecondsChange}
-            className="w-12 px-3 py-1   bg-[#3B3E45] rounded-md focus:outline-none text-white"
+            className="w-12 px-3 py-1   bg-[#272A2E] rounded-sm focus:outline-none text-white"
           />
         </div>
       </div>

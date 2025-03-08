@@ -43,8 +43,8 @@ import { getExamDetails, getHeaders, storeExam } from "../models/examModel.js";
 export const createExam = async (req, res) => {
   try {
     const examDetails = req.body;
-    console.log("data recieved: "+examDetails);
-    const result = await storeExam(examDetails ,1); //class id is provided as 1 , will change later
+    console.log("data recieved: "+examDetails.classId);
+    const result = await storeExam(examDetails , examDetails.classId);
     //console.log(result);
     res.json(result);
   } catch(error) {

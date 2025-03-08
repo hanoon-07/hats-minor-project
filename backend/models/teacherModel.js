@@ -30,12 +30,15 @@ const createClassDB = async (teacherId, className , maxCount, subjectName) => {
     return {
         className: className,
         studentCount: 0,
-        activeExam: 1//will change later
+        activeExam: 1,
+        newClassId: response4.rows[0].class_id
     }
 }
 
 const getClassCodeDB =  async (classId) => {
+    //console.log(classId);
     const response = await pool.query("select unique_code from classroom where class_id  = $1", [classId]);
+    //console.log(response);
     return response.rows[0];
 }
 
@@ -44,4 +47,9 @@ const getClassStudentsDB = async (classId) => {
     return response.rows;
 }
 
-export {getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB}
+const getClassExamsDB = async (classId) => {
+    const response = await pool.query(`select * from exam where class_id = $1`, [classId]);
+    return response.rows;
+}
+
+export {getClassExamsDB ,getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB}

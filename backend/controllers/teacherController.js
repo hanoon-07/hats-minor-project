@@ -1,9 +1,9 @@
-import { getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB } from "../models/teacherModel.js";
+import { getClassExamsDB ,getClassesDb, getClassCountDB, createClassDB, getClassCodeDB, getClassStudentsDB } from "../models/teacherModel.js";
 
 export const createNewClass = async (req, res) => {
 
     const classData = req.body;
-    console.log(classData);
+    
     const response = await createClassDB(classData.teacherId, classData.className, classData.maxCount, classData.subject); //teacher id will be changed later
     if(response.error != null) {
         res.json(response);
@@ -17,7 +17,7 @@ export const createNewClass = async (req, res) => {
 export const getClassCode = async (req, res) => {
     const {classId} = req.query;
     const classCode = await getClassCodeDB(classId);
-    //console.log(classCode);
+   
     res.json(classCode);
 }
 
@@ -38,8 +38,8 @@ export const getClasses = async (req, res) => {
         })
     );
 
-    console.log(data);
-    //console.log(counts);
+   
+    
     const resultData = [];
     data.map((item, index) => {
         resultData.push({
@@ -52,4 +52,20 @@ export const getClasses = async (req, res) => {
     });
 
     res.json({msg: 'sucess!', classData: resultData});
+}
+
+export const getClassExams = async (req, res) => {
+    const {classId} = req.query;
+    const examData = await getClassExamsDB(classId);
+    const exams = [];
+    examData.map((item) => {
+        const obj = {
+            examName: item.name,
+            examId: item.exam_id,
+            type: item.active
+        }
+        exams.push(obj);
+    })
+
+    res.json({examData: exams});
 }
