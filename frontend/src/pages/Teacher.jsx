@@ -6,9 +6,11 @@ import { ClassroomCreate } from '../components/TeacherSection/ClassroomCreate';
 import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
 import { ClassView } from '../components/TeacherSection/ClassView';
+import { useParams } from 'react-router-dom';
 
-export const Teacher = ({teacherId = 23, teacherName}) => {
+export const Teacher = () => {
 
+    const {teacherId, teacherName} = useParams();
     const [selected, setSelected] = useState('classes');
     const [open, setOpen] = useState(false);
     const [createClassroom, setCreateClassRoom] = useState(false);

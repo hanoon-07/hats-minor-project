@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import "./styles/index.css";
-
 import TempStartPage from "./pages/TempStartPage";
 import Exampage from "./pages/Exampage";
 import AfterSubmissionPage from "./pages/AfterSubmissionpage";
@@ -22,8 +20,10 @@ import {Teacher} from "./pages/Teacher";
 import {Navigate, Outlet, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import UnauthorizedPage from "./features/Login/UnauthorizedPage";
-import teacherDash from "./features/Login/TeacherDash";
+
 import WaitingAnim from "./features/Login/WaitingAnim";
+
+
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
 
@@ -78,7 +78,7 @@ const router = createBrowserRouter(
 
       <Route element={<Protected authRoles={["teacher"]} />}>
         <Route path="" element={<Teacher />} />
-        <Route path="/teacherDashboard" element={<Teacher />} />
+        <Route path="/teacherDashboard/:teacherId/:teacherName" element={<Teacher />} />
         <Route path="/create-exam/:classRoom" element={<CreateExam />} />
       </Route>
 
