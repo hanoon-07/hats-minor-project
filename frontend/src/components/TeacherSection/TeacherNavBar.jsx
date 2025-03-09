@@ -17,6 +17,7 @@ export const TeacherNavBar = ({
   const [openHere, setOpenHere] = useState(true);
 
   const handleLogOut = async () => {
+    console.log("Logging out");
     try {
       const response = await axios.post(
         "http://localhost:3000/logout",
@@ -25,6 +26,7 @@ export const TeacherNavBar = ({
           withCredentials: true,
         }
       );
+      // console.log(response);
       if (response.data?.success == true) {
         navigate("/login");
       }

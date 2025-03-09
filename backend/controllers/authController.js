@@ -126,6 +126,6 @@ export const logoutControl = async (req, res) => {
     }
   });
   return res
-    .status(204)
+    .status(200)
     .json({success: true, message: "Logged out Succesfully"});
 };
