@@ -6,8 +6,12 @@ import { ExamDisplay } from '../components/ExamDisplay';
 import { JoinClassButton } from '../components/JoinClassButton';
 import StudentProfile from '../components/StudentProfile';
 import { LoadingRing } from '../components/animation/LoadingRing';
+import { useParams } from 'react-router-dom';
 
-export const StudentPage = ({ studentId }) => {
+export const StudentPage = () => {
+
+    const { studentId } = useParams();
+
     const [modalWindow, setModalWindow] = useState(false)
     const [selected, setSelected] = useState('classes')
 
