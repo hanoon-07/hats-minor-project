@@ -93,9 +93,11 @@ export const loginControl = async (req, res) => {
 export const checkAuthControl = async (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    return res.json({success: true, user: {...req.user, password: "hidden"}});
+    return res
+      .status(200)
+      .json({success: true, user: {...req.user, password: "hidden"}});
   }
-  res.status(401).json({success: false, message: "Unauthorized"});
+  return res.status(401).json({success: false, message: "Unauthorized"});
 };
 
 /* export const sendPassMail = async (req, res) => {
@@ -123,5 +125,7 @@ export const logoutControl = async (req, res) => {
       return res.status(500).json({error: "Something went wrong"});
     }
   });
-  res.status(204).json({success: true, message: "Logged out Succesfully"});
+  return res
+    .status(200)
+    .json({success: true, message: "Logged out Succesfully"});
 };

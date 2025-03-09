@@ -22,12 +22,11 @@ import {useSelector} from "react-redux";
 import UnauthorizedPage from "./features/Login/UnauthorizedPage";
 
 import WaitingAnim from "./features/Login/WaitingAnim";
-import {StudentPage} from "./pages/StudentPage"
-
+import {StudentPage} from "./pages/StudentPage";
 
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
-
+  console.log(isAuthenticated, user + "I Nredirect");
   if (isAuthenticated) {
     if (user.role === "teacher") {
       return <Navigate to="/teacherDashboard" replace />;
@@ -44,7 +43,7 @@ const Protected = ({authRoles}) => {
     (state) => state["auth-control"]
   );
 
-  console.log(isAuthenticated, user, isCheckingAuth);
+  console.log(isAuthenticated, user, isCheckingAuth + "");
   if (isCheckingAuth) {
     return <WaitingAnim />;
   }
@@ -61,7 +60,6 @@ const Protected = ({authRoles}) => {
   return <Outlet />;
 };
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const router = createBrowserRouter(
@@ -74,7 +72,7 @@ const router = createBrowserRouter(
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       <Route element={<Protected authRoles={["student"]} />}>
-        <Route path="/studentPage/:studentId" element={<StudentPage/>} />
+        <Route path="/studentPage/:studentId" element={<StudentPage />} />
         <Route path="check" element={<AfterSubmissionPage />} />
         <Route path="editor/:examId" element={<Exampage />} />
         <Route path="result" element={<AfterExamPage />} />
@@ -82,7 +80,10 @@ const router = createBrowserRouter(
 
       <Route element={<Protected authRoles={["teacher"]} />}>
         <Route path="" element={<Teacher />} />
-        <Route path="/teacherDashboard/:teacherId/:teacherName" element={<Teacher />} />
+        <Route
+          path="/teacherDashboard/:teacherId/:teacherName"
+          element={<Teacher />}
+        />
         <Route path="/create-exam/:classRoom" element={<CreateExam />} />
       </Route>
 

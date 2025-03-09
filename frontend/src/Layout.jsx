@@ -13,11 +13,12 @@ function Layout() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log("Lay out running ");
         dispatch(setIsCheckingAuth(true));
         const response = await axios.get("http://localhost:3000/check-auth", {
           withCredentials: true,
         });
-        console.log("Lay out running ");
+        //   console.log("Lay out running ");
         dispatch(setUser(response.data.user));
       } catch (error) {
         console.error("Not authenticated:", error);
