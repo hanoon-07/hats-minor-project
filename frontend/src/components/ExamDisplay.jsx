@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LoadingRing } from './animation/LoadingRing';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ExamDisplay = ({id}) => {
     const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(true)
-
-   
+    const navigate = useNavigate();
 
     
     useEffect(() => {
@@ -33,13 +33,18 @@ export const ExamDisplay = ({id}) => {
         }
     }
 
+    const handleExamClick = (examId) => {
+        navigate(`/editor/${examId}`, { replace: true });
+    }
+
+
     return (
-        <div className='min-h-screen bg-[#1a1b1f] text-[var(--light-text)] p-6 w-full'>
+        <div className='h-screen bg-[#1a1b1f] text-[var(--light-text)] p-6 w-full'>
             <h1 className='text-3xl font-bold mb-6 text-[var(--primary-color)]'>
                 Current Exams
             </h1>
 
-            <div className='bg-[#272a2e] rounded-lg overflow-hidden'>
+            <div className='bg-[#272a2e] rounded-lg overflow-auto h-[450px] scroller'>
                 {loading&&<LoadingRing/>}
                 {!loading && exams.map((exam, index) => (
                     <div 
@@ -67,10 +72,12 @@ export const ExamDisplay = ({id}) => {
                                       'bg-[var(--secondary-color)] text-white'}
                                     hover:opacity-90 transition-opacity
                                 `}
+
+                                onClick={() => handleExamClick(exam.exam_id)}
                             >
                     
 
-                                {exam.active=='active'?'click me':'view result'}
+                                {exam.active=='upcoming'?'click me':'view result'}
                             </button>
                         </div>
                     </div>

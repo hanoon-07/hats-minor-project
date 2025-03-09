@@ -32,7 +32,7 @@ const RootRedirect = () => {
     if (user.role === "teacher") {
       return <Navigate to="/teacherDashboard" replace />;
     } else {
-      return <Navigate to={`/studentPage/${user.id}`} replace />;
+      return <Navigate to={`/studentPage/${user.user_id}`} replace />;
     }
   }
 
@@ -57,6 +57,7 @@ const Protected = ({authRoles}) => {
     console.log(authRoles, user.role);
     return <Navigate to="/unauthorized" replace />;
   }
+
   return <Outlet />;
 };
 

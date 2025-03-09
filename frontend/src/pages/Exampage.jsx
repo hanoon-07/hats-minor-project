@@ -67,7 +67,7 @@ function Exampage() {
       console.log(data);
       if(data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
-        navigate('/');
+        // navigate('/');
       } 
 
       const tempArr = [];
