@@ -47,7 +47,7 @@ const LoginPage = () => {
       dispatch(setUser(response.data));
       if (response.data.role == "student") {
         
-        navigate("/tempPage", {replace: true});
+        navigate(`/studentPage/${response.data.user_id}`, {replace: true});
       } else {
         console.log("hello teacher");
         console.log(response.data);

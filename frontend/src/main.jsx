@@ -22,6 +22,7 @@ import {useSelector} from "react-redux";
 import UnauthorizedPage from "./features/Login/UnauthorizedPage";
 
 import WaitingAnim from "./features/Login/WaitingAnim";
+import {StudentPage} from "./pages/StudentPage"
 
 
 const RootRedirect = () => {
@@ -31,7 +32,7 @@ const RootRedirect = () => {
     if (user.role === "teacher") {
       return <Navigate to="/teacherDashboard" replace />;
     } else {
-      return <Navigate to="/tempPage" replace />;
+      return <Navigate to={`/studentPage/${user.id}`} replace />;
     }
   }
 
@@ -58,6 +59,8 @@ const Protected = ({authRoles}) => {
   }
   return <Outlet />;
 };
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const router = createBrowserRouter(
@@ -68,11 +71,11 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegistrationPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-      <Route element={<Protected authRoles={["student"]} />}>
-        <Route path="check" element={<AfterSubmissionPage />} />
-        <Route path="/tempPage" element={<TempStartPage />} />
-        <Route path="editor/:examId" element={<Exampage />} />
 
+      <Route element={<Protected authRoles={["student"]} />}>
+        <Route path="/studentPage/:studentId" element={<StudentPage/>} />
+        <Route path="check" element={<AfterSubmissionPage />} />
+        <Route path="editor/:examId" element={<Exampage />} />
         <Route path="result" element={<AfterExamPage />} />
       </Route>
 
