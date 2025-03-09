@@ -67,13 +67,8 @@ function Exampage() {
       console.log(data);
       if (data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
-<<<<<<< HEAD
         // navigate('/');
       } 
-=======
-        navigate("/");
-      }
->>>>>>> 10068f7 (logout final)
 
       const tempArr = [];
       data.questionDetails.map((item, index) => {

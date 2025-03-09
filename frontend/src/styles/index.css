@@ -372,6 +372,8 @@ body {
 .exam-overview {
     /* background: linear-gradient(to right, rgba(30, 33, 48, 0.9), rgba(30, 33, 48, 0.7)),
         url('/api/placeholder/1400/300') center/cover no-repeat; */
+        outline-width: 1px;
+        outline:  solid #141517 1px;
     border-radius: 8px;
     padding: 25px;
     margin-bottom: 30px;
@@ -412,7 +414,7 @@ body {
 }
 
 .stat-card {
-    background-color: rgba(30, 33, 48, 0.8);
+    background-color: #101111;
     border-radius: 10px;
     padding: 15px;
     flex: 1;
@@ -479,10 +481,10 @@ body {
 }
 
 .questions-panel {
-    background-color: #1F2125;
+    background-color: #101111;
     border-radius: 8px;
     outline-width: 1px;
-    outline:  solid #4E4747 1px;
+    outline:  solid #141517 1px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -512,7 +514,7 @@ body {
 }
 
 .question-item {
-    background-color: var(--light-bg);
+    background-color: #101111;
     margin-bottom: 15px;
     border-radius: 8px;
     overflow: hidden;
@@ -612,19 +614,20 @@ body {
 }
 
 .code-panel {
-    background-color: var(--card-bg);
+    background-color: #101111;
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    outline: solid #479DEC 1px;
+    outline-width: 1px;
+    outline:  solid #141517 1px;
     
 }
 
 .tab-header {
     display: flex;
-    background-color: var(--light-bg);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 0 15px;
 }
 
@@ -699,8 +702,8 @@ body {
 }
 
 .results-summary {
-    background-color: var(--card-bg);
-    outline:  solid #4E4747 1px;
+    background-color: #101111;
+    outline:  solid #141517 1px;
     border-radius: 8px;
     padding: 20px;
     margin-top: 30px;
