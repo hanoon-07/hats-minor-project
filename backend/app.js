@@ -7,12 +7,14 @@ import teacherRoute from "./routes/teacherRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import session from "express-session";
 import passport from "passport";
+import studentRoutes from "./routes/studentRoutes.js"
+import classRoutes from "./routes/classRoutes.js"
 
 const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "http://localhost:5174",
+  origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
@@ -45,6 +47,8 @@ app.use("", testRoute); // endpoint is /testserver
 app.use("", examRoute); // endpoin is /exam
 app.use("", authRoutes); // auth end point
 app.use("", teacherRoute);
+app.use("",studentRoutes)
+app.use("",classRoutes)
 app.get("/test-db", async (req, res) => {
   try {
     const result = await pool.query("select now()");
