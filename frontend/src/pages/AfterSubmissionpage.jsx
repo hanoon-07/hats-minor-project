@@ -68,13 +68,13 @@ function AfterSubmissionpage() {
                     const res = await axios.post(
                         "https://openrouter.ai/api/v1/chat/completions",
                         {
-                            model: "deepseek/deepseek-r1",
+                            model: "openai/gpt-3.5-turbo-0613",
                             messages: [{ role: "user", content: message }],
-                            logprobs:null
+                            
                         },
                         {
                             headers: {
-                                Authorization: "Bearer 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",
+                                Authorization: "Bearer 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",
                                 "HTTP-Referer": "", 
                                 "X-Title": "", 
                                 "Content-Type": "application/json",
@@ -82,9 +82,11 @@ function AfterSubmissionpage() {
                         }
                     );
 
+                    
+
                     const responseContent = res.data.choices[0]?.message?.content || "No response received";
-                    const reasoningContent = res.data.choices[0]?.message?.reasoning || "No reasoning provided";
-                    navigate('/result',{state:{pop:`${responseContent}`,reasoning:`${reasoningContent}`}})
+             
+                    navigate('/result',{state:{pop:`${responseContent}`}})
 
                 } catch (error) {
                     console.error("Error fetching data:", error);
@@ -103,7 +105,7 @@ function AfterSubmissionpage() {
     return (
         <div>
             {loading && <Codeflowanim setLoading={setLoading} />}
-            {/* {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>} */}
+            {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>}
         </div>
     );
 }
