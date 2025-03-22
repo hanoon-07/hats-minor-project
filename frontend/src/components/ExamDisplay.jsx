@@ -82,7 +82,7 @@ export const ExamDisplay = ({id}) => {
                                 `}
                   onClick={() => handleExamClick(exam.exam_id)}
                 >
-                  {exam.active == "upcoming" ? "click me" : "view result"}
+                  {exam.active == "active" ? "Join" : "finished"}
                 </button>
               </div>
             </div>
