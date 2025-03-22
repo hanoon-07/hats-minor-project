@@ -1,12 +1,12 @@
 import React from "react";
 import Examwindow from "../components/Examwindow";
-import {useState, useEffect} from "react";
-import {Clock, BookOpen, AlertCircle, ArrowRight} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Clock, BookOpen, AlertCircle, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
-import {initialize} from "../features/examwindow/examSlice";
-import {useSelector, useDispatch} from "react-redux";
+import { initialize } from "../features/examwindow/examSlice";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Codeflowanim from "../components/animation/codeflowanim";
 
@@ -52,12 +52,12 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
-  const {examId} = useParams();
+  const {examId} = useParams()
   const navigate = useNavigate();
 
   useEffect(() => {
+    
     var data = null;
-    // console.log(typeof examId);
     async function getExamDetails() {
       const response = await axios.get(
         `http://localhost:3000/exam?examId=${examId}`
@@ -65,9 +65,9 @@ function Exampage() {
       //console.log(response.data);
       data = response.data;
       console.log(data);
-      if (data.msg) {
+      if(data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
-        // navigate('/');
+        navigate('/');
       } 
 
       const tempArr = [];
@@ -90,10 +90,11 @@ function Exampage() {
           testResult: null,
         });
       });
+      
 
       //reserved for intializing the redux state
       dispatch(
-        initialize({questionDetails: tempArr, selected: 0, proposedTime: 3})
+        initialize({ questionDetails: tempArr, selected: 0, proposedTime: 3 })
       );
       //console.log(data);
       setLoaded(true);
@@ -116,7 +117,7 @@ function Exampage() {
 
   return (
     <>
-      {!loaded && <Codeflowanim />}
+      {!loaded &&  <Codeflowanim/>}
 
       {loaded && (
         <>
@@ -127,7 +128,7 @@ function Exampage() {
           >
             <Examwindow timeStart={timeStart} />
           </div>
-
+          
           {isOpen && (
             <div className="z-0 fixed inset-0  flex items-center justify-center">
               <div className=" h-[350px] w-[450px] rounded-lg bg-darkGray outline outline-1 shadow-xl p-4 pt-4">
@@ -160,11 +161,13 @@ function Exampage() {
                   </div>
 
                   <Button
-                    iconStyle={{size: 14, className: " translate-y-0 "}}
+                    iconStyle={{ size: 14, className: " translate-y-0 " }}
                     Icon={ArrowRight}
                     label={"START"}
                     disabled={false}
-                    buttonClass={" text-black bg-[#A8FF53] hover:shadow-xl"}
+                    buttonClass={
+                      " text-black bg-[#A8FF53] hover:shadow-xl"
+                    }
                     action={() => {
                       setIsOpen(false), setTimeStart(true);
                     }}

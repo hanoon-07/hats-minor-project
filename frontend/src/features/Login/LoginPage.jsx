@@ -3,6 +3,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {Eye, EyeOff} from "lucide-react";
 import {useDispatch, useSelector} from "react-redux";
 import CodeflowTerminal from "./CodeFlowTerminal";
+import {motion} from "framer-motion";
+
 
 import {
   setUser,
@@ -47,7 +49,7 @@ const LoginPage = () => {
       dispatch(setUser(response.data));
       if (response.data.role == "student") {
         
-        navigate(`/studentPage/${response.data.user_id}`, {replace: true});
+        navigate("/tempPage", {replace: true});
       } else {
         console.log("hello teacher");
         console.log(response.data);
@@ -62,7 +64,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-black text-white md:p-4 gap-2 relative z-10 justify-center ">
+    <div className="flex min-h-screen bg-[#15171A] text-white md:p-4 gap-2 relative z-10 justify-center ">
       <LeftPanel />
       <RightPanel
         loginDetails={loginDetails}
@@ -77,22 +79,24 @@ const LoginPage = () => {
 
 const LeftPanel = () => {
   return (
-    <div className="xl:w-2/5 relative p-8 flex flex-col items-center justify-center overflow-hidden rounded-xl z-20 hidden xl:flex xl:flex-col">
+    <div className="relative xl:w-2/5   flex flex-col items-center justify-center overflow-hidden rounded-md z-20 hidden xl:flex xl:flex-col">
       {/*  <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_right,#7e22ce_0%,#4c1d95_20%,#000000_100%)] absolute right-0 top-0  "></div>
       <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_left,#7e22ce_0%,#4c1d95_20%,#000000_100%)] absolute left-0 top-0  "></div> */}
-      <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_right,#15B392_0%,#118B50_20%,#000000_100%)] absolute right-0 top-0  "></div>
-      <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_left,#15B392_0%,#118B50_20%,#000000_100%)] absolute left-0 top-0  "></div>
-      <div className="flex flex-col items-center max-w-xs  relative z-20 rounded-3xl">
-        <CodeflowTerminal />
-        <h1 className="text-3xl font-bold mt-8 mb-4">Welcome Back</h1>
-        <p className="text-center mb-8">Login to Your Account</p>
+      <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_right,#77C828_0%,#A8FF53_20%,#1A1B1F_100%)] absolute right-0 top-0  "></div>
+      <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_left,#77C828_0%,#A8FF53_20%,#1A1B1F_100%)] absolute left-0 top-0  "></div>
+      <div className="flex flex-col bg-black/0 backdrop-blur-[4px] w-full h-full justify-center items-center  relative z-20 rounded-3xl">
+        {/* <CodeflowTerminal /> */}
+        <h2 className="text-3xl font-semibold mb-6 text-black orbitron-font-only">CODEFLOW</h2>
+        <h1 className="text-3xl font-bold mt-8 mb-2 text-white">Welcome Back</h1>
+        <p className="text-center mb-8 text-black font-medium ">Login to Your Account</p>
 
-        <div className="w-full space-y-4">
-          <div className="text-white bg-black rounded-lg w-full py-3 px-4 font-medium flex items-center justify-center">
-            Access Your Profile
-          </div>
-        </div>
+        
+
       </div>
+
+      
+
+      
     </div>
   );
 };
@@ -127,7 +131,7 @@ const LoginForm = ({
       <button
         type="submit"
         disabled={isLoading}
-        className={`w-full text-black font-bold rounded-lg py-3 mt-2 ${
+        className={`w-full text-black font-bold rounded-sm py-3 mt-2 ${
           isLoading
             ? "bg-gray-500 cursor-not-allowed"
             : "bg-[#A8FF53] hover:bg-[#90E446]"
@@ -155,7 +159,7 @@ const RightPanel = ({
   error,
 }) => {
   return (
-    <div className="xl:w-3/5 p-2 flex flex-col items-center justify-center bg-black rounded-xl">
+    <div className="xl:w-3/5 p-2 flex flex-col items-center justify-center bg-[#15171A] rounded-xl">
       <div className="orbitron-font text-2xl mb-5 xl:hidden">CODEFLOW</div>
       <div className="max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-1 text-center">Login</h2>

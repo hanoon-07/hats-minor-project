@@ -5,9 +5,9 @@ import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Movebutton } from '../components/Movebutton';
 
-function AfterExamPage() {
+function AfterExamPage({ }) {
   const location = useLocation();
-  const { pop } = location.state || {};
+  const { pop, reasoning } = location.state || {};
 
   let noq = useSelector((state) => state["exam-data"].questions.length)
   let questions = useSelector((state) => state["exam-data"].questions)
@@ -16,17 +16,14 @@ function AfterExamPage() {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   useEffect(() => {
-    monaco.editor.defineTheme("customDarkGray", {
+    monaco.editor.defineTheme("custom-dark", {
       base: "vs-dark",
       inherit: true,
       rules: [],
       colors: {
-        "editor.background": "#1e1e1e", // Dark gray background
-        "editor.foreground": "#ffffff", // White text
-        "editor.lineHighlightBackground": "#2a2a2a", // Slightly lighter gray for line highlight
-        "editorCursor.foreground": "#ffcc00", // Yellow cursor
-        "editor.selectionBackground": "#3a3d41", // Darker selection background
-        "editor.inactiveSelectionBackground": "#3a3d4170" // Faded selection for inactive sections
+        "editor.background": "#12141D",
+        "editorCursor.foreground": "#FFFFFF",  // Cursor color (white)
+        "editorLineNumber.foreground": "#FFFFFF", // Line numbers (white)
       }
     });
   });
@@ -37,7 +34,9 @@ function AfterExamPage() {
     let tci = question.testCases.output; // These are expected outputs
     let tco = question.testResult?.stdOut || []; // These are actual outputs
 
-  
+    console.log(tci);
+    console.log(tco);
+
     // Compare corresponding elements
     for (let i = 0; i < tci.length; i++) {
       if (i < tco.length && tci[i] === tco[i].trim()) {
@@ -72,7 +71,7 @@ function AfterExamPage() {
           <Movebutton label={'submit'} extraStyleDiv={' max-w-[130px] '} action={() => {navigate('/');}}></Movebutton>
         </div>
 
-        <div className="exam-overview outline ">
+        <div className="exam-overview outline outline-1 outline-[#A8FF53]">
           <div className="overview-header">
             <div className="course-title-wrapper">
               <div className="course-code">CST-332</div>
@@ -95,13 +94,13 @@ function AfterExamPage() {
                 <div className="stat-label">TEST CASES PASSED</div>
               </div>
             </div>
-            {/* <div className="stat-card">
+            <div className="stat-card">
               <div className="stat-icon">⏱️</div>
               <div className="stat-info">
-                <div className="stat-value">{pop}</div>
+                {/* <div className="stat-value">{pop}</div> */}
                 <div className="stat-label">PARTIAL OUTPUT</div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
 
@@ -154,7 +153,7 @@ function AfterExamPage() {
               height="400px"
               defaultLanguage="javascript"
               value={value}
-              theme="customDarkGray"
+              theme="custom-dark"
               options={{
 
                 readOnly: true,
@@ -173,15 +172,16 @@ function AfterExamPage() {
           <div className="summary-header">
             <div className="summary-title">
               <span>🔍</span>
-              Exam Assessment by AI
+              Exam Assessment
             </div>
-            {/* <div className="summary-score">
-              <span>{pop}</span>
+            <div className="summary-score">
+              {/* <span>{pop}</span> */}
               <span style={{ fontSize: "14px", color: "var(--grey-text)" }}>Partial Output</span>
-            </div> */}
+            </div>
           </div>
           <div className="text-white max-h-[200px] overflow-scroll overflow-x-hidden scroller">
-            <p>{pop}</p>
+            <h1>AI reasoning</h1>
+            <p>{reasoning}</p>
           </div>
         </div>
 

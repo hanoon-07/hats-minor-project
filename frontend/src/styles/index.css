@@ -23,6 +23,10 @@ body {
     color: #A8FF53;
 }
 
+.orbitron-font-only {
+    font-family: "Orbitron", serif;
+}
+
 
 /* custom scroller animation */
 .scroller::-webkit-scrollbar {
@@ -372,8 +376,6 @@ body {
 .exam-overview {
     /* background: linear-gradient(to right, rgba(30, 33, 48, 0.9), rgba(30, 33, 48, 0.7)),
         url('/api/placeholder/1400/300') center/cover no-repeat; */
-        outline-width: 1px;
-        outline:  solid #141517 1px;
     border-radius: 8px;
     padding: 25px;
     margin-bottom: 30px;
@@ -414,7 +416,7 @@ body {
 }
 
 .stat-card {
-    background-color: #101111;
+    background-color: rgba(30, 33, 48, 0.8);
     border-radius: 10px;
     padding: 15px;
     flex: 1;
@@ -481,10 +483,10 @@ body {
 }
 
 .questions-panel {
-    background-color: #101111;
+    background-color: #1F2125;
     border-radius: 8px;
     outline-width: 1px;
-    outline:  solid #141517 1px;
+    outline:  solid #4E4747 1px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -514,7 +516,7 @@ body {
 }
 
 .question-item {
-    background-color: #101111;
+    background-color: var(--light-bg);
     margin-bottom: 15px;
     border-radius: 8px;
     overflow: hidden;
@@ -614,20 +616,19 @@ body {
 }
 
 .code-panel {
-    background-color: #101111;
+    background-color: var(--card-bg);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    outline-width: 1px;
-    outline:  solid #141517 1px;
+    outline: solid #479DEC 1px;
     
 }
 
 .tab-header {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--light-bg);
     padding: 0 15px;
 }
 
@@ -702,8 +703,8 @@ body {
 }
 
 .results-summary {
-    background-color: #101111;
-    outline:  solid #141517 1px;
+    background-color: var(--card-bg);
+    outline:  solid #4E4747 1px;
     border-radius: 8px;
     padding: 20px;
     margin-top: 30px;

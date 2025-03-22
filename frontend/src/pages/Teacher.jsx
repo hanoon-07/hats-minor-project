@@ -7,6 +7,10 @@ import { LoadingRing } from '../components/animation/LoadingRing';
 import axios from 'axios';
 import { ClassView } from '../components/TeacherSection/ClassView';
 import { useParams } from 'react-router-dom';
+import { ExamPanel } from '../components/TeacherSection/ExamPanel';
+import { useDispatch } from 'react-redux';
+
+
 
 export const Teacher = () => {
 
@@ -18,8 +22,12 @@ export const Teacher = () => {
     const [loading, setLoading] = useState(false);
     const [showingClass, setShowingClass] = useState(false);
     const [currentClass, setCurrentClass] = useState(null);
+    const [examId, setExamId] = useState(null);
 
     const [currentClasses, setCurrentClasses] = useState([]);
+    const [examSelected, setExamSelected] = useState('test exam');
+
+    const dispatch = useDispatch();
 
     async function postClassData() {
         if (!classData) { // Validate before sending
@@ -84,9 +92,24 @@ export const Teacher = () => {
         }
     }, [classData])
 
+    // if(examPanelView) {
+    //   return <div className="h-screen w-screen flex flex-row bg-[#15171a]">
+    //     {<TeacherNavBar
+    //           currentClass={currentClass}
+    //           showingClass={showingClass}
+    //           clearClass={clearClass}
+    //           selected={selected}
+    //           setSelected={setSelected}
+    //           setOpen={setOpen}
+    //         />}
+    //       <ExamPanel />
+    //   </div>
+    // }
+
     return (
       <>
         {loading && <LoadingRing />}
+        
         {createClassroom && (
           <ClassroomCreate
             setOpenClassCreator={setCreateClassRoom}
@@ -99,18 +122,25 @@ export const Teacher = () => {
             <TeacherNavBar
               currentClass={currentClass}
               showingClass={showingClass}
+              setShowingClass={setShowingClass}
+              setExamSelected={setExamSelected}
+              examSelected={examSelected}
               clearClass={clearClass}
               selected={selected}
               setSelected={setSelected}
               setOpen={setOpen}
             />
           }
+          {selected == "exam-panel" && <ExamPanel examId={examId}/>}
           {selected == "classes" && showingClass && (
             <ClassView
               clearClass={clearClass}
               classId={currentClass.classId}
               classroomName={currentClass.className}
               subjectName={currentClass.subject}
+              setExamSelected={setExamSelected}
+              setSelected={setSelected}
+              setExamId={setExamId}
             />
           )}
           {selected == "classes" && !showingClass && (
@@ -128,6 +158,7 @@ export const Teacher = () => {
                       <motion.div
                         onClick={() => {
                           selectClass(item);
+                         
                         }}
                         initial={{ opacity: 0.4 }}
                         animate={{ opacity: 1 }}

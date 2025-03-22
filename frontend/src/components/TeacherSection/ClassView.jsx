@@ -5,8 +5,10 @@ import { LoadingRing } from "../animation/LoadingRing";
 import { StudentsView } from "./StudentsView";
 import { ExamView } from "./ExamView";
 import { motion } from "framer-motion";
+import { changeClass } from "../../features/Class Data/classDataSlice";
+import { useDispatch } from "react-redux";
 
-export const ClassView = ({ classId, classroomName, subjectName }) => {
+export const ClassView = ({ classId, classroomName, subjectName, setExamSelected, setSelected, setExamId }) => {
   const [studentData, setStudentData] = useState([]);
   const [classCode, setClassCode] = useState("---");
   const [copyMsg, setCopyMsg] = useState("");
@@ -15,6 +17,8 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
   const [studentInfo, setStudentInfo] = useState(false);
   const [loadingExams, setLoadingExams] = useState(false);
   const [examData, setExamData] = useState([]); //format {examName: , examId: , status: }
+  
+  const dispatch = useDispatch();
 
   const childRotate1 = {
     initial: {
@@ -62,6 +66,7 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
     // get students joined in this class
     // another function
     //console.log(classId);
+    dispatch(changeClass(classId));
     getData();
   }, []);
 
@@ -72,6 +77,12 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
       setCopyMsg("");
     }, 3000);
   }
+
+  const [newState, setNewState] = useState(false);
+
+  useEffect(() => {
+    getExamData();
+  }, [newState]);
 
   async function getExamData() {
     setLoadingExams(true);
@@ -101,7 +112,7 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
           });
         }
       });
-      //console.log(tempArr1);
+      console.log(tempArr1);
       setExamData({ upcoming: tempArr1, history: tempArr2 });
     } catch (error) {
       //handle later
@@ -273,8 +284,9 @@ export const ClassView = ({ classId, classroomName, subjectName }) => {
           <div className="border-t-2 border-dashed border-gray-500 p-2"></div>
           <h1 className="text-3xl text-[#C1C4C7] font-bold mb-4">Exams</h1>
           <div className="flex lg:flex-row flex-col lg:gap-4 gap-2 w-full">
-            <ExamView loaded={!loadingExams} upcomingData={examData.upcoming} classId={classId}/>
+            <ExamView  setNewState={setNewState} loaded={!loadingExams} setExamId={setExamId} setExamSelected={setExamSelected} setSelected={setSelected} upcomingData={examData.upcoming} classId={classId}/>
             <ExamView
+              
               loaded={!loadingExams}
               historyData={examData.history}
               type="history"

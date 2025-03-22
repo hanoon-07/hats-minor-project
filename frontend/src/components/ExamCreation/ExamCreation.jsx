@@ -21,7 +21,7 @@ const initialState = {
   questions: [],
 };
 
-function About({classId, setCreateExam}) {
+function About({classId, setCreateExam, setNewState}) {
   const [examDetails, setExamDetails] = useState(initialState);
   const [numQuestions, setNumQuestions] = useState(1);
   const [showQuestions, setShowQuestions] = useState(false);
@@ -117,6 +117,7 @@ function About({classId, setCreateExam}) {
     } catch(error) {console.log(error);}
     finally {
       setLoading(false);
+      setNewState((prev) => !prev);
     }
   }
 

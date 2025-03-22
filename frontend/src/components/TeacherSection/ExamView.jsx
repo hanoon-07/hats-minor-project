@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LoadingRingSmall } from "../animation/LoadingRingSmall";
 import ExamCreation from '../ExamCreation/ExamCreation';
+import { StartWindow } from "./StartWindow";
 
-export const ExamView = ({classId ,type = "upcoming", loaded = true, upcomingData = null, historyData=null}) => {
+export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingData = null, historyData=null, examSelected, setExamSelected, setSelected, setExamId, setNewState}) => {
 
 
   const [showCreateExam, setCreateExam] = useState(false);
+  const [showStartExam, setShowStartExam] = useState(false);
+  const [selectedExam, setSelectedExam] = useState(null);
 
   useEffect(() => {
     //console.log(upcomingData);
     //console.log(historyData);
-    console.log(historyData);
+    console.log(upcomingData);
     
   }, []);
 
@@ -74,7 +77,8 @@ export const ExamView = ({classId ,type = "upcoming", loaded = true, upcomingDat
   if (type == "upcoming")
     return (
       <>
-      {showCreateExam && <ExamCreation classId={classId} setCreateExam={setCreateExam}/>}
+      {showStartExam && <StartWindow setNewState={setNewState} setShowStartExam={setShowStartExam} selectedExam={selectedExam}/>}
+      {showCreateExam && <ExamCreation classId={classId} setCreateExam={setCreateExam} setNewState={setNewState}/>}
       <div className="relative lg:w-[50%] outline outline-1 outline-[#1f2124] w-[100%] min-h-[200px] flex flex-col rounded-sm bg-[#1B1D1F]">
         
         <div className=" w-full h-[30px] rounded-[4px 4px 0px 0px] bg-[#15161A] box-border p-1">
@@ -88,7 +92,8 @@ export const ExamView = ({classId ,type = "upcoming", loaded = true, upcomingDat
                   <p className="text-white text-md font-normal">{item.Name}</p>
                 </div>
     
-                <motion.button
+                {item.status=='upcoming' && <motion.button
+                  onClick={() => {setSelectedExam(item.examId); setShowStartExam(true);}}
                   whileHover="hover"
                   className=" px-2 py-0 hover:bg-[#669934] rounded-[2px] bg-[#A8FF53] flex flex-row items-center gap-2"
                 >
@@ -108,7 +113,30 @@ export const ExamView = ({classId ,type = "upcoming", loaded = true, upcomingDat
                       fill="black"
                     />
                   </motion.svg>
-                </motion.button>
+                </motion.button>}
+
+                {item.status=='active' && <motion.button
+                  onClick={() => {setExamSelected(item.Name); setExamId(item.examId); setSelected('exam-panel');}}
+                  whileHover="hover"
+                  className=" px-2 py-0 hover:bg-[#479DEC] rounded-[2px] bg-[#3B82F6] flex flex-row items-center gap-2"
+                >
+                  <p className="text-black font-normal translate-y-[-2px]">view</p>
+                  <motion.svg
+                    variants={{ hover: { rotate: 120 } }}
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 0 }}
+                    width="8"
+                    height="10"
+                    viewBox="0 0 8 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.499804 0.668945L7.9998 4.99907L0.499804 9.3292L0.499804 0.668945Z"
+                      fill="black"
+                    />
+                  </motion.svg>
+                </motion.button>}
               </div>
     );
           }):null}
