@@ -20,9 +20,9 @@ import {Teacher} from "./pages/Teacher";
 import {Navigate, Outlet, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import UnauthorizedPage from "./features/Login/UnauthorizedPage";
-
+import ForgotPasswordPage from "./features/Login/ForgotPasswordPage";
+import ResetPasswordPage from "./features/Login/ResetPassword";
 import WaitingAnim from "./features/Login/WaitingAnim";
-
 
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
@@ -68,6 +68,8 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegistrationPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route element={<Protected authRoles={["student"]} />}>
         <Route path="check" element={<AfterSubmissionPage />} />
         <Route path="/tempPage" element={<TempStartPage />} />
@@ -78,7 +80,10 @@ const router = createBrowserRouter(
 
       <Route element={<Protected authRoles={["teacher"]} />}>
         <Route path="" element={<Teacher />} />
-        <Route path="/teacherDashboard/:teacherId/:teacherName" element={<Teacher />} />
+        <Route
+          path="/teacherDashboard/:teacherId/:teacherName"
+          element={<Teacher />}
+        />
         <Route path="/create-exam/:classRoom" element={<CreateExam />} />
       </Route>
 

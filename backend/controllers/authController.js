@@ -5,9 +5,15 @@ import {
   getUsersWithEmail,
   getAll,
 } from "../models/authModel.js";
-/* import sendMail from "../services/mailService.js"; */
+import otpGenerator from "otp-generator";
+import pool from "../config/db.js";
+import {sendMail} from "../services/mailService.js";
 import passport from "../services/passport.js";
 
+import {ForgotEmailFormat} from "../services/mailService.js";
+//
+//
+//
 export const getAllUsers = async (req, res) => {
   try {
     const result = await getAll(); //class id is provided as 1 , will change later
@@ -73,7 +79,7 @@ export const registerTeacher = async (req, res) => {
 export const loginControl = async (req, res) => {
   passport.authenticate("local", (error, user, info) => {
     if (error) {
-      return res.status(500).json({error: "Something went wrong"});
+      return res.status(500).json({error: "Something--- went wrong"});
     }
 
     if (!user) {
@@ -82,7 +88,7 @@ export const loginControl = async (req, res) => {
 
     req.login(user, (error) => {
       if (error) {
-        return res.status(500).json({error: "Something went wrong"});
+        return res.status(500).json({error: "Something went wrongfeafefa"});
       }
 
       return res.status(200).json({...user, password: "hidden"});
@@ -93,9 +99,11 @@ export const loginControl = async (req, res) => {
 export const checkAuthControl = async (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    return res.json({success: true, user: {...req.user, password: "hidden"}});
+    return res
+      .status(200)
+      .json({success: true, user: {...req.user, password: "hidden"}});
   }
-  res.status(401).json({success: false, message: "Unauthorized"});
+  return res.status(401).json({success: false, message: "Unauthorized"});
 };
 
 /* export const sendPassMail = async (req, res) => {
@@ -123,5 +131,59 @@ export const logoutControl = async (req, res) => {
       return res.status(500).json({error: "Something went wrong"});
     }
   });
-  res.status(200).json({success: true, message: "Logged out Succesfully"});
+  return res
+    .status(200)
+    .json({success: true, message: "Logged out Succesfully"});
+};
+
+export const forgotPass = async (req, res) => {
+  const {email} = req.body;
+  console.log(email);
+  try {
+    const result = await getUsersWithEmail(email);
+    // console.log(result);
+    if (result.length == 0) {
+      return res.status(404).json({success: false, message: "Error"});
+    }
+    console.log("MEow");
+    const token = otpGenerator.generate(5, {
+      digits: true,
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+    console.log(token);
+    await pool.query(`Update "User" set password_token =$1 where email=$2`, [
+      token,
+      email,
+    ]);
+    sendMail(email, "Password Reset OTP", ForgotEmailFormat(token));
+    return res.json({message: "Reset token generated. Check your email"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "Server error"});
+  }
+};
+export const resetPass = async (req, res) => {
+  const {token, newPassword} = req.body;
+  console.log(token);
+  try {
+    const user = await pool.query(
+      `SELECT * FROM "User" WHERE password_token = $1`,
+      [token]
+    );
+    console.log(user.rows);
+    if (user.rows.length === 0) {
+      return res.status(400).json({error: "Invalid  token"});
+    }
+
+    await pool.query(
+      `UPDATE "User" SET password = $1,password_token = '00000' WHERE password_token = $2`,
+      [newPassword, token]
+    );
+
+    res.status(200).json({message: "Password reset successfully"});
+  } catch (err) {
+    res.status(500).json({error: "Server error"});
+  }
 };
