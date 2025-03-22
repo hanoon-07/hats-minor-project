@@ -34,8 +34,9 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
 
-    clearError: (state) => {
+    clearAll: (state) => {
       state.error = null;
+      state.isLoading = false;
     },
     setIsCheckingAuth: (state, action) => {
       state.isCheckingAuth = action.payload;
@@ -49,7 +50,7 @@ export const {
   clearUser,
   setLoading,
   setError,
-  clearError,
+  clearAll,
   setIsCheckingAuth,
 } = authSlice.actions;
 

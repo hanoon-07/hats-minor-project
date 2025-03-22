@@ -5,14 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import CodeflowTerminal from "./CodeFlowTerminal";
 import {motion} from "framer-motion";
 
-
-import {
-  setUser,
-  setLoading,
-  setError,
-  clearError,
-} from "../authControl/authSlice";
-
+import {setUser, setLoading, setError} from "../authControl/authSlice";
 
 import axios from "axios";
 const LoginPage = () => {
@@ -45,15 +38,16 @@ const LoginPage = () => {
         loginDetails,
         {withCredentials: true}
       );
-      
+
       dispatch(setUser(response.data));
       if (response.data.role == "student") {
-        
         navigate("/tempPage", {replace: true});
       } else {
         console.log("hello teacher");
         console.log(response.data);
-        navigate(`/teacherDashboard/${response.data.user_id}/${response.data.name}`);
+        navigate(
+          `/teacherDashboard/${response.data.user_id}/${response.data.name}`
+        );
       }
     } catch (error) {
       console.log(error);
@@ -86,17 +80,16 @@ const LeftPanel = () => {
       <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_left,#77C828_0%,#A8FF53_20%,#1A1B1F_100%)] absolute left-0 top-0  "></div>
       <div className="flex flex-col bg-black/0 backdrop-blur-[4px] w-full h-full justify-center items-center  relative z-20 rounded-3xl">
         {/* <CodeflowTerminal /> */}
-        <h2 className="text-3xl font-semibold mb-6 text-black orbitron-font-only">CODEFLOW</h2>
-        <h1 className="text-3xl font-bold mt-8 mb-2 text-white">Welcome Back</h1>
-        <p className="text-center mb-8 text-black font-medium ">Login to Your Account</p>
-
-        
-
+        <h2 className="text-3xl font-semibold mb-6 text-black orbitron-font-only">
+          CODEFLOW
+        </h2>
+        <h1 className="text-3xl font-bold mt-8 mb-2 text-white">
+          Welcome Back
+        </h1>
+        <p className="text-center mb-8 text-black font-medium ">
+          Login to Your Account
+        </p>
       </div>
-
-      
-
-      
     </div>
   );
 };
@@ -146,6 +139,12 @@ const LoginForm = ({
           Sign Up
         </Link>
       </p>
+      <Link
+        to="/forgot-password"
+        className="text-center text-gray-300 hover:text-white "
+      >
+        Forgot passoword
+      </Link>
     </form>
   );
 };
