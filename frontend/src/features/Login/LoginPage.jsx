@@ -4,13 +4,15 @@ import {Eye, EyeOff} from "lucide-react";
 import {useDispatch, useSelector} from "react-redux";
 import CodeflowTerminal from "./CodeFlowTerminal";
 import {motion} from "framer-motion";
-
 import {setUser, setLoading, setError} from "../authControl/authSlice";
-
 import axios from "axios";
+import { LoadingRing } from "../../components/animation/LoadingRing";
+
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
@@ -18,6 +20,8 @@ const LoginPage = () => {
   const {user, isLoading, error} = useSelector(
     (state) => state["auth-control"]
   );
+
+ 
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
@@ -27,9 +31,11 @@ const LoginPage = () => {
     }));
   };
 
+  const [loadAnim, setLoadAnim] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoadAnim(true);
     // console.log("in suniit");
     dispatch(setLoading(true));
     try {
@@ -53,12 +59,14 @@ const LoginPage = () => {
       console.log(error);
       dispatch(setError("Unable to Login"));
     } finally {
+      setLoadAnim(false);
       dispatch(setLoading(false));
     }
   };
 
   return (
     <div className="flex min-h-screen bg-[#15171A] text-white md:p-4 gap-2 relative z-10 justify-center ">
+      {loadAnim && <LoadingRing />}
       <LeftPanel />
       <RightPanel
         loginDetails={loginDetails}
@@ -101,7 +109,11 @@ const LoginForm = ({
   handleSubmit,
   isLoading,
 }) => {
-  return (
+
+
+
+  return (<>
+    
     <form onSubmit={handleSubmit} className="flex flex-col  gap-8">
       <div>
         <label className="block text-sm mb-1">Email</label>
@@ -146,6 +158,7 @@ const LoginForm = ({
         Forgot passoword
       </Link>
     </form>
+    </>
   );
 };
 
