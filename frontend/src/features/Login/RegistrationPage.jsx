@@ -180,7 +180,7 @@ const Divider = () => {
 
 // Import Lucide React icons
 
-const SignUpForm = ({
+export const SignUpForm = ({
   userDetails,
   handleInputChange,
   handleSubmit,
@@ -192,7 +192,6 @@ const SignUpForm = ({
   const navigate = useNavigate();
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
-      {/* Always visible fields */}
       <div className="flex gap-4 place-items-center justify-center">
         <div className="flex-1">
           <label className="block text-sm mb-2">Name</label>
