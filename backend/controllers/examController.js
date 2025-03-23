@@ -1,4 +1,4 @@
-import { getExamDetails, getHeaders, storeExam } from "../models/examModel.js";
+import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails } from "../models/examModel.js";
 
 // let languages = ["java", "python", "javascript", "c", "c++"];
 // const cases = [
@@ -99,4 +99,10 @@ export const getExamHeaders = async(req, res) => {
     const examHeaders = await getHeaders();
     //console.log(examHeaders);
     res.json({data: examHeaders});
+}
+
+export const getExamsInClass = async(req, res) => {
+  const classId = parseInt(req.query.classId, 10);
+  const details = await getExamsInClassDetails(classId)
+  res.json(details)
 }

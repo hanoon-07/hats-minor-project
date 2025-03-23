@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {LoadingRing} from "./animation/LoadingRing";
 import {useNavigate} from "react-router-dom";
 
 export const ExamDisplay = ({id}) => {
   const [exams, setExams] = useState([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +13,6 @@ export const ExamDisplay = ({id}) => {
           `http://localhost:3000/getExamsInClass/?classId=${classId}`
         );
         setExams(response.data);
-        setLoading(false);
         //console.log(response.data);
       } catch (error) {
         console.error("Error fetching exams:", error);
@@ -42,14 +39,11 @@ export const ExamDisplay = ({id}) => {
   };
 
   return (
-    <div className="h-screen bg-[#1a1b1f] text-[var(--light-text)] p-6 w-full">
-      <h1 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
-        Current Exams
-      </h1>
+    <div className="h-full  text-[var(--light-text)] p-6 w-full">
+     
 
-      <div className="bg-[#272a2e] rounded-lg overflow-auto h-[450px] scroller">
-        {loading && <LoadingRing />}
-        {!loading &&
+      <div className="rounded-lg overflow-auto scroller">
+        {
           exams.map((exam, index) => (
             <div
               key={index}

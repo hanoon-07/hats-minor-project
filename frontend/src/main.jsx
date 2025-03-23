@@ -24,6 +24,8 @@ import ForgotPasswordPage from "./features/Login/ForgotPasswordPage";
 import ResetPasswordPage from "./features/Login/ResetPassword";
 import WaitingAnim from "./features/Login/WaitingAnim";
 
+import StudentDash from "./components/StudentDash.jsx"
+
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
 
@@ -31,7 +33,7 @@ const RootRedirect = () => {
     if (user.role === "teacher") {
       return <Navigate to="/teacherDashboard" replace />;
     } else {
-      return <Navigate to="/tempPage" replace />;
+      return <Navigate to={`/studentPage/${user.user_id}`} replace />;
     }
   }
 
@@ -71,10 +73,9 @@ const router = createBrowserRouter(
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route element={<Protected authRoles={["student"]} />}>
+        <Route path="/studentPage/:studentId" element={<StudentDash />} />
         <Route path="check" element={<AfterSubmissionPage />} />
-        <Route path="/tempPage" element={<TempStartPage />} />
         <Route path="editor/:examId" element={<Exampage />} />
-
         <Route path="result" element={<AfterExamPage />} />
       </Route>
 
