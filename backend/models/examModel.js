@@ -69,4 +69,21 @@ const getHeaders = async () => {
     return result.rows;
 }
 
-export {getExamDetails, storeExam, getHeaders};
+const getExamsInClassDetails = async (class_id) => {
+    const query = `
+        SELECT exam_id, class_id, name, created_at, duration, active
+        FROM exam
+        WHERE class_id = $1;
+    `;
+
+    try {
+        const { rows } = await pool.query(query, [class_id]);
+        return rows;
+    } catch (error) {
+        console.error("Error fetching exam details:", error);
+        throw error;
+    }
+};
+
+
+export {getExamDetails, storeExam, getHeaders, getExamsInClassDetails};

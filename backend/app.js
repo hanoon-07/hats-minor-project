@@ -1,10 +1,13 @@
 import express from "express";
-import testRoute from "./routes/testRoutes.js";
 import cors from "cors";
-import examRoute from "./routes/examRoutes.js";
 import pool from "./config/db.js";
+
+import testRoute from "./routes/testRoutes.js";
+import examRoute from "./routes/examRoutes.js";
 import teacherRoute from "./routes/teacherRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import classRoute from "./routes/classRoutes.js";
+
 import session from "express-session";
 import passport from "passport";
 
@@ -38,6 +41,7 @@ app.use(
     },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,6 +49,8 @@ app.use("", testRoute); // endpoint is /testserver
 app.use("", examRoute); // endpoin is /exam
 app.use("", authRoutes); // auth end point
 app.use("", teacherRoute);
+app.use("",classRoute);
+
 app.get("/test-db", async (req, res) => {
   try {
     const result = await pool.query("select now()");
