@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import {motion } from "framer-motion";
 import React from "react";
 import {Clock, LogOut, UserCheck, Award, Pen, AlertCircle} from "lucide-react";
 import {useEffect} from "react";
@@ -110,8 +110,8 @@ const Profile = ({teacherId}) => {
 
   if (error) {
     return (
-      <div className="p-6 rounded-lg w-[100%]">
-        <div className="bg-red-500/10 border border-red-500 rounded-lg p-4 flex items-center gap-3">
+      <div className="p-6 rounded-sm w-[100%]">
+        <div className="bg-red-500/10 border border-red-500 rounded-sm p-4 flex items-center gap-3">
           <AlertCircle className="w-5 h-5 text-red-500" />
           <div>
             <h3 className="text-red-500 font-medium">Error Loading Profile</h3>
@@ -129,8 +129,8 @@ const Profile = ({teacherId}) => {
   }
 
   return (
-    <div className="p-6 rounded-lg w-[100%] relative">
-      {update && (
+    <>
+    {update && (
         <UpdateForm
           handleSubmit={handleSubmit}
           handleInputChange={handleInputChange}
@@ -139,44 +139,33 @@ const Profile = ({teacherId}) => {
           setUpdate={setUpdate}
         />
       )}
+
+    <div className="p-6 rounded-sm w-[100%] relative">
+      
       <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center">
-          <div className="w-1 h-8 bg-[#2A7D67] mr-3"></div>
-          <h1 className="text-white md:text-2xl font-bold">Teacher Details</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <button
-            className="bg-[#2A7D67] text-white font-medium py-2 px-4 rounded-lg flex items-center"
-            onClick={() => setUpdate(true)}
-          >
-            <Pen size={15} />
-            <p className="ml-2 text-sm md:text-base">Update Info</p>
-          </button>
-        </div>
+        
+        
       </div>
 
       <div className="flex items-center mb-8 flex-wrap gap-3 justify-start">
         <div className="">
-          <h2 className="text-white text-2xl font-bold mb-1">{data.name}</h2>
+          <h2 className="text-[#C1C4C7] text-4xl font-bold mb-1">{data.name}</h2>
 
           <div className="grid grid-cols-2 gap-x-16 gap-y-2 mt-2">
-            <div>
-              <p className="text-gray-400 text-sm">Role</p>
-              <p className="text-white">{data.role.toUpperCase()}</p>
-            </div>
-            <div>
-              <p className="text-gray-400 text-sm">Email Address</p>
-              <p className="text-white">{data.email}</p>
+            
+            <div className="mt-6">
+              <p className="text-[#C1C4C7] text-sm">Email Address</p>
+              <p className="text-[#A8FF53]">{data.email}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 max-[470px]:grid-cols-2 max-[370px]:grid-cols-1 gap-8 justify-between max-w-4xl">
-        <div className="bg-[#272a2e] rounded-lg p-4">
+      <div className="grid grid-cols-3 max-[470px]:grid-cols-2 max-[370px]:grid-cols-1 gap-4 justify-between max-w-4xl">
+        <div className="bg-[#272a2e] rounded-md p-4">
           <div className="flex items-center mb-2">
-            <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-3">
-              <LogOut className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-[yellow] rounded-full flex items-center justify-center mr-3">
+              <LogOut className="w-5 h-5 text-black" />
             </div>
             <div>
               <h3 className="text-white text-2xl font-bold">
@@ -184,13 +173,13 @@ const Profile = ({teacherId}) => {
               </h3>
             </div>
           </div>
-          <p className="text-gray-400">Total Students</p>
+          <p className="text-[#A8FF53]">Total Students</p>
         </div>
 
-        <div className="bg-[#272a2e] rounded-lg p-4">
+        <div className="bg-[#272a2e] rounded-md p-4">
           <div className="flex items-center mb-2">
-            <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-3">
-              <Clock className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-[#3B82F6] rounded-full flex items-center justify-center mr-3">
+              <Clock className="w-5 h-5 text-black" />
             </div>
             <div>
               <h3 className="text-white text-2xl font-bold">
@@ -198,22 +187,42 @@ const Profile = ({teacherId}) => {
               </h3>
             </div>
           </div>
-          <p className="text-gray-400">Classes</p>
+          <p className="text-[#A8FF53]">Classes</p>
         </div>
 
-        <div className="bg-[#272a2e] rounded-lg p-4">
+        <div className="bg-[#272a2e] rounded-md p-4">
           <div className="flex items-center mb-2">
-            <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-3">
-              <Award className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-[#F43F5E] rounded-full flex items-center justify-center mr-3">
+              <Award className="w-5 h-5 text-black" />
             </div>
             <div>
               <h3 className="text-white text-2xl font-bold">{data.numExams}</h3>
             </div>
           </div>
-          <p className="text-gray-400">Exams</p>
+          <p className="text-[#A8FF53]">Exams</p>
         </div>
       </div>
+
+      <div className="border-t-2 border-dashed border-gray-500 mt-4 mr-10"></div>
+      <div className="mt-6 flex items-center gap-4">
+      <motion.button
+      whileHover="hover"
+      className="bg-[#A8FF53] hover:bg-[#5E8834] text-white h-[30px] font-medium py-2 px-4 rounded-sm flex items-center"
+      onClick={() => setUpdate(true)}
+    >
+      <motion.div
+        initial={{ rotate: 0 }}
+        variants={{ hover: { rotate: 360 } }}
+        animate="initial"
+      >
+        <Pen size={15} color="black" />
+      </motion.div>
+      <p className="ml-2 text-sm md:text-base text-black">Update Info</p>
+    </motion.button>
+
+        </div>
     </div>
+    </>
   );
 };
 
@@ -227,8 +236,9 @@ const UpdateForm = ({
   setUpdate,
 }) => {
   return (
-    <section className="grid place-items-center justify-center absolute top-0 left-0 bg-black/70 h-full w-full z-50">
-      <div className="min-w-[400px] p-8 rounded-lg bg-[#1a1c1e] border border-gray-700 relative">
+    <motion.div initial={{y: -10}} animate={{y: 0}} className="h-screen w-screen grid z-50 place-content-center absolute top-0 left-0 backdrop-blur-[5px]">
+      <section className=" bg-black/70  ">
+      <div className="min-w-[400px] p-8 rounded-sm bg-[#1a1c1e] outline outline-1 outline-gray-600  relative">
         <button
           onClick={() => setUpdate(false)}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -262,7 +272,7 @@ const UpdateForm = ({
               value={updateData.name}
               onChange={handleInputChange}
               placeholder="Enter your name"
-              className="w-full bg-gray-800 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#2A7D67] border border-gray-700"
+              className="w-full bg-[#1f2124] rounded-sm p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#2A7D67] border border-gray-700"
               required
             />
           </div>
@@ -275,7 +285,7 @@ const UpdateForm = ({
               value={updateData.email}
               onChange={handleInputChange}
               placeholder="Enter your email"
-              className="w-full bg-gray-800 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#2A7D67] border border-gray-700"
+              className="w-full bg-[#1f2124] rounded-sm p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#2A7D67] border border-gray-700"
               required
             />
           </div>
@@ -284,24 +294,31 @@ const UpdateForm = ({
             <button
               type="button"
               onClick={() => setUpdate(false)}
-              className="flex-1 py-3 px-4 rounded-lg border border-gray-700 text-white hover:bg-gray-800 transition-colors"
+              className="flex-1 py-3 px-4 rounded-sm max-h-[35px] w-[70px] bg-[#F43F5E] grid place-content-center text-black transition-colors"
             >
               Cancel
             </button>
-            <button
+            {/* <button
               type="submit"
               disabled={loading}
               className={`flex-1 py-3 px-4 rounded-lg font-medium ${
                 loading
                   ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-[#2A7D67] hover:bg-[#236B57] text-white"
+                  : "bg-[#A8FF53] hover:bg-[#236B57] text-white"
               } transition-colors`}
             >
               {loading ? "Updating..." : "Update Profile"}
+            </button> */}
+            <button className="flex-1 py-3 px-4 rounded-sm max-h-[35px] w-[70px] bg-[#A8FF53] grid place-content-center text-black transition-colors">
+              update
             </button>
+
           </div>
         </form>
       </div>
+
+      
     </section>
+    </motion.div>
   );
 };
