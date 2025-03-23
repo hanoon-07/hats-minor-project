@@ -79,7 +79,7 @@ export const StudentPage = () => {
       console.error("Error joining class:", error);
     } finally {
       getAllClassDetails();
-      console.log(data);
+      //console.log(data);
     }
   };
 

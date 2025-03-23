@@ -6,9 +6,9 @@ import bcrypt from "bcrypt";
 passport.use(
   new LocalStrategy({usernameField: "email"}, async (email, password, done) => {
     try {
-      console.log(email + " " + password);
+      //console.log(email + " " + password);
       const user = await getUsersWithEmail(email);
-      console.log(user);
+      //console.log(user);
       if (user.length < 1) {
         return done(null, false, {error: "Incorrect email or password"});
       } else if (user.length > 1) {

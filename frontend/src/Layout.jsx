@@ -17,7 +17,7 @@ function Layout() {
         const response = await axios.get("http://localhost:3000/check-auth", {
           withCredentials: true,
         });
-        console.log("Lay out running ");
+        //console.log("Lay out running ");
         dispatch(setUser(response.data.user));
       } catch (error) {
         console.error("Not authenticated:", error);

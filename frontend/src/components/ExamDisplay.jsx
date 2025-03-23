@@ -16,7 +16,7 @@ export const ExamDisplay = ({id}) => {
         );
         setExams(response.data);
         setLoading(false);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Error fetching exams:", error);
       }

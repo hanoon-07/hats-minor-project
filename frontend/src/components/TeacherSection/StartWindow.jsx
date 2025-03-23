@@ -3,7 +3,7 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import {LoadingRing} from '../animation/LoadingRing'
 
-export const StartWindow = ({selectedExam, setShowStartExam, setNewState}) => {
+export const StartWindow = ({selectedExam, setShowStartExam, setNewState, duration}) => {
 
     const [loading, setLoading] = useState(false);
 
@@ -14,6 +14,21 @@ export const StartWindow = ({selectedExam, setShowStartExam, setNewState}) => {
             const response = await axios.post("http://localhost:3000/changeExamStatus", {
                 examId: selectedExam,
                 status: "active"
+            });
+
+            // const res = await axios.post("http://localhost:3000/submit", formData, {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            // });
+            const response2 = await axios.get("http://localhost:3000/getExamData/", {
+                params: { examId: selectedExam },
+            });
+              
+            const response1 = await axios.post("http://localhost:3000/addExam", {examId: selectedExam, duration: response2.data.examData.duration}, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
             });
         } catch(error) {
             console.log(error);

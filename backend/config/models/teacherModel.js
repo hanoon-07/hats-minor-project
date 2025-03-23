@@ -50,7 +50,7 @@ const getClassStudentsDB = async (classId) => {
 
 const getClassExamsDB = async (classId) => {
     const response = await pool.query(`select * from exam where class_id = $1`, [classId]);
-    console.log(response.rows);
+    //console.log(response.rows);
     return response.rows;
 }
 

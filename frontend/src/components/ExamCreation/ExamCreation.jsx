@@ -56,7 +56,7 @@ function About({classId, setCreateExam, setNewState}) {
       ...prev,
       classId: classId
     }));
-  }, [examDetails]);
+  }, [classId]);
 
   function handleCreateQuestions() {
     

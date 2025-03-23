@@ -34,8 +34,8 @@ function AfterExamPage({ }) {
     let tci = question.testCases.output; // These are expected outputs
     let tco = question.testResult?.stdOut || []; // These are actual outputs
 
-    console.log(tci);
-    console.log(tco);
+    //console.log(tci);
+    //console.log(tco);
 
     // Compare corresponding elements
     for (let i = 0; i < tci.length; i++) {

@@ -39,7 +39,7 @@ function AfterSubmissionpage() {
     useEffect(() => {
 
         if (loading === 0) {
-            console.log('api call gone')
+            //console.log('api call gone')
             let testCaseResult = questions.map((question) => {
                 let count = 0;
                 let tci = question.testCases.output; // These are expected outputs

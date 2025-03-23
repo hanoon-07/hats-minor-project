@@ -15,7 +15,7 @@ const API_BASE_URL = `https://onecompiler-apis.p.rapidapi.com/api/v1`;
 */
 
 async function singleRun(language, fileName, sourceCode, input) {
-    console.log(API_KEY);
+    //console.log(API_KEY);
     const options = {
         method: 'POST',
         url: `${API_BASE_URL}/run`,
