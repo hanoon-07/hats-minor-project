@@ -64,7 +64,7 @@ function Exampage() {
       );
       //console.log(response.data);
       data = response.data;
-      console.log(data);
+      //console.log(data);
       if(data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
         navigate('/');

@@ -54,7 +54,7 @@ function QuestionSection({index, examDetails, setExamDetails}) {
     const newQuestions = [...examDetails.questions];
 
     newQuestions[index].testCases = newExamples;
-    console.log(newQuestions);
+    //console.log(newQuestions);
     setExamDetails((prev) => ({...prev, questions: [...newQuestions]}));
     setShowTestCases(true);
   }

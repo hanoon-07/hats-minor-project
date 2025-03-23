@@ -29,7 +29,7 @@ const TempStartPage = () => {
         //get exam headers from backend
         async function getHeaders() {
             const response = await axios.get('http://localhost:3000/exam-header');
-            console.log(response.data.data);
+            //console.log(response.data.data);
             setExamHeaders(response.data.data);
             setLoading(false);
         }

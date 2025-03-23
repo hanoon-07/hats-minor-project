@@ -11,16 +11,16 @@ import passport from "../services/passport.js";
 export const getAllUsers = async (req, res) => {
   try {
     const result = await getAll(); //class id is provided as 1 , will change later
-    console.log(result);
+    //console.log(result);
     res.json(result);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 export const registerStudent = async (req, res) => {
   const {name, email, password, uni, admi_num, roll} = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   try {
     if (!name || !email || !password || !admi_num || !uni) {
       return res.status(422).json({message: "All fields are required"});
@@ -34,7 +34,7 @@ export const registerStudent = async (req, res) => {
     }
 
     const result1 = await createUserData(name, email, password, "student");
-    console.log(result1);
+    //console.log(result1);
     const result2 = await insertInto_student(
       result1.user_id,
       roll,
@@ -44,14 +44,14 @@ export const registerStudent = async (req, res) => {
 
     res.status(201).json({ktu_admissionNum: result2.admission_no});
   } catch (error) {
-    console.log("in register student" + error);
+    //console.log("in register student" + error);
     res.status(500).json({error: "Something went wrong"});
   }
 };
 
 export const registerTeacher = async (req, res) => {
   const {name, email, password} = req.body;
-  console.log("in resgister " + {...req.body});
+  //console.log("in resgister " + {...req.body});
   try {
     if (!name || !email || !password) {
       return res.status(422).json({error: "All fields are required"});
@@ -65,7 +65,7 @@ export const registerTeacher = async (req, res) => {
 
     res.status(201).json({name: result1.name, email: result1.email});
   } catch (error) {
-    console.log("in register teacher" + error);
+    //console.log("in register teacher" + error);
     res.status(500).json({error: "Something went wrong"});
   }
 };
@@ -91,7 +91,7 @@ export const loginControl = async (req, res) => {
 };
 
 export const checkAuthControl = async (req, res) => {
-  console.log(req.isAuthenticated());
+  //console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     return res.json({success: true, user: {...req.user, password: "hidden"}});
   }

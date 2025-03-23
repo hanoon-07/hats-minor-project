@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { changeClass } from "../../features/Class Data/classDataSlice";
 import { useDispatch } from "react-redux";
 
-export const ClassView = ({ classId, classroomName, subjectName, setExamSelected, setSelected, setExamId }) => {
+export const ClassView = ({ classId, classroomName, subjectName,socket, setExamSelected, setSelected, setExamId }) => {
   const [studentData, setStudentData] = useState([]);
   const [classCode, setClassCode] = useState("---");
   const [copyMsg, setCopyMsg] = useState("");
@@ -104,7 +104,7 @@ export const ClassView = ({ classId, classroomName, subjectName, setExamSelected
             status: item.type,
           });
         } else {
-          console.log(item);
+          //console.log(item);
           tempArr2.push({
             Name: item.examName,
             examId: item.examId,
@@ -112,7 +112,7 @@ export const ClassView = ({ classId, classroomName, subjectName, setExamSelected
           });
         }
       });
-      console.log(tempArr1);
+      //console.log(tempArr1);
       setExamData({ upcoming: tempArr1, history: tempArr2 });
     } catch (error) {
       //handle later
@@ -284,7 +284,7 @@ export const ClassView = ({ classId, classroomName, subjectName, setExamSelected
           <div className="border-t-2 border-dashed border-gray-500 p-2"></div>
           <h1 className="text-3xl text-[#C1C4C7] font-bold mb-4">Exams</h1>
           <div className="flex lg:flex-row flex-col lg:gap-4 gap-2 w-full">
-            <ExamView  setNewState={setNewState} loaded={!loadingExams} setExamId={setExamId} setExamSelected={setExamSelected} setSelected={setSelected} upcomingData={examData.upcoming} classId={classId}/>
+            <ExamView  socket={socket} setNewState={setNewState} loaded={!loadingExams} setExamId={setExamId} setExamSelected={setExamSelected} setSelected={setSelected} upcomingData={examData.upcoming} classId={classId}/>
             <ExamView
               
               loaded={!loadingExams}

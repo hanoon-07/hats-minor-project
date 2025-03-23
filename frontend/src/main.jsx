@@ -43,17 +43,17 @@ const Protected = ({authRoles}) => {
     (state) => state["auth-control"]
   );
 
-  console.log(isAuthenticated, user, isCheckingAuth);
+  //console.log(isAuthenticated, user, isCheckingAuth);
   if (isCheckingAuth) {
     return <WaitingAnim />;
   }
   if (!isAuthenticated) {
-    console.log("Not authenticated, redirecting to login");
+    //console.log("Not authenticated, redirecting to login");
     return <Navigate to="/login" replace />;
   }
 
   if (authRoles && !authRoles.includes(user.role)) {
-    console.log(authRoles, user.role);
+    //console.log(authRoles, user.role);
     return <Navigate to="/unauthorized" replace />;
   }
   return <Outlet />;

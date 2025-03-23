@@ -21,7 +21,7 @@ const OnlyPipeSignupPage = () => {
   });
 
   function optionHandler(option) {
-    console.log(option);
+    //console.log(option);
 
     setSelectedRole(option);
     setUserDetails((prev) => ({...prev, role: option}));

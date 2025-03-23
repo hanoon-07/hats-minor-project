@@ -8,7 +8,7 @@ function QuestionDataEntry({
   caseType,
 }) {
   if (caseType === "constraint") {
-    console.log("Case type");
+    //console.log("Case type");
   }
   return (
     <div className="flex flex-col gap-4 p-2">

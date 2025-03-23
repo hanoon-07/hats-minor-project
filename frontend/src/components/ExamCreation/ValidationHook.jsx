@@ -125,7 +125,7 @@ export const useFormValidation = (initialState) => {
     const newErrors = {};
 
     Object.entries(validationRules).forEach(([field, rules]) => {
-      console.log(field, rules);
+      //console.log(field, rules);
       if (field == "questions") {
         const questionErrors = [];
         if (formData.questions.length <= 0) {

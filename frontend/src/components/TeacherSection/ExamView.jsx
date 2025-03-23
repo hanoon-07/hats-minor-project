@@ -11,12 +11,7 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
   const [showStartExam, setShowStartExam] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
 
-  useEffect(() => {
-    //console.log(upcomingData);
-    //console.log(historyData);
-    console.log(upcomingData);
-    
-  }, []);
+  
 
   if(!loaded) {
     return (<div className="relative lg:w-[50%] outline outline-1 outline-[#1f2124] w-[100%] min-h-[200px] flex flex-col rounded-sm bg-[#1B1D1F]">

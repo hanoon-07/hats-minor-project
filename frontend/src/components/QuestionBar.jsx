@@ -31,7 +31,7 @@ const QuestionBar = ({ questionDetails }) => {
                     items={getQuestionItems()}
                     disabled={false} 
                     action={
-                        (index) => {setCurrentQuestion(questionDetails[index]); console.log(currentQuestion); dispatch(setSelected(index))}
+                        (index) => {setCurrentQuestion(questionDetails[index]); dispatch(setSelected(index))}
                     } 
                 />
             </div>
