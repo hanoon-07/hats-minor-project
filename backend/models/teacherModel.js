@@ -76,10 +76,6 @@ const getClassExamsDB = async (classId) => {
   console.log(response.rows);
   return response.rows;
 };
-    const response = await pool.query(`select * from exam where class_id = $1`, [classId]);
-    //console.log(response.rows);
-    return response.rows;
-}
 
 const changeExamStatusDB = async (examId, status) => {
   const response = await pool.query(
