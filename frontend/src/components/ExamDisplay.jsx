@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-export const ExamDisplay = ({id}) => {
+export const ExamDisplay = ({id, rollNo}) => {
   const [exams, setExams] = useState([]);
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ export const ExamDisplay = ({id}) => {
   };
 
   const handleExamClick = (examId) => {
-    navigate(`/editor/${examId}`, {replace: true});
+    navigate(`/editor/${examId}/${rollNo}`, {replace: true});
   };
 
   return (
@@ -76,7 +76,7 @@ export const ExamDisplay = ({id}) => {
                                 `}
                   onClick={() => handleExamClick(exam.exam_id)}
                 >
-                  {exam.active == "active" ? "Join" : "finished"}
+                  {exam.active == "active" ? "join": exam.active == "upcoming"? "not started":"finished"}
                 </button>
               </div>
             </div>

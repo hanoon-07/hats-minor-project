@@ -10,7 +10,7 @@ function Dashboard() {
 
       <div className="p-[40px] mb-6  border border-gray-800 rounded-xl bg-gradient-to-t from-black via-black via-95% to-[#A8FF53]">
 
-        <h1 className="text-[#A8FF53] text-4xl font-bold">Welcome back, John!</h1>
+        <h1 className="text-[#A8FF53] text-4xl font-bold">Welcome back, Hanoon!</h1>
         <p className="pt-4 mb-3 text-white">
           Track your progress, review past submissions, and improve your coding skills.
         </p>
