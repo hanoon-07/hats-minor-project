@@ -7,6 +7,7 @@ import { initialize } from "../features/examwindow/examSlice";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { io } from "socket.io-client";
 
 import Codeflowanim from "../components/animation/codeflowanim";
 
@@ -52,11 +53,12 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
-  const {examId} = useParams()
+  const { examId } = useParams();
   const navigate = useNavigate();
 
+  const rollNo = 43;
+
   useEffect(() => {
-    
     var data = null;
     async function getExamDetails() {
       const response = await axios.get(
@@ -65,11 +67,12 @@ function Exampage() {
       //console.log(response.data);
       data = response.data;
       //console.log(data);
-      if(data.msg) {
+      if (data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
-        navigate('/');
-      } 
+        navigate("/");
+      }
 
+      
       const tempArr = [];
       data.questionDetails.map((item, index) => {
         // var questionTemp = item;
@@ -92,7 +95,6 @@ function Exampage() {
           id:item.id,
         });
       });
-      
 
       //reserved for intializing the redux state
       dispatch(
@@ -108,6 +110,29 @@ function Exampage() {
     getExamDetails();
     //successfull data fetching from backend
     //error is not handled, will do later
+
+    const socket = io("http://localhost:3000", {
+      withCredentials: true,
+      transports: ["websocket", "polling"],
+    });
+
+    socket.on("connect", () => {
+      console.log("connection done!");
+      socket.emit("identify", {
+        userType: "student",
+        rollNo: rollNo,
+        examId: examId,
+      });
+    });
+
+    return () => {
+      socket.disconnect();
+      console.log("Socket disconnected");
+    };
+
+    
+
+
   }, []);
 
   const [isOpen, setIsOpen] = useState(true);
@@ -119,7 +144,7 @@ function Exampage() {
 
   return (
     <>
-      {!loaded &&  <Codeflowanim/>}
+      {!loaded && <Codeflowanim />}
 
       {loaded && (
         <>
@@ -130,7 +155,7 @@ function Exampage() {
           >
             <Examwindow timeStart={timeStart} />
           </div>
-          
+
           {isOpen && (
             <div className="z-0 fixed inset-0  flex items-center justify-center">
               <div className=" h-[350px] w-[450px] rounded-lg bg-darkGray outline outline-1 shadow-xl p-4 pt-4">
@@ -167,9 +192,7 @@ function Exampage() {
                     Icon={ArrowRight}
                     label={"START"}
                     disabled={false}
-                    buttonClass={
-                      " text-black bg-[#A8FF53] hover:shadow-xl"
-                    }
+                    buttonClass={" text-black bg-[#A8FF53] hover:shadow-xl"}
                     action={() => {
                       setIsOpen(false), setTimeStart(true);
                     }}
