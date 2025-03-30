@@ -21,7 +21,6 @@ function Layout() {
         dispatch(setUser(response.data.user));
       } catch (error) {
         console.error("Not authenticated:", error);
-        navigate("/login");
       } finally {
         dispatch(setIsCheckingAuth(false));
       }

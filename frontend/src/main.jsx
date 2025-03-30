@@ -23,8 +23,8 @@ import UnauthorizedPage from "./features/Login/UnauthorizedPage";
 import ForgotPasswordPage from "./features/Login/ForgotPasswordPage";
 import ResetPasswordPage from "./features/Login/ResetPassword";
 import WaitingAnim from "./features/Login/WaitingAnim";
-
-import StudentDash from "./components/StudentDash.jsx"
+import Landing from "./features/Landing/Landing.jsx";
+import StudentDash from "./components/StudentDash.jsx";
 
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
@@ -37,7 +37,7 @@ const RootRedirect = () => {
     }
   }
 
-  return <WaitingAnim />;
+  return <Landing />;
 };
 
 const Protected = ({authRoles}) => {
@@ -51,7 +51,7 @@ const Protected = ({authRoles}) => {
   }
   if (!isAuthenticated) {
     //console.log("Not authenticated, redirecting to login");
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/Landing" replace />;
   }
 
   if (authRoles && !authRoles.includes(user.role)) {
@@ -66,12 +66,13 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<RootRedirect />} />
-
+      <Route path="/Landing" element={<Landing />} />
       <Route path="/register" element={<RegistrationPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
+
       <Route element={<Protected authRoles={["student"]} />}>
         <Route path="/studentPage/:studentId" element={<StudentDash />} />
         <Route path="check" element={<AfterSubmissionPage />} />
