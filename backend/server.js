@@ -20,7 +20,7 @@ const io = new Server(server, {
 const activeExams = [];
 
 io.on("connection", (socket) => {
-    console.log(`Client connected: ${socket.id}`);
+    //console.log(`Client connected: ${socket.id}`);
 
     socket.on('identify', (data) => {
         if (data.userType === "teacher") {
@@ -30,7 +30,7 @@ io.on("connection", (socket) => {
                 examData.teacherSocket = socket.id;
                 socket.emit("exam-status", { examData });
             } else {
-                console.log("Teacher active - no exam related!");
+                //console.log("Teacher active - no exam related!");
             }
         } else if(data.event == 'invert-wait-status') {
             let examId = data.examId;
@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
             if (examData) {
                 
                 examData.waitStatus = data.waitStatus;
-                console.log('wait status is changed! ', examData.waitStatus);
+                //console.log('wait status is changed! ', examData.waitStatus);
             }
         } else if(data.event == 'student-submit') {
             const {examId, rollNo } = data;
@@ -53,12 +53,12 @@ io.on("connection", (socket) => {
         } else if(data.event == 'stop-exam') {
             const {examId} = data;
             const examData = activeExams.find(exam => exam.examId == examId);
-            console.log('test data');
-            console.log(examData);
+            //console.log('test data');
+            //console.log(examData);
             if(examData) {
                 if(examData.studentsInfo) {
                     examData.studentsInfo.forEach((student) => {
-                        console.log('sending to student');
+                        //console.log('sending to student');
                         io.to(student.socketId).emit('exam-end', {
                             msg: 'exam-over!'
                         });
@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
             let studentInfo = examData.studentsInfo.find(student => student.rollNo === rollNo);
 
             if (studentInfo) {
-                console.log("Student reconnected!");
+                //console.log("Student reconnected!");
                 studentInfo.socketId = socket.id;
                 studentInfo.status = "active";
                 //const currentTime = new Date();
@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
                 studentInfo.startTime = new Date();
                 const elapsedTime = studentInfo.timeConsumed; // Convert to minutes
                 const remainingTime = examData.duration - elapsedTime;
-                console.log(remainingTime);
+                //console.log(remainingTime);
 
                 if (remainingTime > 0) {
                     socket.emit("exam-status", { validity: examData.waitStatus });
@@ -106,8 +106,8 @@ io.on("connection", (socket) => {
                     timeConsumed: 0
                 };
                 examData.studentsInfo.push(studentInfo);
-                console.log("New student joined the exam. ", studentInfo);
-                console.log(examData.waitStatus);
+                //console.log("New student joined the exam. ", studentInfo);
+                //console.log(examData.waitStatus);
                 socket.emit("exam-status", { validity: examData.waitStatus });
             }
             io.to(examData.teacherSocket).emit("exam-status", {examData})
@@ -126,7 +126,7 @@ io.on("connection", (socket) => {
             waitStatus: true, //students can join
         };
         activeExams.push(newExam);
-        console.log("Exam started:", newExam);
+        //console.log("Exam started:", newExam);
     });
 
     socket.on("disconnect", () => {
@@ -148,7 +148,7 @@ io.on("connection", (socket) => {
             var diffMin = Math.floor((timeNow - studentInfo.startTime) / 60000);
             studentInfo.timeConsumed = studentInfo.timeConsumed += diffMin;
             studentInfo.status != 'submit'?studentInfo.status = "not-joined": null;
-            console.log(`Student ${studentInfo.rollNo} disconnected and time recorded is ${studentInfo.timeConsumed}.`);
+            //console.log(`Student ${studentInfo.rollNo} disconnected and time recorded is ${studentInfo.timeConsumed}.`);
             if(examRelated) {
                 var examData = examRelated;
                 io.to(teacherSocketId).emit("exam-status", {examData});
@@ -169,7 +169,7 @@ app.post("/addExam", (req, res) => {
         waitStatus: true
     };
     activeExams.push(newExam);
-    console.log("Exam started:", newExam);
+    //console.log("Exam started:", newExam);
     res.json({
         msg: 'successfull!'
     });

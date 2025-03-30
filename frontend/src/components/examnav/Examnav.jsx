@@ -26,7 +26,7 @@ function Examnav({timeStart, setFinish, socket, studentData, duration}) {
   const [time, setTime] = useState(new Date());
   
   useEffect(() => {
-    console.log(duration);
+    //console.log(duration);
     // Set expiry time to current time + duration minutes
     const newTime = new Date();
     newTime.setHours(newTime.getHours() + Math.floor(duration / 60));
@@ -40,7 +40,7 @@ function Examnav({timeStart, setFinish, socket, studentData, duration}) {
 
     socket.on("exam-end", (data1) => {
         setAutoEnd(true);
-        console.log('auto end');
+        //console.log('auto end');
         setTimeout(() => {
           finishExam(socket, studentData);
           setAutoEnd(false);

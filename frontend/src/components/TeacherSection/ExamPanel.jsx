@@ -142,7 +142,7 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
     });
   
     socket.current.on("exam-status", (data) => {
-      console.log("Received message:", data);
+      //console.log("Received message:", data);
       
       setWaitStatus(data.examData.waitStatus);
 
@@ -159,7 +159,7 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
           return foundStudent ? { ...student, status: foundStudent.status } : student;
         });
       });
-      console.log(studentData);
+      //console.log(studentData);
     });
   
     return () => {
@@ -239,7 +239,7 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
             {studentData.map((item) => {
               return (
                 <>
-                  {console.log(studentData)}
+                  
                   {item.status == "not-joined" && (
                     <div className="h-[30px] w-[30px] rounded-full  bg-[#F43F5E] grid place-content-center">
                       <p className="text-black font-semibold">{item.RollNo}</p>

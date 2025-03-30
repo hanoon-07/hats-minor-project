@@ -134,7 +134,7 @@ function Exampage() {
     });
 
     socket.current.on("connect", () => {
-      console.log("connection done!");
+      //("connection done!");
       socket.current.emit("identify", {
         userType: "student",
         rollNo: rollNo,
@@ -143,7 +143,7 @@ function Exampage() {
     });
 
     socket.current.on('exam-status', (data1) => {
-        console.log(data1.validity);
+        //console.log(data1.validity);
         if(data1.validity == true) {
           setvalid(true);
         } else {
@@ -158,7 +158,7 @@ function Exampage() {
     return () => {
       socket.current.disconnect();
       clearTimeout(timer1);
-      console.log("Socket disconnected");
+      //console.log("Socket disconnected");
     };
 
   }, [rejoin]);

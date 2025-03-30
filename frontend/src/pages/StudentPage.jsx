@@ -29,7 +29,7 @@ export const StudentPage = () => {
           `http://localhost:3000/studentInfo?studentId=${studentId}`
         );
         setStudentData(response.data);
-        console.log("hello stud: ",response.data);
+        //console.log("hello stud: ",response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching class details:", error);

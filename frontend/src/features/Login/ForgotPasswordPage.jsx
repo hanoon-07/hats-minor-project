@@ -17,7 +17,7 @@ const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("wow");
+    //console.log("wow");
     dispatch(clearAll());
   }, []);
 
@@ -35,7 +35,7 @@ const ForgotPasswordPage = () => {
         "http://localhost:3000/forgot-password",
         {email}
       );
-      console.log(response);
+      //console.log(response);
       setIsSubmitted(true);
     } catch (err) {
       dispatch(setError(err.response?.data?.error || "Something Went Wrong"));

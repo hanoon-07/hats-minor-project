@@ -34,7 +34,7 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
           
 
           {historyData?historyData.map((item) => {
-            {console.log(item)}
+            
             return (<div className="w-full h-[40px] rounded-sm flex bg-[#272A2E] outline outline-1 justify-between outline-black flex-row items-center box-border px-2">
               <div className="flex flex-row gap-6">
                 <p className="text-white text-md font-normal">{item.Name}</p>

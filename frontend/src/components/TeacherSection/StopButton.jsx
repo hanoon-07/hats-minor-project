@@ -25,7 +25,7 @@ export const StopButton = ({examId, setRender, socket, setSelected}) => {
                 }
             });
 
-            console.log(response.data);
+            //console.log(response.data);
         } catch(error) {
             console.log('update exam front end error!');
         } finally {
