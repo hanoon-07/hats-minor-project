@@ -1,7 +1,6 @@
 
 import app from "./app.js";
 import { createServer } from "http";
-import { start } from "repl";
 import { Server } from "socket.io"
 
 const PORT = process.env.port || 3000;
@@ -9,7 +8,7 @@ const PORT = process.env.port || 3000;
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // Allow frontend
+        origin: "http://localhost:5175", // Allow frontend
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -51,7 +50,23 @@ io.on("connection", (socket) => {
                 io.to(examData.teacherSocket).emit("exam-status", {examData})
             }
             
-        } else if (data.userType === "student") { 
+        } else if(data.event == 'stop-exam') {
+            const {examId} = data;
+            const examData = activeExams.find(exam => exam.examId == examId);
+            console.log('test data');
+            console.log(examData);
+            if(examData) {
+                if(examData.studentsInfo) {
+                    examData.studentsInfo.forEach((student) => {
+                        console.log('sending to student');
+                        io.to(student.socketId).emit('exam-end', {
+                            msg: 'exam-over!'
+                        });
+                    });
+                }
+            }
+        } 
+        else if (data.userType === "student") { 
             let examId = data.examId;
             
             let rollNo = data.rollNo;
@@ -74,8 +89,9 @@ io.on("connection", (socket) => {
                 const elapsedTime = studentInfo.timeConsumed; // Convert to minutes
                 const remainingTime = examData.duration - elapsedTime;
                 console.log(remainingTime);
+
                 if (remainingTime > 0) {
-                    socket.emit("exam-entry", { duration: remainingTime });
+                    socket.emit("exam-status", { validity: examData.waitStatus });
                 } else {
                     socket.emit("exam-over", { msg: "Exam is over!" });
                 }
@@ -91,8 +107,8 @@ io.on("connection", (socket) => {
                 };
                 examData.studentsInfo.push(studentInfo);
                 console.log("New student joined the exam. ", studentInfo);
-
-                socket.emit("exam-entry", { duration: examData.duration });
+                console.log(examData.waitStatus);
+                socket.emit("exam-status", { validity: examData.waitStatus });
             }
             io.to(examData.teacherSocket).emit("exam-status", {examData})
         } 

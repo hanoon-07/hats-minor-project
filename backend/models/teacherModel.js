@@ -91,6 +91,7 @@ const getExamDetailDB = async (examId) => {
   const response = await pool.query("select * from exam where exam_id = $1", [
     examId,
   ]);
+  console.log(response.rows);
   return response.rows[0];
 };
 

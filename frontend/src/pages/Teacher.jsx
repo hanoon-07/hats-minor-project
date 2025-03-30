@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-key */
+
 import React, {useEffect, useState} from "react";
 import {TeacherNavBar} from "../components/TeacherSection/TeacherNavBar";
 import {motion} from "framer-motion";
@@ -11,7 +11,10 @@ import {useParams} from "react-router-dom";
 import {ExamPanel} from "../components/TeacherSection/ExamPanel";
 import {useDispatch} from "react-redux";
 import Profile from "../components/TeacherSection/Profile";
+
+
 export const Teacher = () => {
+
   const {teacherId, teacherName} = useParams();
   const [selected, setSelected] = useState("classes");
   const [open, setOpen] = useState(false);
@@ -24,6 +27,7 @@ export const Teacher = () => {
 
   const [currentClasses, setCurrentClasses] = useState([]);
   const [examSelected, setExamSelected] = useState("test exam");
+
 
   const dispatch = useDispatch();
 
@@ -146,7 +150,7 @@ export const Teacher = () => {
             setOpen={setOpen}
           />
         }
-        {selected == "exam-panel" && <ExamPanel examId={examId} />}
+        {selected == "exam-panel" && <ExamPanel examId={examId}  setSelected={setSelected}/>}
         {selected == "classes" && showingClass && (
           <ClassView
             clearClass={clearClass}

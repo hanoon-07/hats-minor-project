@@ -7,11 +7,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { StudentsView } from "./StudentsView";
 import {io} from 'socket.io-client';
 import { ToggleButton } from "./ToggleButton";
+import { StopButton } from "./StopButton";
 
 
 
 
-export const ExamPanel = ({ examId = 22 }) => {
+export const ExamPanel = ({ examId = 22, setSelected }) => {
   const classId = useSelector(selectClassId);
   const [examName, setExamName] = useState("--------");
   const [duration, setDuration] = useState("0000");
@@ -20,6 +21,7 @@ export const ExamPanel = ({ examId = 22 }) => {
   const [showStudentInfo, setShowStudentInfo] = useState(false);
   const [msg, setMsg] = useState('---');
   const [waitStatus, setWaitStatus] = useState(true);
+  const [render, setRender] = useState(false);
 
 
   const childRotate1 = {
@@ -30,6 +32,12 @@ export const ExamPanel = ({ examId = 22 }) => {
       rotate: 180
     }
   };
+
+  useEffect(() => {
+    if(render == true) {
+
+    }
+  }, [render])
 
   async function getFullData() {
     setLoading(true);
@@ -118,7 +126,7 @@ export const ExamPanel = ({ examId = 22 }) => {
     // ]
 
     getFullData();
-  }, [examId, classId]);
+  }, [examId, classId, render]);
 
   const socket = useRef(null);
 
@@ -293,11 +301,12 @@ export const ExamPanel = ({ examId = 22 }) => {
       </div>
       <div className="border-t-2 border-dashed border-gray-500 mt-8 mr-10 ml-10"></div>
 
-      <div className="flex flex-row w-full px-10 mt-4 gap-2">
+      <div className="flex flex-row justify-between w-full px-10 mt-4 gap-2">
         <ToggleButton status={waitStatus} setStatus={setWaitStatus} examId={examId} socket={socket.current} label={'allow new students'}/>
         {/* <button className="bg-[#F43F5E] px-2 py-[2px] rounded-sm">
           stop exam
         </button> */}
+        <StopButton examId={examId} setSelected={setSelected} setRender={setRender} socket={socket.current}/>
       </div>
 
       <div className="w-full flex flex-col gap-2 mt-12 px-10">

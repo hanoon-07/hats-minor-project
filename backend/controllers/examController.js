@@ -1,4 +1,5 @@
-import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average } from "../models/examModel.js";
+
+import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, stopExamDB, storeResults, fetchLatestExams, fetchPast6Average  } from "../models/examModel.js";
 
 // let languages = ["java", "python", "javascript", "c", "c++"];
 // const cases = [
@@ -145,4 +146,16 @@ export const getLatestExam = async(req, res) => {
 export const getPast6Average = async(req, res) => {
   const details = await fetchPast6Average()
   res.json(details)
+}
+
+export const stopExam = async(req, res) => {
+  const examId = parseInt(req.query.examId, 10);
+  try {
+    await stopExamDB(examId);
+  } catch(error) {
+    console.log('something went wrong! controller stop exam!');
+  }
+  res.json({
+    msg: 'sucess!'
+  })
 }

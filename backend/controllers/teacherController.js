@@ -90,6 +90,7 @@ export const getClassExams = async (req, res) => {
       examName: item.name,
       examId: item.exam_id,
       type: item.active,
+      date: item.created_at
     };
     exams.push(obj);
   });
