@@ -9,7 +9,7 @@ const PORT = process.env.port || 3000;
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5174", // Allow frontend
+        origin: "http://localhost:5173", // Allow frontend
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -33,13 +33,31 @@ io.on("connection", (socket) => {
             } else {
                 console.log("Teacher active - no exam related!");
             }
+        } else if(data.event == 'invert-wait-status') {
+            let examId = data.examId;
+            const examData = activeExams.find(exam => exam.examId === examId);
+            if (examData) {
+                
+                examData.waitStatus = data.waitStatus;
+                console.log('wait status is changed! ', examData.waitStatus);
+            }
+        } else if(data.event == 'student-submit') {
+            const {examId, rollNo } = data;
+            const examData = activeExams.find(exam => exam.examId == examId);
+
+            if(examData) {
+                let studentInfo = examData.studentsInfo.find(student => student.rollNo === rollNo);
+                studentInfo.status = "submit";
+                io.to(examData.teacherSocket).emit("exam-status", {examData})
+            }
+            
         } else if (data.userType === "student") { 
             let examId = data.examId;
             
             let rollNo = data.rollNo;
             const examData = activeExams.find(exam => exam.examId == examId);
-            console.log(examData);
-            if (!examData) {
+            // console.log(examData);
+            if (!examData || examData.waitStatus == false) { //do not allow if teacher set the do not allow new students
                 console.log("Error: No such active exam!");
                 return;
             }
@@ -77,8 +95,8 @@ io.on("connection", (socket) => {
                 socket.emit("exam-entry", { duration: examData.duration });
             }
             io.to(examData.teacherSocket).emit("exam-status", {examData})
-        }
-        console.log(activeExams);
+        } 
+        
     });
 
     socket.on("start-exam", (data) => {
@@ -88,7 +106,8 @@ io.on("connection", (socket) => {
             startTime: new Date(),
             duration,
             studentsInfo: [],
-            teacherSocket: socket.id
+            teacherSocket: socket.id,
+            waitStatus: true, //students can join
         };
         activeExams.push(newExam);
         console.log("Exam started:", newExam);
@@ -112,7 +131,7 @@ io.on("connection", (socket) => {
             const timeNow = new Date();
             var diffMin = Math.floor((timeNow - studentInfo.startTime) / 60000);
             studentInfo.timeConsumed = studentInfo.timeConsumed += diffMin;
-            studentInfo.status = "not-joined"
+            studentInfo.status != 'submit'?studentInfo.status = "not-joined": null;
             console.log(`Student ${studentInfo.rollNo} disconnected and time recorded is ${studentInfo.timeConsumed}.`);
             if(examRelated) {
                 var examData = examRelated;
@@ -130,7 +149,8 @@ app.post("/addExam", (req, res) => {
         examId,
         startTime: new Date(),
         duration,
-        studentsInfo: []
+        studentsInfo: [],
+        waitStatus: true
     };
     activeExams.push(newExam);
     console.log("Exam started:", newExam);
@@ -143,7 +163,6 @@ app.post("/addExam", (req, res) => {
 app.post("/removeExam", (req, res) => {
     const data = req.body;
     
-
     res.json({
         msg: 'successfull!'
     });

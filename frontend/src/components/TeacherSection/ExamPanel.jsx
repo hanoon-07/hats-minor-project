@@ -1,12 +1,12 @@
 import axios, { getAdapter } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { selectClassId } from "../../redux/classSelector";
 import { useSelector } from "react-redux";
 import { LoadingRing } from "../animation/LoadingRing";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { StudentsView } from "./StudentsView";
 import {io} from 'socket.io-client';
-
+import { ToggleButton } from "./ToggleButton";
 
 
 
@@ -19,6 +19,7 @@ export const ExamPanel = ({ examId = 22 }) => {
   const [studentData, setStudentData] = useState([]);
   const [showStudentInfo, setShowStudentInfo] = useState(false);
   const [msg, setMsg] = useState('---');
+  const [waitStatus, setWaitStatus] = useState(true);
 
 
   const childRotate1 = {
@@ -63,7 +64,7 @@ export const ExamPanel = ({ examId = 22 }) => {
   useEffect(() => {
     //console.log("examid: "+examId);
     //select exam name, duration ,
-    //connect to the web socket provided by the backend, inform this as the teacher
+    //connect to the web socket.currentRef provided by the backend, inform this as the teacher
     //console.log(classId);
 
     async function getFullData() {
@@ -119,38 +120,56 @@ export const ExamPanel = ({ examId = 22 }) => {
     getFullData();
   }, [examId, classId]);
 
+  const socket = useRef(null);
+
   useEffect(() => {
-    const socket = io("http://localhost:3000", {
+    socket.current = io("http://localhost:3000", {
       withCredentials: true,
-      transports: ["websocket", "polling"]
+      transports: ["websocket.currentRef", "polling"]
     });
   
-    socket.emit("identify", {
+    socket.current.emit("identify", {
       userType: "teacher",
       examId: examId
     });
   
-    socket.on("exam-status", (data) => {
+    socket.current.on("exam-status", (data) => {
       console.log("Received message:", data);
       
+      setWaitStatus(data.examData.waitStatus);
 
       setStudentData((prevStudentData) => {
         return prevStudentData.map((student) => {
           const foundStudent = data.examData.studentsInfo.find((item) => item.rollNo == student.RollNo);
-          if(foundStudent && student.status == 'not-joined' && foundStudent.status == 'active') {
+          if(foundStudent && (student.status == 'not-joined' || student.status == 'submit') && foundStudent.status == 'active') {
             setMsg(`${student.Name} joined.`);
           } else if(foundStudent && student.status == 'active' && foundStudent.status == 'not-joined') {
             setMsg(`${student.Name} disconnected.`);
+          } else if(foundStudent && student.status == 'active' && foundStudent.status == 'submit') {
+            setMsg(`${student.Name} finished exam.`);
           }
           return foundStudent ? { ...student, status: foundStudent.status } : student;
         });
       });
+      console.log(studentData);
     });
   
     return () => {
-      socket.disconnect();
+      socket.current.disconnect();
     };
   }, []);
+
+  // useEffect(() => {
+  //   if(socket.currentRef != null) {
+  //     setLoading(true);
+  //     socket.currentRef.emit(socket.currentRef.emit("identify", {
+  //       examId: examId,
+  //       event: 'invert-wait-status',
+  //       waitStatus: waitStatus
+  //     }));
+  //     setLoading(false);
+  //   }
+  // }, [waitStatus]);
 
   return (
     <div className="h-full w-full bg-[#15171A]">
@@ -223,6 +242,12 @@ export const ExamPanel = ({ examId = 22 }) => {
                       <p className="text-black font-semibold">{item.RollNo}</p>
                     </div>
                   )}
+
+                  {item.status == "submit" && (
+                    <div className="h-[30px] w-[30px] rounded-full bg-[#5F97F3] grid place-content-center">
+                      <p className="text-black font-semibold">{item.RollNo}</p>
+                    </div>
+                  )}
                   {/* <div className='h-[30px] w-[30px] rounded-full bg-[#5F97F3] grid place-content-center'>
                                         <p className='text-black font-semibold'>4</p>
                                     </div>
@@ -269,12 +294,10 @@ export const ExamPanel = ({ examId = 22 }) => {
       <div className="border-t-2 border-dashed border-gray-500 mt-8 mr-10 ml-10"></div>
 
       <div className="flex flex-row w-full px-10 mt-4 gap-2">
-        <button className="bg-[#5F97F3] px-2 py-[2px] rounded-sm">
-          stop waiting
-        </button>
-        <button className="bg-[#F43F5E] px-2 py-[2px] rounded-sm">
+        <ToggleButton status={waitStatus} setStatus={setWaitStatus} examId={examId} socket={socket.current} label={'allow new students'}/>
+        {/* <button className="bg-[#F43F5E] px-2 py-[2px] rounded-sm">
           stop exam
-        </button>
+        </button> */}
       </div>
 
       <div className="w-full flex flex-col gap-2 mt-12 px-10">

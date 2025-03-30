@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Examwindow from "../components/Examwindow";
 import { useState, useEffect } from "react";
 import { Clock, BookOpen, AlertCircle, ArrowRight } from "lucide-react";
@@ -55,8 +55,10 @@ function Exampage() {
   // ];
   const { examId } = useParams();
   const navigate = useNavigate();
+  const socket = useRef();
 
   const rollNo = 43;
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     var data = null;
@@ -64,7 +66,9 @@ function Exampage() {
       const response = await axios.get(
         `http://localhost:3000/exam?examId=${examId}`
       );
-      //console.log(response.data);
+      
+      //console.log(response.data.duration);
+      setDuration(response.data.duration);
       data = response.data;
       //console.log(data);
       if (data.msg) {
@@ -111,14 +115,14 @@ function Exampage() {
     //successfull data fetching from backend
     //error is not handled, will do later
 
-    const socket = io("http://localhost:3000", {
+    socket.current = io("http://localhost:3000", {
       withCredentials: true,
       transports: ["websocket", "polling"],
     });
 
-    socket.on("connect", () => {
+    socket.current.on("connect", () => {
       console.log("connection done!");
-      socket.emit("identify", {
+      socket.current.emit("identify", {
         userType: "student",
         rollNo: rollNo,
         examId: examId,
@@ -126,19 +130,17 @@ function Exampage() {
     });
 
     return () => {
-      socket.disconnect();
+      socket.current.disconnect();
       console.log("Socket disconnected");
     };
 
     
-
-
   }, []);
 
   const [isOpen, setIsOpen] = useState(true);
 
   const noOfQues = useSelector((state) => state["exam-data"].questions.length);
-  const duration = useSelector((state) => state["exam-data"].proposedTime);
+  
 
   const [timeStart, setTimeStart] = useState(false);
 
@@ -153,7 +155,7 @@ function Exampage() {
               isOpen ? "blur-lg" : ""
             }`}
           >
-            <Examwindow timeStart={timeStart} />
+            <Examwindow duration={duration} timeStart={timeStart} studentData={{examId: examId, rollNo: rollNo}} socket={socket.current}/>
           </div>
 
           {isOpen && (
@@ -169,7 +171,7 @@ function Exampage() {
                 <div className="space-y-4 flex flex-col items-center w-full max-w-md mx-auto p-4">
                   <div className="flex items-center gap-3 text-gray-300 bg-gray-800/50 w-full p-3 rounded-lg hover:bg-gray-800/70 transition-colors">
                     <Clock className="w-5 h-5 text-blue-400" />
-                    <span className="font-medium">{duration} hours</span>
+                    <span className="font-medium">{duration} minutes</span>
                   </div>
 
                   <div className="flex items-center gap-3 text-gray-300 bg-gray-800/50 w-full p-3 rounded-lg hover:bg-gray-800/70 transition-colors">

@@ -59,7 +59,7 @@ export const getExam = async (req, res) => {
       res.json({msg: examDetails.msg});
       return;
     }
-
+    console.log(examDetails);
     var tempQuestionObj = [];
     for(let i = 0;i < examDetails.length;i++) {
       tempQuestionObj.push({
@@ -74,7 +74,8 @@ export const getExam = async (req, res) => {
         secondExampleAns: "12",
         constraint1: examDetails[i].constraints.split("\r")[0],
         constraint2: examDetails[i].constraints.split("\r")[1],
-        language: examDetails[i].support_langs[0]
+        language: examDetails[i].support_langs[0],
+        
       });
 
       
@@ -94,7 +95,7 @@ export const getExam = async (req, res) => {
     }
 
     //res.json({msg: 'test'});
-    res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases});  
+    res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases, duration: examDetails[0].duration});  
     
 } 
 
