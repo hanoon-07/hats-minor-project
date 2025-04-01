@@ -85,5 +85,142 @@ const getExamsInClassDetails = async (class_id) => {
     }
 };
 
+const storeResults = async (results) => {
+    const client = await pool.connect();
+    const savedResults = [];
+    
+    try {
+      await client.query('BEGIN');
+      
+      for (const result of results) {
+        const { 
+          student_id, 
+          exam_id, 
+          question_id, 
+          partial_output, 
+          testcases_passed, 
+          total_testcases 
+        } = result;
+        
+        const query = `
+          INSERT INTO result (
+            student_id,
+            exam_id,
+            question_id,
+            partial_output,
+            testcases_passed,
+            total_testcases,
+            submission_date
+          ) VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE)
+          RETURNING result_id
+        `;
+        
+        const values = [
+          student_id,
+          exam_id,
+          question_id,
+          partial_output,
+          testcases_passed,
+          total_testcases
+        ];
+        
+        const { rows } = await client.query(query, values);
+        savedResults.push(rows[0].result_id);
+      }
+      
+      await client.query('COMMIT');
+      return savedResults;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      console.error('Database error when saving results:', error);
+      throw error;
+    } finally {
+      client.release();
+    }
+};
 
-export {getExamDetails, storeExam, getHeaders, getExamsInClassDetails};
+
+const fetchLatestExams = async (studentId) => {
+    const query = `
+        WITH latest_results AS (
+            SELECT 
+                result_id,
+                exam_id
+            FROM 
+                result
+            WHERE 
+                student_id = $1
+            ORDER BY 
+                submission_date DESC, result_id DESC
+            LIMIT 2
+        )
+        SELECT DISTINCT
+            e.exam_id,
+            e.class_id,
+            e.name,
+            e.created_at,
+            e.duration,
+            e.active
+        FROM 
+            latest_results lr
+        JOIN 
+            exam e ON lr.exam_id = e.exam_id;
+    `;
+    
+    try {
+        const result = await pool.query(query, [studentId]);
+        
+        return result.rows;
+    } catch (error) {
+        console.error("Error fetching latest exams for student:", error);
+        throw error;
+    }
+};
+
+const fetchPast6Average = async () => {
+    try {
+        const result = await pool.query(`
+            WITH RecentExams AS (
+                SELECT DISTINCT 
+                    exam_id, 
+                    submission_date::date as exam_date
+                FROM result
+                ORDER BY exam_date DESC
+                LIMIT 6
+            ),
+            ExamAverages AS (
+                SELECT 
+                    r.exam_id,
+                    re.exam_date,
+                    AVG(
+                        CASE 
+                            WHEN r.total_testcases > 0 
+                            THEN (r.testcases_passed::numeric / r.total_testcases) * 100
+                            ELSE 0 
+                        END
+                    ) as average_score,
+                    COUNT(DISTINCT r.student_id) as student_count
+                FROM result r
+                JOIN RecentExams re ON r.exam_id = re.exam_id
+                GROUP BY r.exam_id, re.exam_date
+            )
+            SELECT 
+                exam_id,
+                exam_date,
+                ROUND(average_score, 2) as average_score_percentage,
+                student_count
+            FROM ExamAverages
+            ORDER BY exam_date DESC
+        `);
+        
+        return result.rows;
+    } catch (error) {
+        console.error("Database error:", error);
+        throw error;
+    }
+}
+
+
+
+
+export {getExamDetails, storeExam, getHeaders, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average};

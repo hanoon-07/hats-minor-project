@@ -26,7 +26,7 @@ const RecentExamCard = ({
         }
       },
       {
-        threshold: 0.2
+        threshold: 0.1
       }
     );
     
@@ -44,7 +44,7 @@ const RecentExamCard = ({
   return (
     <div 
       ref={cardRef}
-      className={`relative overflow-hidden rounded-lg bg-black p-6 shadow-lg border-l-4 hover:shadow-xl transition-all duration-500 transform ${
+      className={`bg-[#1a1b1f] relative overflow-hidden rounded-lg  p-6 shadow-lg border-l-4 hover:shadow-xl transition-all duration-500 transform ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
       }`} 
       style={{ borderLeftColor: accentColor }}

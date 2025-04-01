@@ -21,7 +21,7 @@ function Timer({ expiryTimestamp, timeStart }) {
   } = useTimer({
     expiryTimestamp,
     onExpire: ()=>{
-        navigate('/check')
+        navigate('check')
         
 
     },

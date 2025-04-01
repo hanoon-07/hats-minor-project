@@ -14,23 +14,27 @@ function Classes() {
   const [data, setData] = useState([]);
   const [classId, setClassId] = useState(0);
   const [classCode, setClassCode] = useState("");
-  const [studentData, setStudentData] = useState("");
+
+  const [loading, setLoading] = useState(1)
+
+
+  // const [studentData, setStudentData] = useState("");
   
 
-  useEffect(() => {
-    const getStudentDetails = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/studentInfo?studentId=${studentId}`
-        );
-        setStudentData(response.data);
+  // useEffect(() => {
+  //   const getStudentDetails = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/studentInfo?studentId=${studentId}`
+  //       );
+  //       setStudentData(response.data);
        
-      } catch (error) {
-        console.error("Error fetching class details:", error);
-      }
-    };
-    getStudentDetails();
-  }, [studentId]);
+  //     } catch (error) {
+  //       console.error("Error fetching class details:", error);
+  //     }
+  //   };
+  //   getStudentDetails();
+  // }, [studentId]);
 
   const getAllClassDetails = async () => {
     try {
@@ -40,12 +44,15 @@ function Classes() {
       );
       if (response.data.msg) {
         setData([]);
+        setLoading(0)
       } else {
         setData(response.data || []);
+        setLoading(0)
       }
     } catch (error) {
       console.error("Error fetching class details:", error);
     }
+    
   };
 
   useEffect(() => {
@@ -79,11 +86,15 @@ function Classes() {
     }
   };
 
+  if (loading) {
+      return <LoadingRing/>;
+  }
+  
 
   return (
     <>
-      <div className="h-full w-full pl-8">
-        <div className="h-full">
+      <div className="h-full w-full p-5">
+        <div className="h-full overflow-y-scroll scroller">
           <h1 className="text-[#c1c4c7] text-3xl font-bold">
             {selected == 'classes' ? "My Classes" : "Exams"}
           </h1>
