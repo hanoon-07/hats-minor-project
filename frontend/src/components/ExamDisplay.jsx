@@ -37,7 +37,8 @@ export const ExamDisplay = ({id, rollNo}) => {
   };
 
   const handleExamClick = (examId) => {
-    navigate(`/editor/${examId}/${rollNo}`, {replace: true});
+    navigate(`editor/${examId}`);
+    
   };
 
   return (
