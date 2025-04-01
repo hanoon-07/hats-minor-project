@@ -14,6 +14,8 @@ import {
   updateTeacherDataDB,
 } from "../models/teacherModel.js";
 
+import {getResultDB} from "../models/examResult.js";
+
 export const createNewClass = async (req, res) => {
   const classData = req.body;
 
@@ -29,6 +31,12 @@ export const createNewClass = async (req, res) => {
   } else {
     res.json(response);
   }
+};
+
+export const getResult = async (req, res) => {
+  const {examId} = req.query;
+  const examReslut = await getResultDB(examId);
+  res.json(examReslut);
 };
 
 export const getClassCode = async (req, res) => {

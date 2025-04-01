@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { LoadingRingSmall } from "../animation/LoadingRingSmall";
 import ExamCreation from '../ExamCreation/ExamCreation';
 import { StartWindow } from "./StartWindow";
+import { ResultWindow } from "./ResultWindow";
 
 export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingData = null, historyData=null, examSelected, setExamSelected, setSelected, setExamId, setNewState}) => {
 
@@ -10,7 +11,8 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
   const [showCreateExam, setCreateExam] = useState(false);
   const [showStartExam, setShowStartExam] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
-
+  const [selectedResult, setSelectedResult] = useState(null);
+  const [showResult, setShowResult] = useState(false);
   
 
   if(!loaded) {
@@ -22,11 +24,14 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
             <LoadingRingSmall />  
         </div>
       </div>);
-
+  
   }
 
   if(type == 'history') 
-    return (<div className="relative lg:w-[50%] outline outline-1 outline-[#1f2124] w-[100%] min-h-[200px] flex flex-col rounded-sm bg-[#1B1D1F]">
+    return (<>
+      {showResult && <ResultWindow examId={selectedResult} setShow={setShowResult}/>}
+      <div className="relative lg:w-[50%] outline outline-1 outline-[#1f2124] w-[100%] min-h-[200px] flex flex-col rounded-sm bg-[#1B1D1F]">
+        
         <div className=" w-full h-[30px] rounded-[4px 4px 0px 0px] bg-[#15161A] box-border p-1">
           <p className="ml-1 text-sm font-normal text-[#A8FF53]">history</p>
         </div>
@@ -40,12 +45,14 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
                 <p className="text-white text-md font-normal">{item.Name}</p>
                 <p className="text-md text-[#474AA5]">{item.date}</p>
               </div>
-  
+              
+              
               <motion.button
+                onClick={() => {setSelectedResult(item.examId); setShowResult(true)}}
                 whileHover="hover"
                 className=" px-2 py-0 hover:bg-[#669934] rounded-[2px] bg-[#A8FF53] flex flex-row items-center gap-2"
               >
-                <p className="text-black font-normal translate-y-[-2px]">view</p>
+                <p className="text-black font-normal translate-y-[-2px]">result</p>
                 <motion.svg
                   variants={{ hover: { scale: 1.2 } }}
                   initial={{ rotate: 0 }}
@@ -67,7 +74,8 @@ export const ExamView = ({ classId ,type = "upcoming", loaded = true, upcomingDa
 
           
         </div>
-      </div>);
+      </div>
+    </>);
 
   if (type == "upcoming")
     return (

@@ -221,7 +221,7 @@ const fetchPast6Average = async () => {
 }
 
 const stopExamDB = async(examId) => {
-    console.log(examId);
+    //console.log(examId);
     const query = `update exam set active = 'past' where exam_id = $1`;
     try {
         await pool.query(query, [examId]);

@@ -18,7 +18,7 @@ function finishExam(socket, studentData) {
 }
 
 
-function Examnav({timeStart, setFinish, socket, studentData, duration}) {
+function Examnav({timeStart, setFinish, socket, studentData, duration, report}) {
 
   const navigate = useNavigate()
 
@@ -64,7 +64,7 @@ function Examnav({timeStart, setFinish, socket, studentData, duration}) {
         />
 
         <div className="flex-grow flex justify-center mx-auto">
-          <Timer expiryTimestamp={time} timeStart={timeStart} />
+          <Timer expiryTimestamp={time} timeStart={timeStart} report={report} />
         </div>
 
         {/* <Button label='finish exam' buttonClass={' glow-on-hover text-white w-[150px] bg-blue-500'} 

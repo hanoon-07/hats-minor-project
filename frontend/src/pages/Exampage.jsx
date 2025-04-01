@@ -11,6 +11,8 @@ import { io } from "socket.io-client";
 import {LoadingRing} from '../../src/components/animation/LoadingRing'
 
 import Codeflowanim from "../components/animation/codeflowanim";
+import { Controller } from "../features/ExamMonitoring/Controller";
+import { ExamPauseWindow } from "../components/ExamPauseWindow";
 
 function Exampage() {
   const dispatch = useDispatch();
@@ -153,7 +155,10 @@ function Exampage() {
         
     });
 
-    
+    socket.current.on('continue-exam', (data) => {
+      setWaitInfo(false);
+      console.log('hello123');
+    });
     
     return () => {
       socket.current.disconnect();
@@ -164,14 +169,34 @@ function Exampage() {
   }, [rejoin]);
 
   const [isOpen, setIsOpen] = useState(true);
-
   const noOfQues = useSelector((state) => state["exam-data"].questions.length);
   const [timeStart, setTimeStart] = useState(false);
+  const [report, setReport] = useState(false);
+  const [typeReort, setType] = useState(null);
+
+  
+  useEffect(() => {
+    if(report) {
+      if(!valid) {
+        setReport(false);
+        return;
+      }
+      setWaitInfo(true);
+      socket.current.emit('exam-cheat', {
+        type: typeReort,
+        rollNo: rollNo,
+        examId: examId
+      });  
+    }
+  }, [report]);
 
 
+  const [waitInfo, setWaitInfo] = useState(false);
 
   return (
     <>
+      {<Controller report={report} setReport={setReport} setType={setType}/>}
+      {report && valid && <ExamPauseWindow setReport={setReport} waitingStatus={waitInfo} setWaitingStatus={setWaitInfo}/>}
       {!loaded && <LoadingRing />}
       {!valid && <div className="bg-[#15171a] h-screen w-screen absolute top-0 left-0 grid place-content-center">
         <div className="flex flex-col gap-10">
@@ -193,7 +218,7 @@ function Exampage() {
               isOpen ? "blur-lg" : ""
             }`}
           >
-            <Examwindow duration={duration} timeStart={timeStart} studentData={{examId: examId, rollNo: rollNo}} socket={socket.current}/>
+            <Examwindow report={report} duration={duration} timeStart={timeStart} studentData={{examId: examId, rollNo: rollNo}} socket={socket.current}/>
           </div>
 
           {isOpen && (

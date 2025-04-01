@@ -8,7 +8,7 @@ const PORT = process.env.port || 3000;
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5175", // Allow frontend
+        origin: "http://localhost:5173", // Allow frontend
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -29,6 +29,8 @@ io.on("connection", (socket) => {
             if (examData) {
                 examData.teacherSocket = socket.id;
                 socket.emit("exam-status", { examData });
+                socket.emit("student-pause", { waitStatus: examData.waitingStudents });
+                //console.log('hello');
             } else {
                 //console.log("Teacher active - no exam related!");
             }
@@ -115,6 +117,20 @@ io.on("connection", (socket) => {
         
     });
 
+    socket.on("exam-cheat", (data) => {
+        const {examId, rollNo, type} = data;
+        const examData = activeExams.find(exam => exam.examId == examId);
+       
+        if (examData) { 
+            const exists = examData.waitingStudents.some(student => student.rollNo === rollNo);
+            if (!exists) {
+                examData.waitingStudents.push({ rollNo, type });
+                console.log(examData.waitingStudents);
+                io.to(examData.teacherSocket).emit("student-pause", { waitStatus: examData.waitingStudents });
+            }
+        }
+    }); 
+
     socket.on("start-exam", (data) => {
         const { examId, duration } = data;
         const newExam = {
@@ -124,9 +140,22 @@ io.on("connection", (socket) => {
             studentsInfo: [],
             teacherSocket: socket.id,
             waitStatus: true, //students can join
+            waitingStudents: []
         };
         activeExams.push(newExam);
         //console.log("Exam started:", newExam);
+    });
+
+    socket.on("remove-waiting", (data) => {
+        const {examId, rollNo} = data;
+        const examData = activeExams.find(exam => exam.examId == examId);
+        examData.waitingStudents = examData.waitingStudents.filter((student) => student.rollNo != rollNo);
+        socket.emit("student-pause", { waitStatus: examData.waitingStudents });
+    
+        const waitingStudent = examData.studentsInfo.find((temp) => temp.rollNo == rollNo);
+        io.to(waitingStudent.socketId).emit('continue-exam', {
+            msg: 'sucess!'
+        });
     });
 
     socket.on("disconnect", () => {
@@ -166,7 +195,8 @@ app.post("/addExam", (req, res) => {
         startTime: new Date(),
         duration,
         studentsInfo: [],
-        waitStatus: true
+        waitStatus: true,
+        waitingStudents: []
     };
     activeExams.push(newExam);
     //console.log("Exam started:", newExam);

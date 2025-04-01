@@ -38,17 +38,27 @@
 
         "@reduxjs/toolkit": "^2.5.0",
 
+        "@tanstack/react-table": "^8.21.2",
+
         "axios": "^1.7.9",
 
         "bootstrap": "^5.3.3",
 
         "classnames": "^2.5.1",
 
+        "exceljs": "^4.4.0",
+
+        "file-saver": "^2.0.5",
+
         "framer-motion": "^11.18.0",
 
         "http-server": "^14.1.1",
 
         "json5": "^2.2.3",
+
+        "jspdf": "^3.0.1",
+
+        "jspdf-autotable": "^5.0.2",
 
         "lucide-react": "^0.471.1",
 
@@ -63,6 +73,8 @@
         "react-redux": "^9.2.0",
 
         "react-router-dom": "^7.2.0",
+
+        "react-table": "^7.8.0",
 
         "react-timer-hook": "^3.0.8",
 

@@ -44,7 +44,7 @@ import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, stopExam
 export const createExam = async (req, res) => {
   try {
     const examDetails = req.body;
-    console.log("data recieved: "+examDetails.classId);
+    //console.log("data recieved: "+examDetails.classId);
     const result = await storeExam(examDetails , examDetails.classId);
     //console.log(result);
     res.json(result);
