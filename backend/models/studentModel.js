@@ -25,3 +25,54 @@ export const getStudentDetails = async (studentId) => {
         return { msg: "Database error", error };
     }
 };
+
+export const getStudentResults = async (studentId, examId) => {
+    try {
+        const result = await pool.query(
+            "SELECT * FROM result WHERE student_id = $1 AND exam_id = $2",
+            [studentId, examId]
+        );
+        return result.rows;
+    } catch (error) {
+        console.error("Database error:", error);
+        throw error;
+    }
+};
+
+
+export const fetchPast6Scores = async (studentId) => {
+    try {
+        const result = await pool.query(`
+            WITH ExamScores AS (
+                SELECT 
+                    exam_id,
+                    submission_date::date as exam_date,
+                    SUM(testcases_passed) as total_passed,
+                    SUM(total_testcases) as total_testcases,
+                    CASE 
+                        WHEN SUM(total_testcases) > 0 
+                        THEN ROUND((SUM(testcases_passed)::numeric / SUM(total_testcases)) * 100, 2) 
+                        ELSE 0 
+                    END as score_percentage
+                FROM result
+                WHERE student_id = $1
+                GROUP BY exam_id, submission_date::date
+                ORDER BY submission_date DESC
+                LIMIT 6
+            )
+            SELECT 
+                exam_id,
+                exam_date,
+                total_passed,
+                total_testcases,
+                score_percentage
+            FROM ExamScores
+            ORDER BY exam_date DESC
+        `, [studentId]);
+        
+        return result.rows;
+    } catch (error) {
+        console.error("Database error:", error);
+        throw error;
+    }
+};

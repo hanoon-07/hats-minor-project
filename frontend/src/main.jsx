@@ -75,9 +75,10 @@ const router = createBrowserRouter(
 
       <Route element={<Protected authRoles={["student"]} />}>
         <Route path="/studentPage/:studentId" element={<StudentDash />} />
-        <Route path="check" element={<AfterSubmissionPage />} />
-        <Route path="editor/:examId" element={<Exampage />} />
-        <Route path="result" element={<AfterExamPage />} />
+        {/* <Route path="check" element={<AfterSubmissionPage />} /> */}
+        <Route path="/studentPage/:studentId/editor/:examId" element={<Exampage />} />
+        <Route path="/studentPage/:studentId/editor/:examId/check" element={<AfterSubmissionPage />} />
+        <Route path="/studentPage/:studentId/editor/:examId/check/result" element={<AfterExamPage />} />
       </Route>
 
       <Route element={<Protected authRoles={["teacher"]} />}>

@@ -78,6 +78,7 @@ function Exampage() {
         data.languages.map((temp) => {
           codeArrTemp.push("//your code area");
         });
+        
         var selected = 0;
         var testCases = data.cases[index];
 
@@ -88,6 +89,7 @@ function Exampage() {
           selected: selected,
           testCases: testCases,
           testResult: null,
+          id:item.id,
         });
       });
       

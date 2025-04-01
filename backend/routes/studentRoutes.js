@@ -1,9 +1,13 @@
 import express from 'express'
-import { getInfoOfStudent} from '../controllers/studentController.js'
+import { getInfoOfStudent, getResultsOfStudent, getPast6Scores} from '../controllers/studentController.js'
 
 const router = express.Router()
 
-router.get('/studentInfo',getInfoOfStudent)
+router.get('/getStudentInfo',getInfoOfStudent)
+router.get('/getResultForStudent',getResultsOfStudent)
+router.get('/getPast6Scores',getPast6Scores)
+
+
 
 
 export default router

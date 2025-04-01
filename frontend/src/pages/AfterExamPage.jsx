@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Editor from '@monaco-editor/react'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Movebutton } from '../components/Movebutton';
+import axios from 'axios';
+
+
 
 function AfterExamPage({ }) {
   const location = useLocation();
@@ -33,11 +36,6 @@ function AfterExamPage({ }) {
     let count = 0;
     let tci = question.testCases.output; // These are expected outputs
     let tco = question.testResult?.stdOut || []; // These are actual outputs
-
-    //console.log(tci);
-    //console.log(tco);
-
-    // Compare corresponding elements
     for (let i = 0; i < tci.length; i++) {
       if (i < tco.length && tci[i] === tco[i].trim()) {
         count++;
@@ -51,6 +49,54 @@ function AfterExamPage({ }) {
   const totalInputPassed = testCaseResult.reduce((acc, curr) => acc + curr, 0)
   const totalInput = questions.reduce((acc, curr) => acc + curr.testCases.input.length, 0)
   const navigate = useNavigate();
+
+
+
+
+
+  const { studentId, examId } = useParams();
+
+  const saveToDatabase = () => {
+   
+  
+    const results = questions.map((question, index) => {
+  
+      let passedCount = 0;
+      let expectedOutputs = question.testCases.output;
+      let actualOutputs = question.testResult?.stdOut || [];
+
+      for (let i = 0; i < expectedOutputs.length; i++) {
+        if (i < actualOutputs.length && expectedOutputs[i] === actualOutputs[i].trim()) {
+          passedCount++;
+        }
+      }
+
+      return {
+        student_id: parseInt(studentId),
+        exam_id: parseInt(examId),
+        question_id: question.questionDetails.id,
+        partial_output: JSON.stringify(actualOutputs), 
+        testcases_passed: passedCount,
+        total_testcases: question.testCases.output.length
+      };
+    });
+
+    console.log(results)
+
+    axios.post(
+      `http://localhost:3000/saveresult`,{results}
+    ).then(response => {
+      console.log('Results saved successfully:', response.data);
+    })
+    .catch(error => {
+      console.error('Error saving results:', error);
+      // Show error message to user
+    });
+
+   
+      
+  };
+
 
 
   return (
@@ -68,7 +114,8 @@ function AfterExamPage({ }) {
 
           </div>
 
-          <Movebutton label={'submit'} extraStyleDiv={' max-w-[130px] '} action={() => {navigate('/');}}></Movebutton>
+          <Movebutton label={'submit'} extraStyleDiv={' max-w-[130px] '} action={() => { 
+            saveToDatabase(); }}></Movebutton>
         </div>
 
         <div className="exam-overview outline outline-1 outline-[#A8FF53]">
@@ -181,6 +228,7 @@ function AfterExamPage({ }) {
           </div>
           <div className="text-white max-h-[200px] overflow-scroll overflow-x-hidden scroller">
             <h1>AI reasoning</h1>
+            <p>{pop}</p>
             <p>{reasoning}</p>
           </div>
         </div>

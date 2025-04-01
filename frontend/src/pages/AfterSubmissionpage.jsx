@@ -84,11 +84,11 @@ function AfterSubmissionpage() {
 
                     const responseContent = res.data.choices[0]?.message?.content || "No response received";
                     const reasoningContent = res.data.choices[0]?.message?.reasoning || "No reasoning provided";
-                    navigate('/result',{state:{pop:`${responseContent}`,reasoning:`${reasoningContent}`}})
+                    navigate('result',{state:{pop:`${responseContent}`,reasoning:`${reasoningContent}`}})
 
                 } catch (error) {
                     console.error("Error fetching data:", error);
-                    navigate('/result',{state:{pop:'api error!'}})
+                    navigate('result',{state:{pop:'none'}})
                 }
             };
             fetchData();
@@ -96,7 +96,7 @@ function AfterSubmissionpage() {
 
         else if(fullCase){
             //backend addtional testing
-            setTimeout(()=>{navigate('/result',{state:{pop:'not applicable'}})},3000)
+            setTimeout(()=>{navigate('result',{state:{pop:'not applicable'}})},3000)
         }
     }, [loading,fullCase]);
 

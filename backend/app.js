@@ -7,6 +7,7 @@ import examRoute from "./routes/examRoutes.js";
 import teacherRoute from "./routes/teacherRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import classRoute from "./routes/classRoutes.js";
+import studentRoute from './routes/studentRoutes.js'
 
 import session from "express-session";
 import passport from "passport";
@@ -50,6 +51,7 @@ app.use("", examRoute); // endpoin is /exam
 app.use("", authRoutes); // auth end point
 app.use("", teacherRoute);
 app.use("",classRoute);
+app.use("",studentRoute);
 
 app.get("/test-db", async (req, res) => {
   try {

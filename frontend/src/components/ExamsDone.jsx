@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import Results from "./Results"; // Import the Results component
+import {useNavigate} from "react-router-dom";
 
-export const ExamDisplay = ({ id }) => {
+export const ExamDisplay = ({id}) => {
   const [exams, setExams] = useState([]);
-  const [selectedExam, setSelectedExam] = useState(null);
-  const { studentId } = useParams(); // Extract studentId from URL
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,12 +13,13 @@ export const ExamDisplay = ({ id }) => {
           `http://localhost:3000/getExamsInClass/?classId=${classId}`
         );
         setExams(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Error fetching exams:", error);
       }
     };
     fetchExams(id);
-  }, [id]);
+  }, []);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -40,26 +38,13 @@ export const ExamDisplay = ({ id }) => {
     navigate(`editor/${examId}`);
   };
 
-  const resultFunc = (exam) => {
-    setSelectedExam({
-      id: exam.exam_id,
-      name: exam.name
-    }); 
-  };
-
   return (
-    <div className="text-[var(--light-text)] w-full">
-      {/* Show Results if selected */}
-      {selectedExam ? (
-        <Results 
-          examName={selectedExam.name} 
-          examId={selectedExam.id} 
-          onClose={() => setSelectedExam(null)} 
-          studentId={studentId} 
-        />
-      ) : (
-        <div className="rounded-lg overflow-auto scroller">
-          {exams.map((exam, index) => (
+    <div className="h-full  text-[var(--light-text)] p-6 w-full">
+     
+
+      <div className="rounded-lg overflow-auto scroller">
+        {
+          exams.map((exam, index) => (
             <div
               key={index}
               className="flex items-center justify-between p-4 border-b border-[var(--light-bg)] 
@@ -72,30 +57,31 @@ export const ExamDisplay = ({ id }) => {
               <div
                 className={`flex-1 text-center ${getStatusColor(exam.status)}`}
               >
-                duration: {exam.duration} mins
+                duration:{exam.duration}mins
               </div>
 
               {/* Action Button */}
               <div className="flex-1 flex justify-end">
                 <button
-                  className={`px-4 py-2 rounded-md 
-                    ${exam.active === "active"
-                      ? "bg-[var(--primary-color)] text-[var(--dark-text)]"
-                      : "bg-[var(--secondary-color)] text-white"
-                    } hover:opacity-90 transition-opacity`}
-                  onClick={() =>
-                    exam.active === "active"
-                      ? handleExamClick(exam.exam_id)
-                      : resultFunc(exam) // Pass entire exam object
-                  }
+                  className={`
+                                    px-4 py-2 rounded-md 
+                                    ${
+                                      exam.active === "active"
+                                        ? "bg-[var(--primary-color)] text-[var(--dark-text)]"
+                                        : exam.active === "unactive"
+                                        ? "bg-blue-400 text-white"
+                                        : "bg-[var(--secondary-color)] text-white"
+                                    }
+                                    hover:opacity-90 transition-opacity
+                                `}
+                  onClick={() => handleExamClick(exam.exam_id)}
                 >
-                  {exam.active === "active" ? "Join" : "Result"}
+                  {exam.active == "active" ? "Join" : "finished"}
                 </button>
               </div>
             </div>
           ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

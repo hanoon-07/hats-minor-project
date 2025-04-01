@@ -1,4 +1,4 @@
-import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails } from "../models/examModel.js";
+import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average } from "../models/examModel.js";
 
 // let languages = ["java", "python", "javascript", "c", "c++"];
 // const cases = [
@@ -64,6 +64,7 @@ export const getExam = async (req, res) => {
     for(let i = 0;i < examDetails.length;i++) {
       tempQuestionObj.push({
         si: `question-${i+1}`,
+        id: examDetails[i].question_id,
         title: examDetails[i].name,
         problemStatement: examDetails[i].description,
         assumption: "nothing",
@@ -75,6 +76,8 @@ export const getExam = async (req, res) => {
         constraint2: examDetails[i].constraints.split("\r")[1],
         language: examDetails[i].support_langs[0]
       });
+
+      
     }
 
     const cases = [];
@@ -104,5 +107,41 @@ export const getExamHeaders = async(req, res) => {
 export const getExamsInClass = async(req, res) => {
   const classId = parseInt(req.query.classId, 10);
   const details = await getExamsInClassDetails(classId)
+  res.json(details)
+}
+
+
+export const saveResult = async (req, res) => {
+  try {
+    const { results } = req.body;
+    
+    if (!results || !Array.isArray(results)) {
+      return res.status(400).json({ error: 'Invalid request data. Expected an array of results.' });
+    }
+    
+    // Call the model function to save each result
+    const savedResults = await storeResults(results);
+    
+    res.status(200).json({ 
+      message: 'Results saved successfully', 
+      savedCount: savedResults.length
+    });
+  } catch (error) {
+    console.error('Error saving results:', error);
+    res.status(500).json({ error: 'Failed to save results' });
+  }
+};
+
+
+
+export const getLatestExam = async(req, res) => {
+  const sid = parseInt(req.query.sid, 10);
+  const details = await fetchLatestExams(sid)
+  res.json(details)
+}
+
+
+export const getPast6Average = async(req, res) => {
+  const details = await fetchPast6Average()
   res.json(details)
 }

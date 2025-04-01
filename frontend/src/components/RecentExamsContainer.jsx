@@ -1,20 +1,43 @@
 import React from 'react'
 import RecentExamCard from './RecentExamCard';
+import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 
 
-const RecentExamsContainer = () => {
+const RecentExamsContainer = ({id}) => {
     
     const [isFooterVisible, setIsFooterVisible] = useState(false);
     const footerRef = useRef(null);
+
+    const [recentExam, setRecentExam] = useState([])
+    const [loading, setLoading] = useState(1)
     
-    // Sample data for the cards
-    const exams = [
-      { id: 1, courseCode: 'CST-302', courseName: 'Operating System', date: '27/03/24' },
-      { id: 2, courseCode: 'CST-405', courseName: 'Database Systems', date: '22/03/24' }
-    ];
+    // const exams = [
+    //   { id: 1, courseCode: 'CST-302', courseName: 'Operating System', date: '27/03/24' },
+    //   { id: 2, courseCode: 'CST-405', courseName: 'Database Systems', date: '22/03/24' }
+    // ];
+
+    useEffect(() => {
+      const fetchRecentExam = async (id) => {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/getRecentExams/?sid=${id}`
+          );
+       
+          setRecentExam(response.data);
+        
+          setLoading(0)
+        } catch (error) {
+          console.error("Error fetching exams:", error);
+        }
+      }
+      fetchRecentExam(id)
+    }, [])
     
     useEffect(() => {
+
+      if (loading || recentExam.length === 0) return;
+
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -26,7 +49,8 @@ const RecentExamsContainer = () => {
           }
         },
         {
-          threshold: 0.2
+          threshold: 0.1,
+          rootMargin: "0px 0px 50px 0px" 
         }
       );
       
@@ -39,21 +63,26 @@ const RecentExamsContainer = () => {
           observer.unobserve(footerRef.current);
         }
       };
-    }, []);
+    }, [loading]);
+
+    if (loading) {
+      return <div className="text-white p-5">Loading...</div>;
+    }
     
     return (
       <div className='rounded-xl  p-5'>
-        {exams.map((exam, index) => (
+        {recentExam.map((exam, index) => (
           <React.Fragment key={exam.id}>
             {index > 0 && <br />}
             <RecentExamCard 
-              courseCode={exam.courseCode} 
-              courseName={exam.courseName} 
-              date={exam.date} 
+              // courseCode={exam.courseCode} 
+              // courseName={exam.courseName} 
+              date={exam.created_at} 
               delay={index * 200} // Stagger the animations
             />
           </React.Fragment>
         ))}
+        
         
         <div 
           ref={footerRef}
@@ -62,7 +91,7 @@ const RecentExamsContainer = () => {
           }`}
         >
           <button className="text-gray-300 hover:text-white transition-colors duration-300">
-            view full history
+              view full history
           </button>
           <svg
             width="50"
@@ -90,7 +119,10 @@ const RecentExamsContainer = () => {
               strokeLinecap="round"
             />
           </svg>
+          
+
         </div>
+
       </div>
     );
   };
