@@ -6,7 +6,8 @@ const RecentExamCard = ({
   courseCode='CST-302', 
   courseName='Operating system', 
   date='27/03/24',
-  delay = 0
+  delay = 0,
+  changer
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef(null);
@@ -54,7 +55,7 @@ const RecentExamCard = ({
       
       <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1" 
            style={{ backgroundColor: `${accentColor}10`, color: `white` }}>
-        <button>View results</button>
+        <button onClick={() => changer('classes')}>View results</button>
       </div>
       
       {/* Course info */}

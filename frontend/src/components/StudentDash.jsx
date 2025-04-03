@@ -24,7 +24,7 @@ function StudentDash() {
             <div className='flex h-[calc(100%-60px)]'>
                 <StudentNav selected={selected} setSelected={setSelected}/> 
                 <div className='w-[75%]'>
-                    {selected=='dashboard'&&<Dashboard id={studentId}/>}
+                    {selected=='dashboard'&&<Dashboard id={studentId} changer={setSelected}/>}
                     {selected=='classes'&&<Classes/>}
                 </div>
             </div>

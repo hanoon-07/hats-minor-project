@@ -98,6 +98,10 @@ function Classes() {
           <h1 className="text-[#c1c4c7] text-3xl font-bold">
             {selected == 'classes' ? "My Classes" : "Exams"}
           </h1>
+    
+          <h1 className="text-[#c1c4c7] text-md font-md mt-1">
+            {selected == 'classes' ? "click classes to view current exams/past results" : ""}
+          </h1>
           
 
           {selected == 'classes' && <div className="flex flex-row gap-x-3 flex-wrap">

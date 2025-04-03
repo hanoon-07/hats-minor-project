@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const DashClass = ({studentId}) => {
+const DashClass = ({studentId, changer}) => {
     // Sample class data - replace with actual data
 
     const [data, setData] = useState([])
@@ -74,7 +74,7 @@ const DashClass = ({studentId}) => {
                         className="snap-start flex-shrink-0 w-64 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
                     >
                         <div className={`h-3 bg-[#A8FF53] `}></div>
-                        <div className="bg-[#1a1b1f] p-5">
+                        <div onClick={() => changer('classes')} className="bg-[#1a1b1f] p-5">
                             <h3 className="text-xl font-bold text-white mb-2">{classItem.name}</h3>
                             <p className="text-gray-400 mb-4">{classItem.teacher_name}</p>
 
@@ -98,7 +98,9 @@ const DashClass = ({studentId}) => {
                     </div>
                 ))}
 
-                {data?<button>
+                {data?<button
+                    onClick={() => changer('classes')}
+                >
                     view all classes
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
         
