@@ -1,4 +1,5 @@
-import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average } from "../models/examModel.js";
+
+import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, stopExamDB, storeResults, fetchLatestExams, fetchPast6Average  } from "../models/examModel.js";
 
 // let languages = ["java", "python", "javascript", "c", "c++"];
 // const cases = [
@@ -43,7 +44,7 @@ import { getExamDetails, getHeaders, storeExam, getExamsInClassDetails, storeRes
 export const createExam = async (req, res) => {
   try {
     const examDetails = req.body;
-    console.log("data recieved: "+examDetails.classId);
+    //console.log("data recieved: "+examDetails.classId);
     const result = await storeExam(examDetails , examDetails.classId);
     //console.log(result);
     res.json(result);
@@ -59,7 +60,7 @@ export const getExam = async (req, res) => {
       res.json({msg: examDetails.msg});
       return;
     }
-
+    console.log(examDetails);
     var tempQuestionObj = [];
     for(let i = 0;i < examDetails.length;i++) {
       tempQuestionObj.push({
@@ -74,7 +75,8 @@ export const getExam = async (req, res) => {
         secondExampleAns: "12",
         constraint1: examDetails[i].constraints.split("\r")[0],
         constraint2: examDetails[i].constraints.split("\r")[1],
-        language: examDetails[i].support_langs[0]
+        language: examDetails[i].support_langs[0],
+        
       });
 
       
@@ -94,7 +96,7 @@ export const getExam = async (req, res) => {
     }
 
     //res.json({msg: 'test'});
-    res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases});  
+    res.json({questionDetails: tempQuestionObj, languages: examDetails[0].support_langs.split(" "), cases: cases, duration: examDetails[0].duration});  
     
 } 
 
@@ -144,4 +146,16 @@ export const getLatestExam = async(req, res) => {
 export const getPast6Average = async(req, res) => {
   const details = await fetchPast6Average()
   res.json(details)
+}
+
+export const stopExam = async(req, res) => {
+  const examId = parseInt(req.query.examId, 10);
+  try {
+    await stopExamDB(examId);
+  } catch(error) {
+    console.log('something went wrong! controller stop exam!');
+  }
+  res.json({
+    msg: 'sucess!'
+  })
 }

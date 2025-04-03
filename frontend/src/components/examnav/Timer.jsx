@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 import { Clock } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 
-function Timer({ expiryTimestamp, timeStart }) {
+function Timer({ expiryTimestamp, timeStart, report }) {
 
   const navigate = useNavigate()
   const {
@@ -28,6 +28,20 @@ function Timer({ expiryTimestamp, timeStart }) {
     autoStart: false,
   });
 
+  const [prev, setPrev] = useState('init');
+
+  useEffect(() => {
+    if(report) {
+      
+      setPrev('second');
+      pause();
+    
+    } else {
+      if(prev != 'init') {
+        resume();
+      }
+    }
+  }, [report]);
 
   useEffect(() => {
     restart(expiryTimestamp);

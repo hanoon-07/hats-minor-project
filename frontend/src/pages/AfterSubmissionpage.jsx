@@ -62,7 +62,7 @@ function AfterSubmissionpage() {
                     message = message + `Q${index+1}:${item.questionDetails.problemStatement}\nthe answer given was:\n${item.codeValues[item.selected]}\nnumber of test cases passed ${testCaseResult[index]} out of ${item.testCases.input.length}\n`;
                 });
 
-                console.log(message)
+                //console.log(message)
  
                 try {
                     const res = await axios.post(

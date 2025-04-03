@@ -95,6 +95,7 @@ export const ClassView = ({ classId, classroomName, subjectName,socket, setExamS
 
       var tempArr1 = [];
       var tempArr2 = [];
+      //console.log(response.data);
       response.data.examData.map((item, index) => {
         //console.log(item);
         if (item.type == "active" || item.type == "upcoming") {
@@ -102,13 +103,16 @@ export const ClassView = ({ classId, classroomName, subjectName,socket, setExamS
             Name: item.examName,
             examId: item.examId,
             status: item.type,
+            date: new Intl.DateTimeFormat('en-CA').format(new Date(item.date))
           });
         } else {
-          //console.log(item);
+          
+          console.log(item);
           tempArr2.push({
             Name: item.examName,
             examId: item.examId,
             status: item.type,
+            date: new Intl.DateTimeFormat('en-CA').format(new Date(item.date))
           });
         }
       });

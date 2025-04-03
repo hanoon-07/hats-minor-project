@@ -11,7 +11,7 @@ const ResetPasswordPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState("false");
   const navigate = useNavigate();
-  console.log(isLoading);
+  //console.log(isLoading);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);

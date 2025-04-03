@@ -71,7 +71,7 @@ const getHeaders = async () => {
 
 const getExamsInClassDetails = async (class_id) => {
     const query = `
-        SELECT exam_id, class_id, name, created_at, duration, active
+        SELECT exam_id, class_id, name, created_at, duration, active, created_at
         FROM exam
         WHERE class_id = $1;
     `;
@@ -220,7 +220,17 @@ const fetchPast6Average = async () => {
     }
 }
 
+const stopExamDB = async(examId) => {
+    //console.log(examId);
+    const query = `update exam set active = 'past' where exam_id = $1`;
+    try {
+        await pool.query(query, [examId]);
+        return true;
+    } catch (error) {
+        console.log('something went wrong! in stop exam!');
+    }
+}
 
 
 
-export {getExamDetails, storeExam, getHeaders, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average};
+export {getExamDetails, storeExam, getHeaders, getExamsInClassDetails, storeResults, fetchLatestExams, fetchPast6Average, stopExamDB};

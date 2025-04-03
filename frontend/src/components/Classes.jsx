@@ -63,8 +63,8 @@ function Classes() {
     try {
       setModalWindow(false);
       setClassCode("");
-      console.log(studentId)
-      console.log(classCode)
+      //console.log(studentId)
+      //console.log(classCode)
 
       const response = await axios.post(
         "http://localhost:3000/joinClass",

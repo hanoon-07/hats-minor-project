@@ -8,7 +8,7 @@ import Output from "./Output";
 import { useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { selectInputs, selectOutputs, selectResult } from "../../redux/examSelector";
-import Loadinganimation from "../animation/Loadinganimation";
+import {LoadingRingSmall} from '../animation/LoadingRingSmall'
 /*
 
 input sample format
@@ -67,8 +67,8 @@ function Result_case() {
             </motion.p>
           ))}
         </div>
-        <div className="mt-2">
-          <Loadinganimation length={'5'}/>
+        <div className="translate-y-[35px]">
+          <LoadingRingSmall />
         </div>
         </div>
       </div>

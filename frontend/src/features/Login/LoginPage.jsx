@@ -49,8 +49,8 @@ const LoginPage = () => {
       if (response.data.role == "student") {
         navigate(`/studentPage/${response.data.user_id}`, {replace: true});
       } else {
-        console.log("hello teacher");
-        console.log(response.data);
+        //console.log("hello teacher");
+        //console.log(response.data);
         navigate(
           `/teacherDashboard/${response.data.user_id}/${response.data.name}`
         );

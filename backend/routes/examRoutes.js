@@ -7,7 +7,8 @@ import {
   getExamsInClass,
   saveResult,
   getLatestExam,
-  getPast6Average
+  getPast6Average,
+  stopExam
 } from "../controllers/examController.js";
 
 const router = express.Router();
@@ -19,6 +20,6 @@ router.get('/getExamsInClass', getExamsInClass)
 router.post('/saveresult',saveResult)
 router.get('/getRecentExams',getLatestExam)
 router.get('/getPast6Average',getPast6Average)
-
+router.get('/stopExam', stopExam);
 
 export default router;

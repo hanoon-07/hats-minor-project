@@ -1,17 +1,19 @@
 import axios, { getAdapter } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { selectClassId } from "../../redux/classSelector";
 import { useSelector } from "react-redux";
 import { LoadingRing } from "../animation/LoadingRing";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { StudentsView } from "./StudentsView";
 import {io} from 'socket.io-client';
+import { ToggleButton } from "./ToggleButton";
+import { StopButton } from "./StopButton";
+import { WaitingStudentsInfo } from "./WaitingStudentsInfo";
+import { convertToXLSXandDownload } from "../../features/ExamResultDownload/ConvertXLSX.js";
+import { convertToPDFandDownload } from "../../features/ExamResultDownload/ConvertPDF.js";
 
 
-
-
-
-export const ExamPanel = ({ examId = 22 }) => {
+export const ExamPanel = ({ examId = 22, setSelected }) => {
   const classId = useSelector(selectClassId);
   const [examName, setExamName] = useState("--------");
   const [duration, setDuration] = useState("0000");
@@ -19,6 +21,8 @@ export const ExamPanel = ({ examId = 22 }) => {
   const [studentData, setStudentData] = useState([]);
   const [showStudentInfo, setShowStudentInfo] = useState(false);
   const [msg, setMsg] = useState('---');
+  const [waitStatus, setWaitStatus] = useState(true);
+  const [render, setRender] = useState(false);
 
 
   const childRotate1 = {
@@ -30,41 +34,35 @@ export const ExamPanel = ({ examId = 22 }) => {
     }
   };
 
-  async function getFullData() {
-    setLoading(true);
-    try {
-      const response = await axios.get("http://localhost:3000/getExamData/", {
-        params: { examId: examId },
-      });
-      setExamName(response.data.examData.name);
-      setDuration(response.data.examData.duration);
-      const response1 = await axios.get(
-        "http://localhost:3000/getClassStudents",
-        {
-          params: { classId: classId },
-        }
-      );
-      //console.log(response1.data)
-      var tempArr = [];
-      response1.data.map((item) => {
-        tempArr.push({
-          rollNo: item.roll_no,
-          status: "not-joined",
-        });
-      });
-      setStudentData(tempArr);
-    } catch (error) {
-      //console.log(error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if(render == true) {
+
     }
-  }
+  }, [render])
+
+  
 
   useEffect(() => {
+
     //console.log("examid: "+examId);
     //select exam name, duration ,
-    //connect to the web socket provided by the backend, inform this as the teacher
+    //connect to the web socket.currentRef provided by the backend, inform this as the teacher
     //console.log(classId);
+    // convertToXLSXandDownload();
+    // convertToPDFandDownload();
+    async function getResultData() {
+      try {
+        const response = await axios.get('http://localhost:3000/getResult', {
+          params: {
+            examId: examId
+          }
+        })
+        console.log(response.data);
+      } catch(error) {
+
+      }
+    }
+    getResultData();
 
     async function getFullData() {
       setLoading(true);
@@ -85,13 +83,16 @@ export const ExamPanel = ({ examId = 22 }) => {
         response1.data.map((item) => {
           tempArr.push({
             RollNo: item.roll_no,
-            status: "not-joined",
+            status: item.status?item.status:'not-joined',
             Name: item.name,
             UniversityNum: item.admission_no,
             joinedAt: item.joined_at,
           });
         });
-        setStudentData(tempArr);
+        if(studentData.length == 0) {
+          setStudentData(tempArr);
+          //console.log(tempArr);
+        }
         //console.log(tempArr);
       } catch (error) {
         console.log(error);
@@ -117,44 +118,100 @@ export const ExamPanel = ({ examId = 22 }) => {
     // ]
 
     getFullData();
-  }, [examId, classId]);
+  }, []);
+
+  const socket = useRef(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:3000", {
+    socket.current = io("http://localhost:3000", {
       withCredentials: true,
-      transports: ["websocket", "polling"]
+      transports: ["websocket.currentRef", "polling"]
     });
   
-    socket.emit("identify", {
-      userType: "teacher",
-      examId: examId
-    });
-  
-    socket.on("exam-status", (data) => {
-      console.log("Received message:", data);
-      
-
-      setStudentData((prevStudentData) => {
-        return prevStudentData.map((student) => {
-          const foundStudent = data.examData.studentsInfo.find((item) => item.rollNo == student.RollNo);
-          if(foundStudent && student.status == 'not-joined' && foundStudent.status == 'active') {
-            setMsg(`${student.Name} joined.`);
-          } else if(foundStudent && student.status == 'active' && foundStudent.status == 'not-joined') {
-            setMsg(`${student.Name} disconnected.`);
-          }
-          return foundStudent ? { ...student, status: foundStudent.status } : student;
-        });
+    socket.current.on("connect", () => {
+      //("connection done!");
+      socket.current.emit("identify", {
+        userType: "teacher",
+        examId: examId,
       });
+    });
+
+    socket.current.on('student-pause', (data) => {
+      setWaitingStudents(data.waitStatus);
+      console.log(data.waitStatus);
+      if(data.waitStatus.length > 0) {
+        setPausemsg(`${data.waitStatus.length} need review!`);
+      } else {
+        setPausemsg('---');
+      }
+    });
+    
+    socket.current.on("exam-status", (data) => {
+      //console.log("Received message:", data);
+      
+      setWaitStatus(data.examData.waitStatus);
+
+      
+      setTimeout(() => {
+        setStudentData((prevStudentData) => {
+          return prevStudentData.map((student) => {
+            const foundStudent = data.examData.studentsInfo.find((item) => item.rollNo == student.RollNo);
+            if(foundStudent && (student.status == 'not-joined' || student.status == 'submit') && foundStudent.status == 'active') {
+              setMsg(`${student.Name} joined.`);
+            } else if(foundStudent && student.status == 'active' && foundStudent.status == 'not-joined') {
+              setMsg(`${student.Name} disconnected.`);
+            } else if(foundStudent && student.status == 'active' && foundStudent.status == 'submit') {
+              setMsg(`${student.Name} finished exam.`);
+            }
+            //console.log(`found student ${foundStudent.status}`);
+            return foundStudent? { ...student, status: foundStudent.status } : student;
+          });   
+        });   
+      }, 1000);
+      
     });
   
     return () => {
-      socket.disconnect();
+      socket.current.disconnect();
     };
   }, []);
+
+  // useEffect(() => {
+  //   if(socket.currentRef != null) {
+  //     setLoading(true);
+  //     socket.currentRef.emit(socket.currentRef.emit("identify", {
+  //       examId: examId,
+  //       event: 'invert-wait-status',
+  //       waitStatus: waitStatus
+  //     }));
+  //     setLoading(false);
+  //   }
+  // }, [waitStatus]);
+
+  const [waitingStudents, setWaitingStudents] = useState([]);
+  const [lastPauseMsg, setPausemsg] = useState('---');
+  const [showWaitingWindow, setWaitingWindow] = useState(false);
+
+  function getWaitingStudents() {
+    var tempArr = [];
+    studentData.map((item) => {
+      const student = waitingStudents.find((stud) => stud.rollNo == item.RollNo);
+      if(student) {
+        tempArr.push({
+          name: item.Name,
+          rollNo: item.RollNo,
+          type: student.type
+        });
+      }
+      
+    });
+    return tempArr;
+  }
 
   return (
     <div className="h-full w-full bg-[#15171A]">
       {loading && <LoadingRing />}
+      {showWaitingWindow && <WaitingStudentsInfo examId={examId} setWaitingStudents={setWaitingStudents} waitingStudentInfo={getWaitingStudents()} socket={socket.current} setShowWindow={setWaitingWindow}/>}
       {showStudentInfo && <StudentsView setStudentInfo={setShowStudentInfo} studentData={studentData}/>}
       <div className="head-section flex flex-col gap-1 pt-10 pl-10">
         <h1 className="text-[#C1C4C7] font-bold text-3xl">{examName}</h1>
@@ -167,6 +224,7 @@ export const ExamPanel = ({ examId = 22 }) => {
 
       <div className="flex flex-col gap-2 px-10 pt-5">
         
+
         <div className="flex flex-row gap-3">
           <div className="h-[30px] w-[30px] rounded-full bg-[#A8FF53] grid place-content-center"></div>
           <p className="text-[#C1C4C7]">on exam</p>
@@ -184,35 +242,53 @@ export const ExamPanel = ({ examId = 22 }) => {
       </div>
 
       <div className="mx-10">
-        <div className="flex flex-row w-full justify-end gap-2">
-          <div className="flex flex-row gap-2 items-center">
-            <div className="h-[24px] w-[24px] rounded-full bg-[#A8FF53] grid place-content-center">
-              <p className="text-black font-normal">0</p>
-            </div>
-            <p className="text-[#C1C4C7] ">on exam</p>
-          </div>
+        
 
-          <div className="flex flex-row gap-2 items-center">
-            <div className="h-[24px] w-[24px] rounded-full bg-[#5F97F3] grid place-content-center">
-              <p className="text-black font-normal">0</p>
-            </div>
-            <p className="text-[#C1C4C7] ">completed</p>
-          </div>
+        <div className="flex flex-row w-full justify-between gap-2">
+          
+          <div className="flex flex-row gap-2 items-center h-[40px]">
+            <div onClick={() => {setWaitingWindow(true);}} className="w-[70px] mt-4 h-[30px] justify-center items-center gap-2 rounded-sm bg-yellow-400 hover:bg-yellow-600 flex flex-row">
+              <p>{waitingStudents.length}</p>
+              <svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H4V4L3 11H1L0 4V0ZM4 14C4.00602 14.2663 3.95877 14.5312 3.86103 14.779C3.76328 15.0269 3.61701 15.2527 3.4308 15.4432C3.24458 15.6337 3.02218 15.7851 2.77666 15.8885C2.53113 15.9919 2.26742 16.0451 2.00101 16.0452C1.7346 16.0453 1.47087 15.9921 1.22529 15.8889C0.979708 15.7856 0.757233 15.6343 0.570925 15.4439C0.384617 15.2535 0.238231 15.0277 0.140361 14.78C0.0424915 14.5322 -0.00488977 14.2673 0.000999928 14.001C0.0125555 13.4784 0.228225 12.9812 0.601839 12.6156C0.975454 12.2501 1.47732 12.0453 2.00001 12.0452C2.5227 12.0451 3.02467 12.2496 3.39847 12.6149C3.77227 12.9803 3.98818 13.4774 4 14Z" fill="black"/>
+              </svg>
+            </div>   
 
-          <div className="flex flex-row gap-2 items-center">
-            <div className="h-[24px] w-[24px] rounded-full bg-[#F43F5E] grid place-content-center">
-              <p className="text-black font-normal">0</p>
+            <p className="text-yellow-300 translate-y-1">{lastPauseMsg}</p>
+          </div> 
+
+
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-2 items-center">
+              <div className="h-[24px] w-[24px] rounded-full bg-[#A8FF53] grid place-content-center">
+                <p className="text-black font-normal">0</p>
+              </div>
+              <p className="text-[#C1C4C7] ">on exam</p>
             </div>
-            <p className="text-[#C1C4C7] ">not joined</p>
+
+            <div className="flex flex-row gap-2 items-center">
+              <div className="h-[24px] w-[24px] rounded-full bg-[#5F97F3] grid place-content-center">
+                <p className="text-black font-normal">0</p>
+              </div>
+              <p className="text-[#C1C4C7] ">completed</p>
+            </div>
+
+            <div className="flex flex-row gap-2 items-center">
+              <div className="h-[24px] w-[24px] rounded-full bg-[#F43F5E] grid place-content-center">
+                <p className="text-black font-normal">0</p>
+              </div>
+              <p className="text-[#C1C4C7] ">not joined</p>
+            </div>
           </div>
         </div>
 
         <div className="box-border relative  my-4 flex flex-col gap-0 w-full  bg-[#1B1D1F] rounded-sm outline outline-1 outline-[#1f2124]">
           <div className="flex flex-row gap-2 flex-wrap max-h-[150px] h-[150px] overflow-y-scroll p-2 content-start">
             {studentData.map((item) => {
+             
               return (
                 <>
-                  {console.log(studentData)}
+                  
                   {item.status == "not-joined" && (
                     <div className="h-[30px] w-[30px] rounded-full  bg-[#F43F5E] grid place-content-center">
                       <p className="text-black font-semibold">{item.RollNo}</p>
@@ -220,6 +296,12 @@ export const ExamPanel = ({ examId = 22 }) => {
                   )}
                   {item.status == "active" && (
                     <div className="h-[30px] w-[30px] rounded-full bg-[#A8FF53] grid place-content-center">
+                      <p className="text-black font-semibold">{item.RollNo}</p>
+                    </div>
+                  )}
+
+                  {item.status == "submit" && (
+                    <div className="h-[30px] w-[30px] rounded-full bg-[#5F97F3] grid place-content-center">
                       <p className="text-black font-semibold">{item.RollNo}</p>
                     </div>
                   )}
@@ -268,13 +350,12 @@ export const ExamPanel = ({ examId = 22 }) => {
       </div>
       <div className="border-t-2 border-dashed border-gray-500 mt-8 mr-10 ml-10"></div>
 
-      <div className="flex flex-row w-full px-10 mt-4 gap-2">
-        <button className="bg-[#5F97F3] px-2 py-[2px] rounded-sm">
-          stop waiting
-        </button>
-        <button className="bg-[#F43F5E] px-2 py-[2px] rounded-sm">
+      <div className="flex flex-row justify-between w-full px-10 mt-4 gap-2">
+        <ToggleButton status={waitStatus} setStatus={setWaitStatus} examId={examId} socket={socket.current} label={'allow new students'}/>
+        {/* <button className="bg-[#F43F5E] px-2 py-[2px] rounded-sm">
           stop exam
-        </button>
+        </button> */}
+        <StopButton examId={examId} setSelected={setSelected} setRender={setRender} socket={socket.current}/>
       </div>
 
       <div className="w-full flex flex-col gap-2 mt-12 px-10">

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Results from "./Results"; // Import the Results component
 
-export const ExamDisplay = ({ id }) => {
+export const ExamDisplay = ({id, rollNo}) => {
   const [exams, setExams] = useState([]);
   const [selectedExam, setSelectedExam] = useState(null);
   const { studentId } = useParams(); // Extract studentId from URL
@@ -38,13 +38,7 @@ export const ExamDisplay = ({ id }) => {
 
   const handleExamClick = (examId) => {
     navigate(`editor/${examId}`);
-  };
-
-  const resultFunc = (exam) => {
-    setSelectedExam({
-      id: exam.exam_id,
-      name: exam.name
-    }); 
+    
   };
 
   return (
@@ -89,7 +83,7 @@ export const ExamDisplay = ({ id }) => {
                       : resultFunc(exam) // Pass entire exam object
                   }
                 >
-                  {exam.active === "active" ? "Join" : "Result"}
+                  {exam.active == "active" ? "join": exam.active == "upcoming"? "not started":"finished"}
                 </button>
               </div>
             </div>

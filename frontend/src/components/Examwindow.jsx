@@ -7,7 +7,8 @@ import Examnav from './examnav/Examnav';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllQuestions } from '../redux/examSelector';
 
-function Examwindow({timeStart}) {
+
+function Examwindow({timeStart, socket, studentData, duration, report}) {
     // const questionDetails =
     //     [
     //         {
@@ -87,7 +88,6 @@ function Examwindow({timeStart}) {
 
     const stopResizing = useCallback(() => {
         setIsHorizontalResizing(false);
-
         setIsVerticalResizing(false);      
     }, []);
 
@@ -120,7 +120,7 @@ function Examwindow({timeStart}) {
     return (
         <div className='h-full flex-col flex'>
             <div className='h-[55px] bg-black'>
-                <Examnav timeStart={timeStart}/>
+                <Examnav studentData={studentData} report={report} duration={duration} socket={socket} timeStart={timeStart}/>
             </div>
 
             <div

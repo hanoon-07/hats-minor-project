@@ -14,15 +14,24 @@
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "file-saver": "^2.0.5",
+    "install": "^0.13.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "nodemailer": "^6.10.0",
+    "npm": "^11.2.0",
     "otp-generator": "^4.0.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.13.3",
-    "socket.io": "^4.8.1"
+    "react-bootstrap": "^2.10.9",
+    "react-bootstrap-table-next": "^1.1.0",
+    "socket.io": "^4.8.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }
