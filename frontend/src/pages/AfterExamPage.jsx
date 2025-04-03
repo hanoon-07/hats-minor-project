@@ -15,6 +15,9 @@ function AfterExamPage({ }) {
   let noq = useSelector((state) => state["exam-data"].questions.length)
   let questions = useSelector((state) => state["exam-data"].questions)
 
+  console.log(noq)
+  console.log(questions)
+
   const [value, setValue] = useState(questions[0].codeValues[questions[0].selected])
   const [selectedIndex, setSelectedIndex] = useState(0)
 
@@ -37,6 +40,9 @@ function AfterExamPage({ }) {
     let tci = question.testCases.output; // These are expected outputs
     let tco = question.testResult?.stdOut || []; // These are actual outputs
     for (let i = 0; i < tci.length; i++) {
+      if(tco[i]==null){
+        continue
+      }
       if (i < tco.length && tci[i] === tco[i].trim()) {
         count++;
       }
@@ -66,6 +72,9 @@ function AfterExamPage({ }) {
       let actualOutputs = question.testResult?.stdOut || [];
 
       for (let i = 0; i < expectedOutputs.length; i++) {
+        if(actualOutputs[i]==null){
+           continue
+        }
         if (i < actualOutputs.length && expectedOutputs[i] === actualOutputs[i].trim()) {
           passedCount++;
         }
@@ -87,11 +96,14 @@ function AfterExamPage({ }) {
       `http://localhost:3000/saveresult`,{results}
     ).then(response => {
       console.log('Results saved successfully:', response.data);
+      navigate(`/studentPage/${studentId}`, { replace: true });
     })
     .catch(error => {
       console.error('Error saving results:', error);
       // Show error message to user
     });
+
+
 
    
       
