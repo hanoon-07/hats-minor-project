@@ -6,82 +6,86 @@ const ExamGraph = ({
   title = "Performance Trend",
   id
 }) => {
-
   const [isVisible, setIsVisible] = useState(false);
   const [chartKey, setChartKey] = useState(0);
   const graphRef = useRef(null);
 
-  const [pastExam, setPastExam] = useState([])
-  const [pastResult, setPastResult] = useState([])
+  const [pastExam, setPastExam] = useState([]);
+  const [pastResult, setPastResult] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [data, setData] = useState([])
+  // Format date function
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString().split("T")[0];
+  };
 
-
-  const [loading, setLoading] = useState(1)
-
-
-
+  // Fetch data when component mounts or id changes
   useEffect(() => {
-    const fetchPastExams = async (id) => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(
+        // Fetch student's past scores
+        const examResponse = await axios.get(
           `http://localhost:3000/getPast6Scores/?sid=${id}`
         );
+        setPastExam(examResponse.data);
         
-        setPastExam(response.data);
-      } catch (error) {
-        console.error("Error fetching exams:", error);
-      }
-    }
-
-    const fetchPastResults = async () => {
-      try {
-        const response = await axios.get(
+        // Fetch class average scores
+        const resultResponse = await axios.get(
           `http://localhost:3000/getPast6Average`
         );
-        
-        setPastResult(response.data);
+        setPastResult(resultResponse.data);
         
       } catch (error) {
-        console.error("Error fetching exams:", error);
+        console.error("Error fetching data:", error);
       }
-    }
+    };
 
-    fetchPastExams(id)
-    fetchPastResults()
+    fetchData();
+  }, [id]);
 
-  
-
-    const x = [];
-    for (let i = 0; i < pastResult.length; i++) {
-      x.push({
-        date: pastResult[i].date,
-        studentScore: pastExam[i].score_percentage,
-        averageScore: pastResult[i].average_score_percentage
+  // Process data after both API responses are received
+  useEffect(() => {
+    if (pastExam.length > 0 && pastResult.length > 0) {
+      // Create a map of date to class average for easier lookup
+      const averagesByDate = {};
+      pastResult.forEach(item => {
+        if (item.exam_date) {
+          const formattedDate = formatDate(item.exam_date);
+          averagesByDate[formattedDate] = item.average_score_percentage;
+        }
       });
+      
+      // Create chart data combining student scores with class averages
+      const chartData = pastExam.map(exam => {
+        const formattedDate = formatDate(exam.exam_date);
+        return {
+          date: formattedDate,
+          studentScore: exam.score_percentage,
+          averageScore: averagesByDate[formattedDate] || null
+        };
+      });
+      setData(chartData);
+      console.log('data is', data)
+      setLoading(false);
     }
+  }, [pastExam, pastResult]);
 
-    setData(x)
-    setLoading(0)
-
-
-
-  }, [])
-
+  // Animation observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // When the component enters the viewport
         if (entry.isIntersecting && !isVisible) {
           setIsVisible(true);
-          // Force recharts to re-render and trigger animation
           setChartKey(prev => prev + 1);
         }
       },
       {
-        root: null, // viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.3, // Trigger when 30% of the element is visible
+        threshold: 0.3,
       }
     );
 
@@ -96,10 +100,18 @@ const ExamGraph = ({
     };
   }, [isVisible]);
 
-
   if (loading) {
     return <div>Graph is loading</div>;
   }
+
+  // Calculate highest score and average
+  const highestScore = data.length > 0 
+    ? Math.max(...data.map(item => item.studentScore || 0)) 
+    : 0;
+    
+  const averageScore = data.length > 0 
+    ? (data.reduce((acc, curr) => acc + (parseInt(curr.studentScore) || 0), 0) / data.length)
+    : 0;
 
   return (
     <div
@@ -119,7 +131,7 @@ const ExamGraph = ({
       <div className="h-64 w-full bg-[#272a2e] ">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            key={chartKey} // Key changes when visible, forcing re-render
+            key={chartKey}
             data={data}
             margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
             style={{ backgroundColor: 'black' }}
@@ -170,7 +182,7 @@ const ExamGraph = ({
               activeDot={{ r: 6, fill: '#60A5FA', stroke: '#FFF' }}
               isAnimationActive={true}
               animationDuration={1000}
-              animationBegin={300} // Slight delay for the second line
+              animationBegin={300}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -180,13 +192,11 @@ const ExamGraph = ({
       <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-gray-700">
         <div className="bg-gray-900 bg-opacity-60 p-3 rounded-lg">
           <p className="text-xs text-gray-400 mb-1 bg-transparent">Highest Score</p>
-          <p className="text-[#A8FF53] font-medium bg-transparent">{Math.max(...data.map(item => item.studentScore))}%</p>
+          <p className="text-[#A8FF53] font-medium bg-transparent">{highestScore}%</p>
         </div>
         <div className="bg-gray-900 bg-opacity-60 p-3 rounded-lg">
           <p className="text-xs text-gray-400 mb-1 bg-transparent">Your Average</p>
-          <p className="text-[#A8FF53] font-medium bg-transparent">
-            {(data.reduce((acc, curr) => acc + curr.studentScore, 0) / data.length).toFixed(1)}%
-          </p>
+          <p className="text-[#A8FF53] font-medium bg-transparent">{averageScore}%</p>
         </div>
       </div>
     </div>

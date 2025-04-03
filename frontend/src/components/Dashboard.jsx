@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { LoadingRing } from './animation/LoadingRing'
 
-function Dashboard({id}) {
+function Dashboard({id, changer}) {
 
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(1)
@@ -48,7 +48,7 @@ function Dashboard({id}) {
       <h1 className="text-2xl font-bold">Classes joined</h1>
       <br />
       <div className="w-full flex justify-between mb-10">
-        <DashClass studentId={id}/>
+        <DashClass studentId={id} changer={changer}/>
 
         {/* <Statcard name="Exams" /> */}
         {/* <Statcard name="Quizzes" /> */}
@@ -62,7 +62,7 @@ function Dashboard({id}) {
       <h1 className="text-2xl font-bold">Recent Exams</h1>
       <br />
 
-      <RecentExamsContainer id={id} />
+      <RecentExamsContainer id={id} changer={changer}/>
     </div>
   );
 }

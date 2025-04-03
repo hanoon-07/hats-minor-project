@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 
 
-const RecentExamsContainer = ({id}) => {
+const RecentExamsContainer = ({id,changer}) => {
     
     const [isFooterVisible, setIsFooterVisible] = useState(false);
     const footerRef = useRef(null);
@@ -75,6 +75,7 @@ const RecentExamsContainer = ({id}) => {
           <React.Fragment key={exam.id}>
             {index > 0 && <br />}
             <RecentExamCard 
+              changer={changer}
               // courseCode={exam.courseCode} 
               // courseName={exam.courseName} 
               date={exam.created_at} 
@@ -90,7 +91,7 @@ const RecentExamsContainer = ({id}) => {
             isFooterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <button className="text-gray-300 hover:text-white transition-colors duration-300">
+          <button onClick={() => changer('classes')} className="text-gray-300 hover:text-white transition-colors duration-300">
               view full history
           </button>
           <svg
@@ -99,6 +100,7 @@ const RecentExamsContainer = ({id}) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 60"
             className=""
+            onClick={() => changer('classes')}
           >
             <line
               x1="20"
