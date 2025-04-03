@@ -67,8 +67,12 @@ const ExamGraph = ({
           averageScore: averagesByDate[formattedDate] || null
         };
       });
+      
+      // Sort the data chronologically (oldest to newest)
+      chartData.sort((a, b) => new Date(a.date) - new Date(b.date));
+      
       setData(chartData);
-      console.log('data is', data)
+      console.log('sorted data is', chartData);
       setLoading(false);
     }
   }, [pastExam, pastResult]);
@@ -110,7 +114,7 @@ const ExamGraph = ({
     : 0;
     
   const averageScore = data.length > 0 
-    ? (data.reduce((acc, curr) => acc + (parseInt(curr.studentScore) || 0), 0) / data.length)
+    ? (data.reduce((acc, curr) => acc + (parseInt(curr.studentScore) || 0), 0) / data.length).toFixed(1)
     : 0;
 
   return (
