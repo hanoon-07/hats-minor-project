@@ -41,18 +41,23 @@ export const ExamDisplay = ({id, rollNo}) => {
     
   };
 
+  const resultFunc = (exam) => {
+    console.log(exam)
+    setSelectedExam(exam)
+  }
+
   return (
     <div className="text-[var(--light-text)] w-full">
       {/* Show Results if selected */}
       {selectedExam ? (
         <Results 
           examName={selectedExam.name} 
-          examId={selectedExam.id} 
+          examId={selectedExam.exam_id} 
           onClose={() => setSelectedExam(null)} 
           studentId={studentId} 
         />
       ) : (
-        <div className="rounded-lg overflow-auto scroller">
+        <div className="rounded-lg overflow-y-scroll scroller">
           {exams.map((exam, index) => (
             <div
               key={index}
@@ -77,13 +82,14 @@ export const ExamDisplay = ({id, rollNo}) => {
                       ? "bg-[var(--primary-color)] text-[var(--dark-text)]"
                       : "bg-[var(--secondary-color)] text-white"
                     } hover:opacity-90 transition-opacity`}
+                    
                   onClick={() =>
                     exam.active === "active"
                       ? handleExamClick(exam.exam_id)
                       : resultFunc(exam) // Pass entire exam object
                   }
                 >
-                  {exam.active == "active" ? "join": exam.active == "upcoming"? "not started":"finished"}
+                  {exam.active == "active" ? "join": exam.active == "upcoming"? "not started":"view results"}
                 </button>
               </div>
             </div>

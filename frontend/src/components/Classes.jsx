@@ -19,7 +19,7 @@ function Classes() {
 
 
   // const [studentData, setStudentData] = useState("");
-  
+
 
   // useEffect(() => {
   //   const getStudentDetails = async () => {
@@ -28,7 +28,7 @@ function Classes() {
   //         `http://localhost:3000/studentInfo?studentId=${studentId}`
   //       );
   //       setStudentData(response.data);
-       
+
   //     } catch (error) {
   //       console.error("Error fetching class details:", error);
   //     }
@@ -38,7 +38,7 @@ function Classes() {
 
   const getAllClassDetails = async () => {
     try {
-     
+
       const response = await axios.get(
         `http://localhost:3000/allClassInfo?studentId=${studentId}`
       );
@@ -52,7 +52,7 @@ function Classes() {
     } catch (error) {
       console.error("Error fetching class details:", error);
     }
-    
+
   };
 
   useEffect(() => {
@@ -87,22 +87,23 @@ function Classes() {
   };
 
   if (loading) {
-      return <LoadingRing/>;
+    return <LoadingRing />;
   }
-  
+
 
   return (
     <>
       <div className="h-full w-full p-5">
-        <div className="h-full overflow-y-scroll scroller">
-          <h1 className="text-[#c1c4c7] text-3xl font-bold">
-            {selected == 'classes' ? "My Classes" : "Exams"}
-          </h1>
-    
+        <h1 className="h-[10%] text-[#c1c4c7] text-3xl font-bold">
+          {selected == 'classes' ? "My Classes" : "Exams"}
+        </h1>
+        <div className="h-[90%] overflow-y-scroll scroller">
+
+
           <h1 className="text-[#c1c4c7] text-md font-md mt-1">
             {selected == 'classes' ? "click classes to view current exams/past results" : ""}
           </h1>
-          
+
 
           {selected == 'classes' && <div className="flex flex-row gap-x-3 flex-wrap">
 

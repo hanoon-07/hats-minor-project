@@ -15,8 +15,6 @@ function AfterExamPage({ }) {
   let noq = useSelector((state) => state["exam-data"].questions.length)
   let questions = useSelector((state) => state["exam-data"].questions)
 
-  console.log(noq)
-  console.log(questions)
 
   const [value, setValue] = useState(questions[0].codeValues[questions[0].selected])
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -84,13 +82,13 @@ function AfterExamPage({ }) {
         student_id: parseInt(studentId),
         exam_id: parseInt(examId),
         question_id: question.questionDetails.id,
-        partial_output: JSON.stringify(actualOutputs), 
+        partial_output: pop, 
         testcases_passed: passedCount,
         total_testcases: question.testCases.output.length
       };
     });
 
-    console.log(results)
+
 
     axios.post(
       `http://localhost:3000/saveresult`,{results}
@@ -114,7 +112,7 @@ function AfterExamPage({ }) {
   return (
     <>
 
-      <div className="dashboard bg-black">
+      <div className="dashboard bg-[#15171a]">
         <div className="header flex justify-between">
           <div className="orbitron-font text-2xl">CODEFLOW</div>
           <div className="actions">
@@ -241,7 +239,6 @@ function AfterExamPage({ }) {
           <div className="text-white max-h-[200px] overflow-scroll overflow-x-hidden scroller">
             <h1>AI reasoning</h1>
             <p>{pop}</p>
-            <p>{reasoning}</p>
           </div>
         </div>
 

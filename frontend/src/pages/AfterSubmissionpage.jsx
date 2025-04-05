@@ -31,15 +31,11 @@ function AfterSubmissionpage() {
             return count;
         });
 
-        setFullCase(testCaseResult.reduce((acc, curr) => acc + curr, 0)==questions.reduce((acc,curr)=>acc+curr.testCases.input.length,0))
-        
-    },[])
-    
+        setFullCase(testCaseResult.reduce((acc, curr) => acc + curr, 0) == questions.reduce((acc,curr)=>acc+curr.testCases.input.length,0))
 
-    useEffect(() => {
 
-        if (loading === 0) {
-            //console.log('api call gone')
+        if (loading === 0 && !fullCase) {
+            console.log('api call gone')
             let testCaseResult = questions.map((question) => {
                 let count = 0;
                 let tci = question.testCases.output; // These are expected outputs
@@ -62,19 +58,19 @@ function AfterSubmissionpage() {
                     message = message + `Q${index+1}:${item.questionDetails.problemStatement}\nthe answer given was:\n${item.codeValues[item.selected]}\nnumber of test cases passed ${testCaseResult[index]} out of ${item.testCases.input.length}\n`;
                 });
 
-                //console.log(message)
+                console.log(message)
  
                 try {
                     const res = await axios.post(
                         "https://openrouter.ai/api/v1/chat/completions",
                         {
-                            model: "deepseek/deepseek-r1",
+                            model: "openai/gpt-3.5-turbo-0613",
                             messages: [{ role: "user", content: message }],
-                            logprobs:null
+                            
                         },
                         {
                             headers: {
-                                Authorization: "Bearer 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",
+                                Authorization: "Bearer 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",
                                 "HTTP-Referer": "", 
                                 "X-Title": "", 
                                 "Content-Type": "application/json",
@@ -82,13 +78,15 @@ function AfterSubmissionpage() {
                         }
                     );
 
+                    
+
                     const responseContent = res.data.choices[0]?.message?.content || "No response received";
-                    const reasoningContent = res.data.choices[0]?.message?.reasoning || "No reasoning provided";
-                    navigate('result',{state:{pop:`${responseContent}`,reasoning:`${reasoningContent}`}})
+             
+                    navigate('result',{state:{pop:`${responseContent}`}})
 
                 } catch (error) {
                     console.error("Error fetching data:", error);
-                    navigate('result',{state:{pop:'none'}})
+                    navigate('result',{state:{pop:'api error!'}})
                 }
             };
             fetchData();
@@ -98,12 +96,18 @@ function AfterSubmissionpage() {
             //backend addtional testing
             setTimeout(()=>{navigate('result',{state:{pop:'not applicable'}})},3000)
         }
-    }, [loading,fullCase]);
+
+        
+    },[loading])
+    
+
+    // useEffect(() => {       
+    // }, [loading,fullCase]);
 
     return (
         <div>
             {loading && <Codeflowanim setLoading={setLoading} />}
-            {/* {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>} */}
+            {!loading && <Popanim message={fullCase?'Additional test cases are being tested':'Your partial output is being evaluated'}/>}
         </div>
     );
 }

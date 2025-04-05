@@ -56,6 +56,8 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
+
+
   const { examId } = useParams();
   const navigate = useNavigate();
   const socket = useRef();
@@ -149,10 +151,8 @@ function Exampage() {
         if(data1.validity == true) {
           setvalid(true);
         } else {
-          setvalid(false);
-          
+          setvalid(false);  
         }
-        
     });
 
     socket.current.on('continue-exam', (data) => {
