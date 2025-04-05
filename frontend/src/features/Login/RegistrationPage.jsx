@@ -61,7 +61,7 @@ const OnlyPipeSignupPage = () => {
     }
   };
   return (
-    <div className="flex min-h-screen bg-black text-white p-4  gap-2 relative z-10   justify-center ">
+    <div className="flex min-h-screen bg-[#15171A] text-white p-4  gap-2 relative z-10   justify-center ">
       <LeftPanel optionHandler={optionHandler} />
 
       <RightPanel
@@ -80,7 +80,7 @@ const OnlyPipeSignupPage = () => {
 // Left Panel Component with Gradient Background
 const LeftPanel = ({optionHandler}) => {
   return (
-    <div className="w-2/5 relative  p-8 flex flex-col items-center justify-end  overflow-hidden rounded-xl z-20 hidden xl:flex xl:flex-col">
+    <div className="w-2/5 relative  p-8 flex flex-col items-center justify-end  overflow-hidden rounded-sm z-20 hidden xl:flex xl:flex-col">
       <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_left,#d8b4fe_0%,#4c1d95_0%,#000000_100%)] absolute   left-0 top-0 ] "></div>
       {/*  <div className="w-[50%] h-[100%] bg-gradient-to-br from-lime-300 via-green-500 to-emerald-900 absolute left-0 top-0"></div> */}
       <div className="w-[50%] h-[100%]  bg-[radial-gradient(circle_at_top_right,#d8b4fe_0%,#7e22ce_0%,#4c1d95_20%,#000000_100%)] absolute right-0 top-0  "></div>
@@ -106,7 +106,7 @@ const StepButtons = ({optionHandler}) => {
   return (
     <div className="w-full space-y-4">
       <button
-        className="text-white bg-black rounded-lg w-full py-3 px-4 font-medium flex items-center border border-transparent hover:border-[#A8FF53] transition
+        className="text-white bg-black rounded-sm w-full py-3 px-4 font-medium flex items-center border border-transparent hover:border-[#A8FF53] transition
       "
         onClick={() => handleRegisterSubmit("teacher")}
       >
@@ -117,7 +117,7 @@ const StepButtons = ({optionHandler}) => {
       </button>
 
       <button
-        className="text-white bg-black rounded-lg w-full py-3 px-4 font-medium flex items-center border border-transparent hover:border-[#A8FF53] transition"
+        className="text-white bg-black rounded-[sm] w-full py-3 px-4 font-medium flex items-center border border-transparent hover:border-[#A8FF53] transition"
         onClick={() => handleRegisterSubmit("student")}
       >
         <span className="bg-gray-600 w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">
@@ -126,9 +126,7 @@ const StepButtons = ({optionHandler}) => {
         Register as a Student
       </button>
 
-      <div className="text-white bg-black rounded-lg w-full py-3 px-4 font-medium flex items-center justify-center ">
-        Set up your profile
-      </div>
+      
     </div>
   );
 };
@@ -144,7 +142,7 @@ const RightPanel = ({
   error,
 }) => {
   return (
-    <div className="xl:w-3/5 p-2 flex flex-col items-center justify-center bg-black rounded-xl">
+    <div className="xl:w-3/5 p-2 flex flex-col items-center justify-center bg-[#15171A] rounded-sm">
       <div className="max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-1 text-center">
           Sign Up {userDetails.role}
@@ -275,7 +273,7 @@ export const SignUpForm = ({
 
       <button
         type="submit"
-        className="w-full bg-[#A8FF53] text-black font-bold rounded-lg py-3 mt-2 flex items-center justify-center gap-2"
+        className="w-full bg-[#A8FF53] text-black font-bold rounded-sm py-3 mt-2 flex items-center justify-center gap-2"
       >
         <UserPlus size={18} /> {/* Sign up icon from Lucide */}
         {loading ? "Registering..." : "Sign Up"}
@@ -283,8 +281,8 @@ export const SignUpForm = ({
       <p className="w-full h-[10px] mt-1 ml-5 text-red-300">
         {error ? error : ""}
       </p>
-      <div className="flex place-items-center gap-3 flex-wrap xl:block ">
-        <div className="text-center flex gap-3 float-right text-gray-400 ">
+      <div className="flex place-items-center gap-3 flex-wrap xl:block justify-center">
+        <div className="text-center flex gap-3 justify-center text-gray-400 ">
           Already have an account?{" "}
           <p
             className="text-[#A8FF53] underline cursor-pointer mr-2"

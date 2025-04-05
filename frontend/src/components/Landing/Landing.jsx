@@ -76,7 +76,7 @@ const LeftDiv = ({state = 2, setState, setAnimState}) => {
       <motion.div initial={{opacity: 0, y: -10}} animate={{opacity: 1, y: 0}} transition={{ease: 'linear'}} className="flex flex-col gap-4 pl-[132px] selection:bg-[#a9ff5311] selection:text-[#A8FF53]">
         <div onClick={() => {setAnimState(0);}} className="py-[4px] w-[350px] h-[50px]  text-[white] hover:text-[#A8FF53]   font-light text-lg grid place-content-center  border-none cursor-pointer transition-transform active:scale-95
               bg-[repeating-linear-gradient(45deg,#35383C,#15171A_1px,#15171A,#15171A_6px)]">
-            4 languages suported ->
+            4 languages suported {"->"}
         </div>
 
         <div className="text-[48px] max-w-[60%] font-bold text-[#C1C4C7]">

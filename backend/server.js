@@ -8,7 +8,7 @@ const PORT = process.env.port || 3000;
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // Allow frontend
+        origin: "http://localhost:5175", // Allow frontend
         methods: ["GET", "POST"],
         credentials: true
     }

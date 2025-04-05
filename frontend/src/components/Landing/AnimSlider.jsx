@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { LangAnim } from './LangAnim';
+import { PoweredByAnim } from './PoweredByAnim';
 
 
 export const AnimSlider = ({animState, setAnimState}) => {
@@ -22,8 +23,8 @@ export const AnimSlider = ({animState, setAnimState}) => {
       <div className="min-w-[40vw] h-[70vh] bg-white/0 absolute right-[132px] top-[-40px]">
         <div className="h-full w-full grid place-content-center">
           <AnimatePresence>
-            {animState % 2 == 0 && <LangAnim setAnimState={setAnimState}/>}
-            {animState % 2 != 0 && <Temp setAnimState={setAnimState}/>}
+            {animState == 0 && <LangAnim setAnimState={setAnimState}/>}
+            {animState == 1 && <PoweredByAnim setAnimState={setAnimState}/>}
           </AnimatePresence>
         </div>
 
@@ -50,19 +51,3 @@ export const AnimSlider = ({animState, setAnimState}) => {
     );
 }
 
-function Temp({setAnimState}) {
-
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      setAnimState((prev) => (prev + 1) % 4);
-    }, 6000);
-
-    return () => {
-      clearTimeout(timeOut);
-    };
-  })
-
-  return <motion.div initial={{opacity: 0}} animate={{opacity: 1}} className='w-full h-full bg-white/10 absolute top-0 left-0 z-40'>
-
-  </motion.div>
-}
