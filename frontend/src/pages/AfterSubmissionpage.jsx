@@ -49,7 +49,7 @@ function AfterSubmissionpage() {
     useEffect(() => {
         if (evaluationComplete) {
             if (fullCase) {
-                // All cases passed
+               
                 setTimeout(() => {
                     navigate('result', { state: { pop: 'All test cases passed!' } });
                 }, 2000);
@@ -109,17 +109,17 @@ function AfterSubmissionpage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             {loading ? (
-                // Step 1: Show Codeflowanim
+                
                 <Codeflowanim setLoading={setLoading} />
             ) : (
                 <div className="text-center">
                     {showAdditionalTestingMessage && !evaluationComplete && (
-                        // Step 2: Show "Additional test cases are being tested"
+                       
                         <Popanim message="Additional test cases are being tested" />
                     )}
                     
                     {evaluationComplete && (
-                        // Step 3: Show result based on fullCase
+                       
                         <Popanim 
                             message={fullCase 
                                 ? "All test cases passed!" 
