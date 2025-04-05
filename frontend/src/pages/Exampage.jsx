@@ -175,20 +175,20 @@ function Exampage() {
   const [typeReort, setType] = useState(null);
 
   
-  // useEffect(() => {
-  //   if(report) {
-  //     if(!valid) {
-  //       setReport(false);
-  //       return;
-  //     }
-  //     setWaitInfo(true);
-  //     socket.current.emit('exam-cheat', {
-  //       type: typeReort,
-  //       rollNo: rollNo,
-  //       examId: examId
-  //     });  
-  //   }
-  // }, [report]);
+  useEffect(() => {
+    if(report) {
+      if(!valid) {
+        setReport(false);
+        return;
+      }
+      setWaitInfo(true);
+      socket.current.emit('exam-cheat', {
+        type: typeReort,
+        rollNo: rollNo,
+        examId: examId
+      });  
+    }
+  }, [report]);
 
 
   const [waitInfo, setWaitInfo] = useState(false);
