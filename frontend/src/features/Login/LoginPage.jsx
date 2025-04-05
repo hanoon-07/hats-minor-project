@@ -6,13 +6,12 @@ import CodeflowTerminal from "./CodeFlowTerminal";
 import {motion} from "framer-motion";
 import {setUser, setLoading, setError} from "../authControl/authSlice";
 import axios from "axios";
-import { LoadingRing } from "../../components/animation/LoadingRing";
-
+import {LoadingRing} from "../../components/animation/LoadingRing";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
@@ -20,8 +19,6 @@ const LoginPage = () => {
   const {user, isLoading, error} = useSelector(
     (state) => state["auth-control"]
   );
-
- 
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
@@ -51,9 +48,7 @@ const LoginPage = () => {
       } else {
         //console.log("hello teacher");
         //console.log(response.data);
-        navigate(
-          `/teacherDashboard/${response.data.user_id}/${response.data.name}`
-        );
+        navigate(`/teacherDashboard/${response.data.user_id}`);
       }
     } catch (error) {
       console.log(error);
@@ -109,55 +104,52 @@ const LoginForm = ({
   handleSubmit,
   isLoading,
 }) => {
+  return (
+    <>
+      <form onSubmit={handleSubmit} className="flex flex-col  gap-8">
+        <div>
+          <label className="block text-sm mb-1">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={loginDetails.email}
+            onChange={handleInputChange}
+            placeholder="eg. john.francis@gmail.com"
+            className="w-full bg-gray-800 rounded-sm p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
 
-
-
-  return (<>
-    
-    <form onSubmit={handleSubmit} className="flex flex-col  gap-8">
-      <div>
-        <label className="block text-sm mb-1">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={loginDetails.email}
-          onChange={handleInputChange}
-          placeholder="eg. john.francis@gmail.com"
-          className="w-full bg-gray-800 rounded-sm p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
+        <PasswordInput
+          password={loginDetails.password}
+          handleInputChange={handleInputChange}
         />
-      </div>
 
-      <PasswordInput
-        password={loginDetails.password}
-        handleInputChange={handleInputChange}
-      />
+        <button
+          type="submit"
+          disabled={isLoading}
+          className={`w-full text-black font-bold rounded-sm py-3 mt-2 ${
+            isLoading
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-[#A8FF53] hover:bg-[#90E446]"
+          }`}
+        >
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className={`w-full text-black font-bold rounded-sm py-3 mt-2 ${
-          isLoading
-            ? "bg-gray-500 cursor-not-allowed"
-            : "bg-[#A8FF53] hover:bg-[#90E446]"
-        }`}
-      >
-        {isLoading ? "Logging in..." : "Login"}
-      </button>
-
-      <p className="text-center text-gray-400 mt-2">
-        Don't have an account?{" "}
-        <Link to="/register" className="text-white underline">
-          Sign Up
+        <p className="text-center text-gray-400 mt-2">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-white underline">
+            Sign Up
+          </Link>
+        </p>
+        <Link
+          to="/forgot-password"
+          className="text-center text-gray-300 hover:text-white "
+        >
+          Forgot passoword
         </Link>
-      </p>
-      <Link
-        to="/forgot-password"
-        className="text-center text-gray-300 hover:text-white "
-      >
-        Forgot passoword
-      </Link>
-    </form>
+      </form>
     </>
   );
 };

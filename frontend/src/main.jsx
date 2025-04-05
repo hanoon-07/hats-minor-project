@@ -23,15 +23,15 @@ import UnauthorizedPage from "./features/Login/UnauthorizedPage";
 import ForgotPasswordPage from "./features/Login/ForgotPasswordPage";
 import ResetPasswordPage from "./features/Login/ResetPassword";
 import WaitingAnim from "./features/Login/WaitingAnim";
-import Landing from "./features/Landing/Landing.jsx";
+import Landing from "./components/Landing/Landing";
 import StudentDash from "./components/StudentDash.jsx";
 
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
-
+  console.log(user);
   if (isAuthenticated) {
     if (user.role === "teacher") {
-      return <Navigate to="/teacherDashboard" replace />;
+      return <Navigate to={`/teacherDashboard/${user.user_id}`} replace />;
     } else {
       return <Navigate to={`/studentPage/${user.user_id}`} replace />;
     }
@@ -76,18 +76,24 @@ const router = createBrowserRouter(
       <Route element={<Protected authRoles={["student"]} />}>
         <Route path="/studentPage/:studentId" element={<StudentDash />} />
         {/* <Route path="check" element={<AfterSubmissionPage />} /> */}
-        <Route path="/studentPage/:studentId/editor/:examId" element={<Exampage />} />
-        <Route path="/studentPage/:studentId/editor/:examId/check" element={<AfterSubmissionPage />} />
+        <Route
+          path="/studentPage/:studentId/editor/:examId"
+          element={<Exampage />}
+        />
+        <Route
+          path="/studentPage/:studentId/editor/:examId/check"
+          element={<AfterSubmissionPage />}
+        />
         {/* <Route path="/studentPage/:studentId/editor/:examId/check/result/result" element={<AfterExamPage />} /> */}
-        <Route path="/studentPage/:studentId/editor/:examId/check/result" element={<AfterExamPage />} />
+        <Route
+          path="/studentPage/:studentId/editor/:examId/check/result"
+          element={<AfterExamPage />}
+        />
       </Route>
 
       <Route element={<Protected authRoles={["teacher"]} />}>
         <Route path="" element={<Teacher />} />
-        <Route
-          path="/teacherDashboard/:teacherId/:teacherName"
-          element={<Teacher />}
-        />
+        <Route path="/teacherDashboard/:teacherId" element={<Teacher />} />
         <Route path="/create-exam/:classRoom" element={<CreateExam />} />
       </Route>
 
