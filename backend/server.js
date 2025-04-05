@@ -2,13 +2,15 @@
 import app from "./app.js";
 import { createServer } from "http";
 import { Server } from "socket.io"
+import dotenv from 'dotenv'
 
 const PORT = process.env.port || 3000;
+dotenv.config();
 
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5175", // Allow frontend
+        origin: process.env.FRONTEND_URL, // Allow frontend
         methods: ["GET", "POST"],
         credentials: true
     }

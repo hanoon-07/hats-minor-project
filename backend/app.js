@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import pool from "./config/db.js";
-
+import dotenv from 'dotenv'
 import testRoute from "./routes/testRoutes.js";
 import examRoute from "./routes/examRoutes.js";
 import teacherRoute from "./routes/teacherRoutes.js";
@@ -14,9 +14,10 @@ import passport from "passport";
 
 const app = express();
 app.use(express.json());
+dotenv.config();
 
 const corsOptions = {
-  origin: "http://localhost:5175",
+  origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
