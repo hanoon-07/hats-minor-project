@@ -28,7 +28,7 @@ import StudentDash from "./components/StudentDash.jsx";
 
 const RootRedirect = () => {
   const {isAuthenticated, user} = useSelector((state) => state["auth-control"]);
-  console.log(user);
+  
   if (isAuthenticated) {
     if (user.role === "teacher") {
       return <Navigate to={`/teacherDashboard/${user.user_id}`} replace />;

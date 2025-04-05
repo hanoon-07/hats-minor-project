@@ -55,7 +55,9 @@ export const createExam = async (req, res) => {
 
 export const getExam = async (req, res) => {
     const examId = req.query.examId;  // need to fetch the data from backend using this examid
+    console.log('the id is',examId)
     const examDetails = await getExamDetails(examId);
+    console.log(examDetails)
     if(examDetails.msg) {
       res.json({msg: examDetails.msg});
       return;

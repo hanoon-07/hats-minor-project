@@ -55,6 +55,7 @@ function Result_case() {
       <div  className="z-10 absolute h-full w-full grid place-content-center">
         <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row font-semibold">
+
           {text.split('').map((letter, index) => (
             <motion.p className="text-[#A8FF53] font-light"
               key={nanoid()}
@@ -66,6 +67,7 @@ function Result_case() {
               {letter}
             </motion.p>
           ))}
+          
         </div>
         <div className="translate-y-[35px]">
           <LoadingRingSmall />

@@ -1,6 +1,7 @@
 import pool from '../config/db.js';
 
 const getExamDetails =  async (examdId) => {
+    console.log
     const result = await pool.query("select * from exam join question on exam.exam_id = question.exam_id where exam.exam_id = $1", [examdId]);
     if(result.rowCount == 0) {
         return {msg: 'error! no exam found with this id'}
@@ -55,8 +56,8 @@ const storeExam = async (examDetails, classId) => {
                     outputStr += ("\\r"+question.testCases[j].output);
                 }
             }
-            //console.log(inputStr);
-            //console.log(outputStr);
+            console.log(inputStr);
+            console.log(outputStr);
             pool.query("insert into question(name, description, constraints, test_inputs, test_outputs, support_langs, exam_id) values($1, $2, $3, $4, $5, $6, $7);", [qName, desc, constraintStr, inputStr, outputStr, supportLang, new_exam]);
         }
         return result3.rows[0].exam_id;

@@ -72,7 +72,6 @@ const ExamGraph = ({
       chartData.sort((a, b) => new Date(a.date) - new Date(b.date));
       
       setData(chartData);
-      console.log('sorted data is', chartData);
       setLoading(false);
     }
   }, [pastExam, pastResult]);

@@ -1,5 +1,5 @@
 
-import {useState} from "react";
+import { useState } from "react";
 import Button from "../Button";
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
@@ -25,33 +25,44 @@ function TestCase() {
 
   return (
     <div className="px-1  pt-1 pb-1  overflow-y-scroll min-h-[40%] max-h-[90%]  scroller mb-4 h-full">
-      
+
       <section className="flex flex-wrap gap-4 items-center">
-        {testCases.map((item, i) => (
-          <Button key={i} action={() => {handleButtonClick(i)}} label={`Case ${i+1}`} buttonClass={` text-textGray ${index == i?" border border-[#33E775]":""}`}/>
-        ))}
+        {testCases.map((item, i) => {
+          if (i >= 3) {
+            return <></>;
+          }
+          return (
+            <Button
+              key={i}
+              action={() => handleButtonClick(i)}
+              label={`Case ${i + 1}`}
+              buttonClass={`text-textGray ${index == i ? " border border-[#33E775]" : ""}`}
+            />
+          );
+        })}
       </section>
 
       <section className="mt-5 flex flex-col  text-sm gap-4">
         {testCases.map((item, i) => {
+
           //console.log(selected);
-          if(i == selected) {
-            
+          if (i == selected) {
+
             return <div key={item}>
               <div
-                  className=" flex flex-col p-4 gap-2 rounded-md bg-black"  
+                className=" flex flex-col p-4 gap-2 rounded-md bg-black"
               >
-                  <p className="text-textGray">{"input"}</p>
-                  <p className="py-1 rounded-[4px] text-[#33E775] font-normal whitespace-pre-line">{testCases[index]}</p>
+                <p className="text-textGray">{"input"}</p>
+                <p className="py-1 rounded-[4px] text-[#33E775] font-normal whitespace-pre-line">{testCases[index]}</p>
               </div>
 
               <div
-                  className=" flex mt-3 flex-col p-4 gap-2 rounded-md bg-black "
-                  >
-                  <p className="text-textGray">{"output"}</p>
-                  <p className="py-1 rounded-[4px] text-[#33E775] font-normal whitespace-pre-line">{outputs[index]}</p>
-              </div>        
-          </div>
+                className=" flex mt-3 flex-col p-4 gap-2 rounded-md bg-black "
+              >
+                <p className="text-textGray">{"output"}</p>
+                <p className="py-1 rounded-[4px] text-[#33E775] font-normal whitespace-pre-line">{outputs[index]}</p>
+              </div>
+            </div>
           }
 
         })}

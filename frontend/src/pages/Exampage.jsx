@@ -77,7 +77,7 @@ function Exampage() {
       //console.log(response.data.duration);
       setDuration(response.data.duration);
       data = response.data;
-      //console.log(data);
+      console.log(data);
       if (data.msg) {
         sessionStorage.setItem("errorMsg", data.msg);
         navigate("/");
@@ -175,20 +175,20 @@ function Exampage() {
   const [typeReort, setType] = useState(null);
 
   
-  useEffect(() => {
-    if(report) {
-      if(!valid) {
-        setReport(false);
-        return;
-      }
-      setWaitInfo(true);
-      socket.current.emit('exam-cheat', {
-        type: typeReort,
-        rollNo: rollNo,
-        examId: examId
-      });  
-    }
-  }, [report]);
+  // useEffect(() => {
+  //   if(report) {
+  //     if(!valid) {
+  //       setReport(false);
+  //       return;
+  //     }
+  //     setWaitInfo(true);
+  //     socket.current.emit('exam-cheat', {
+  //       type: typeReort,
+  //       rollNo: rollNo,
+  //       examId: examId
+  //     });  
+  //   }
+  // }, [report]);
 
 
   const [waitInfo, setWaitInfo] = useState(false);
@@ -196,8 +196,11 @@ function Exampage() {
   return (
     <>
       {<Controller report={report} setReport={setReport} setType={setType}/>}
+      
       {report && valid && <ExamPauseWindow setReport={setReport} waitingStatus={waitInfo} setWaitingStatus={setWaitInfo}/>}
+
       {!loaded && <LoadingRing />}
+
       {!valid && <div className="bg-[#15171a] h-screen w-screen absolute top-0 left-0 grid place-content-center">
         <div className="flex flex-col gap-10">
             <h1 className="text-[#c1c4c7] text-3xl">Sorry! Exam waiting time is over. You May contact your teacher !</h1>
@@ -211,6 +214,7 @@ function Exampage() {
             </div>
         </div>
       </div>}
+
       {loaded && valid && (
         <>
           <div
@@ -268,6 +272,7 @@ function Exampage() {
           )}
         </>
       )}
+
     </>
   );
 }
