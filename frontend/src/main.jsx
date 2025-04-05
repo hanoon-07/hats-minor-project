@@ -23,7 +23,7 @@ import UnauthorizedPage from "./features/Login/UnauthorizedPage";
 import ForgotPasswordPage from "./features/Login/ForgotPasswordPage";
 import ResetPasswordPage from "./features/Login/ResetPassword";
 import WaitingAnim from "./features/Login/WaitingAnim";
-import Landing from "./features/Landing/Landing.jsx";
+import Landing from "./components/Landing/Landing";
 import StudentDash from "./components/StudentDash.jsx";
 
 const RootRedirect = () => {

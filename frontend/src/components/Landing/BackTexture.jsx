@@ -9,7 +9,7 @@ export const BackTexture = () => {
             linear-gradient(#1c1e21 1px, transparent 1px),
             linear-gradient(90deg, #1c1e21 1px, transparent 1px)
           `,
-        backgroundSize: "210px 1935px",
+        backgroundSize: "150px 2935px",
       }}
     ></div>
   );
