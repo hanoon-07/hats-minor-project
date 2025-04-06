@@ -98,7 +98,7 @@ function Classes({selected,setSelected}) {
         <h1 className="h-[10%] text-[#c1c4c7] text-3xl font-bold">
           {selected == 'classes' ? "My Classes" : "Exams"}
         </h1>
-        <div className="h-[90%] overflow-y-scroll scroller">
+        <div className="h-[90%] overflow-y-scroll scroller p-4 pt-2">
 
 
           <h1 className="text-[#c1c4c7] text-md font-md mt-1">
@@ -143,7 +143,7 @@ function Classes({selected,setSelected}) {
             </div>
           </div>}
 
-          {selected == 'exam' && <ExamDisplay id={classId} />}
+          {(selected == 'exam' || selected == 'result') && <ExamDisplay setSelected={setSelected} selected={selected} id={classId} />}
 
 
         </div>

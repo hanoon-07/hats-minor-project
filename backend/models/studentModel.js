@@ -32,6 +32,9 @@ export const getStudentResults = async (studentId, examId) => {
             "SELECT * FROM result WHERE student_id = $1 AND exam_id = $2",
             [studentId, examId]
         );
+        if(result.rowCount == 0) {
+            return {msg: 'error! no student found with this id'}
+        }
         return result.rows;
     } catch (error) {
         console.error("Database error:", error);

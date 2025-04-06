@@ -25,12 +25,15 @@ function StudentDash() {
 
                 {selected !== 'dashboard' && (
                     <button
-                        className="px-4 py-2 bg-[#272a2e] text-[#c1c4c7] rounded-md border border-[#474aa5] hover:bg-[#1a1b1f] hover:text-white transition-all duration-200 flex items-center gap-2 mr-4"
+                        className="px-4 py-2 bg-red-500 text-white rounded-md border border-red-500 hover:bg-red-400 hover:text-white transition-all duration-200 flex items-center gap-2 mr-4"
                         onClick={() => {
                             if (selected === 'exam') {
                                 setSelected('classes');
                             } else if (selected === 'classes') {
                                 setSelected('dashboard');
+                            }
+                            else if (selected === 'result'){
+                                setSelected('exam')
                             }
                         }}
                     >
@@ -45,7 +48,7 @@ function StudentDash() {
                 <StudentNav selected={selected} setSelected={setSelected} />
                 <div className='w-[75%]'>
                     {selected == 'dashboard' && <Dashboard id={studentId} changer={setSelected} />}
-                    {(selected == 'classes' || selected == 'exam') && <Classes selected={selected} setSelected={setSelected} />}
+                    {(selected == 'classes' || selected == 'exam' || selected == 'result') && <Classes selected={selected} setSelected={setSelected} />}
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Results from "./Results"; // Import the Results component
 
-export const ExamDisplay = ({id, rollNo}) => {
+export const ExamDisplay = ({id, selected, setSelected}) => {
   const [exams, setExams] = useState([]);
   const [selectedExam, setSelectedExam] = useState(null);
   const { studentId } = useParams(); // Extract studentId from URL
@@ -43,12 +43,13 @@ export const ExamDisplay = ({id, rollNo}) => {
 
   const resultFunc = (exam) => {
     setSelectedExam(exam)
+    setSelected('result')
   }
 
   return (
     <div className="text-[var(--light-text)] w-full">
       {/* Show Results if selected */}
-      {selectedExam ? (
+      {selected == 'result' && selectedExam ? (
         <Results 
           examName={selectedExam.name} 
           examId={selectedExam.exam_id} 

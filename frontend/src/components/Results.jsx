@@ -13,9 +13,12 @@ function Results({ examId, onClose, studentId, examName }) {
 
 
   useEffect(() => {
+    
     const fetchExamData = async () => {
       try {
         // Fetch results first
+        console.log(studentId)
+        console.log(examId)
 
         const resultsResponse = await axios.get(
           `http://localhost:3000/getResultForStudent?sid=${studentId}&eid=${examId}`
@@ -201,8 +204,8 @@ function Results({ examId, onClose, studentId, examName }) {
           </div>
 
           <div className="bg-[#0b0b0e] p-4 border-b border-gray-800">
-            <h3 className="text-lg font-medium mb-2">{selectedQuestion.title}</h3>
-            <p className="text-gray-400">{selectedQuestion.problemStatement}</p>
+            <h3 className="text-md mb-2">{selectedQuestion.title}</h3>
+            <p className="text-gray-400 ">{selectedQuestion.problemStatement}</p>
           </div>
 
           <div className="h-96 bg-[#0b0b0e]">
@@ -244,12 +247,12 @@ function Results({ examId, onClose, studentId, examName }) {
           </p>
         </div>
       </div>
-      <button
+      {/* <button
         className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md"
         onClick={onClose}
       >
         Back
-      </button>
+      </button> */}
     </div>
   );
 }
