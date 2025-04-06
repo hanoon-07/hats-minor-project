@@ -42,7 +42,6 @@ export const ExamDisplay = ({id, rollNo}) => {
   };
 
   const resultFunc = (exam) => {
-    console.log(exam)
     setSelectedExam(exam)
   }
 

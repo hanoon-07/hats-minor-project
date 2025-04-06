@@ -21,7 +21,7 @@ function Results({ examId, onClose, studentId, examName }) {
           `http://localhost:3000/getResultForStudent?sid=${studentId}&eid=${examId}`
         );
         const results = resultsResponse.data;
-        console.log(results)
+        console.log('the result for student',results)
 
 
         // Then fetch exam details
@@ -29,7 +29,7 @@ function Results({ examId, onClose, studentId, examName }) {
           `http://localhost:3000/exam?examId=${examId}`
         );
         const data = examResponse.data.questionDetails;
-        console.log(examResponse.data)
+        console.log('the exam info is',examResponse.data)
 
         // Format the data
         const formattedData = data.map((question) => {
@@ -76,7 +76,7 @@ function Results({ examId, onClose, studentId, examName }) {
   }
 
   const selectedQuestion = resultData[selectedQuestionIndex];
-  console.log(selectedQuestion)
+  
   const totalPassed = resultData.reduce((acc, question) => acc + (question.result?.testcases_passed || 0), 0);
   const totalTestCases = resultData.reduce((acc, question) => acc + (question.result?.total_testcases || 0), 0);
   const overallScore = totalTestCases > 0 ? Math.round((totalPassed / totalTestCases) * 100) : 0;

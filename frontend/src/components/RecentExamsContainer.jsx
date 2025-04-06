@@ -2,6 +2,8 @@ import React from 'react'
 import RecentExamCard from './RecentExamCard';
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
+import Loadinganimation from './animation/Loadinganimation';
+import {LoadingRing} from './animation/LoadingRing';
 
 
 const RecentExamsContainer = ({id,changer}) => {
@@ -66,7 +68,10 @@ const RecentExamsContainer = ({id,changer}) => {
     }, [loading]);
 
     if (loading) {
-      return <div className="text-white p-5">Loading...</div>;
+      return <div className='flex justify-center'>
+
+<LoadingRing/>
+    </div>
     }
     
     return (

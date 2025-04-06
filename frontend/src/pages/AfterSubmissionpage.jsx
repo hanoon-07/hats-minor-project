@@ -36,7 +36,7 @@ function AfterSubmissionpage() {
                 questions.reduce((acc, curr) => acc + curr.testCases.input.length, 0);
             
             setFullCase(allTestCasesPassed);
-            setShowAdditionalTestingMessage(true);
+            // setShowAdditionalTestingMessage(true);
             
             // Wait a moment before proceeding to the next step
             setTimeout(() => {
@@ -113,7 +113,9 @@ function AfterSubmissionpage() {
                 <Codeflowanim setLoading={setLoading} />
             ) : (
                 <div className="text-center">
-                    {showAdditionalTestingMessage && !evaluationComplete && (
+            
+
+                    {!evaluationComplete && (
                        
                         <Popanim message="Additional test cases are being tested" />
                     )}

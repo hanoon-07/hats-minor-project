@@ -7,10 +7,10 @@ import { LoadingRing } from "../components/animation/LoadingRing";
 import { useParams } from "react-router-dom";
 
 
-function Classes() {
+function Classes({selected,setSelected}) {
   const { studentId } = useParams();
   const [modalWindow, setModalWindow] = useState(false);
-  const [selected, setSelected] = useState("classes");
+  // const [selected, setSelected] = useState("classes");
   const [data, setData] = useState([]);
   const [classId, setClassId] = useState(0);
   const [classCode, setClassCode] = useState("");
@@ -47,6 +47,7 @@ function Classes() {
         setLoading(0)
       } else {
         setData(response.data || []);
+       
         setLoading(0)
       }
     } catch (error) {

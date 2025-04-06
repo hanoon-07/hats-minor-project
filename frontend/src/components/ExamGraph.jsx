@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
+import Loadinganimation from './animation/Loadinganimation';
+import {LoadingRing} from './animation/LoadingRing';
 
 const ExamGraph = ({
   title = "Performance Trend",
@@ -31,13 +33,13 @@ const ExamGraph = ({
           `http://localhost:3000/getPast6Scores/?sid=${id}`
         );
         setPastExam(examResponse.data);
-        
+
         // Fetch class average scores
         const resultResponse = await axios.get(
           `http://localhost:3000/getPast6Average`
         );
         setPastResult(resultResponse.data);
-        
+
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -57,7 +59,7 @@ const ExamGraph = ({
           averagesByDate[formattedDate] = item.average_score_percentage;
         }
       });
-      
+
       // Create chart data combining student scores with class averages
       const chartData = pastExam.map(exam => {
         const formattedDate = formatDate(exam.exam_date);
@@ -67,10 +69,10 @@ const ExamGraph = ({
           averageScore: averagesByDate[formattedDate] || null
         };
       });
-      
+
       // Sort the data chronologically (oldest to newest)
       chartData.sort((a, b) => new Date(a.date) - new Date(b.date));
-      
+
       setData(chartData);
       setLoading(false);
     }
@@ -104,15 +106,17 @@ const ExamGraph = ({
   }, [isVisible]);
 
   if (loading) {
-    return <div>Graph is loading</div>;
+    return <div className='flex justify-center '>
+                  <LoadingRing/>
+            </div>
   }
 
   // Calculate highest score and average
-  const highestScore = data.length > 0 
-    ? Math.max(...data.map(item => item.studentScore || 0)) 
+  const highestScore = data.length > 0
+    ? Math.max(...data.map(item => item.studentScore || 0))
     : 0;
-    
-  const averageScore = data.length > 0 
+
+  const averageScore = data.length > 0
     ? (data.reduce((acc, curr) => acc + (parseInt(curr.studentScore) || 0), 0) / data.length).toFixed(1)
     : 0;
 
@@ -128,7 +132,7 @@ const ExamGraph = ({
       <div className="mb-6">
         <h3 className="text-gray-300 font-medium bg-transparent">{title}</h3>
         <p className="text-gray-400 text-sm bg-transparent">Student scores compared to class average</p>
-      </div> 
+      </div>
 
       {/* Graph */}
       <div className="h-64 w-full bg-[#272a2e] ">
