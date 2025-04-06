@@ -6,7 +6,7 @@ import { PoweredByAnim } from './PoweredByAnim';
 
 export const AnimSlider = ({animState, setAnimState}) => {
     
-    const arr = new Array(4).fill(0);
+    const arr = new Array(2).fill(0);
 
     useEffect(() => {
 

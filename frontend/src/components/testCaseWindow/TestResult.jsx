@@ -71,7 +71,7 @@ function TestResult() {
 
   return (
     <div className="pb-10 flex flex-col gap-2 max-h-full overflow-y-scroll min-h-[90%]  p-3 rounded-md">
-      {results.stdOut.map(getItem)}
+      {results.stdOut.slice(0, 3).map(getItem)}
     </div>
   );
 }

@@ -80,6 +80,7 @@ function Exampage() {
   }
 
 
+
   useEffect(() => {
     var data = null;
     async function getExamDetails() {
@@ -188,20 +189,20 @@ function Exampage() {
   const [typeReort, setType] = useState(null);
 
   
-  // useEffect(() => {
-  //   if(report) {
-  //     if(!valid) {
-  //       setReport(false);
-  //       return;
-  //     }
-  //     setWaitInfo(true);
-  //     socket.current.emit('exam-cheat', {
-  //       type: typeReort,
-  //       rollNo: rollNo,
-  //       examId: examId
-  //     });  
-  //   }
-  // }, [report]);
+  useEffect(() => {
+    if(report) {
+      if(!valid) {
+        setReport(false);
+        return;
+      }
+      setWaitInfo(true);
+      socket.current.emit('exam-cheat', {
+        type: typeReort,
+        rollNo: rollNo,
+        examId: examId
+      });  
+    }
+  }, [report]);
 
 
   const [waitInfo, setWaitInfo] = useState(false);
@@ -218,7 +219,7 @@ function Exampage() {
         <div className="flex flex-col gap-10">
             <h1 className="text-[#c1c4c7] text-3xl">Sorry! Exam waiting time is over. You May contact your teacher !</h1>
             <div className="flex flex-row gap-6 justify-center">
-                <div  className="cursor-pointer w-[90px] gap-2 h-[30px] rounded-sm box-border mr-[4px] mt-[22px] px-2 bg-[#a8dd53] hover:bg-[#5E8834] flex items-center justify-center">
+                <div onClick={() => {navigate('/')}}  className="cursor-pointer w-[90px] gap-2 h-[30px] rounded-sm box-border mr-[4px] mt-[22px] px-2 bg-[#a8dd53] hover:bg-[#5E8834] flex items-center justify-center">
                   <p>home</p>
                 </div>
                 <div  onClick={() => {socket.current.disconnect();setRejoin((prev) => !prev)}} className="cursor-pointer w-[90px] gap-2 h-[30px] rounded-sm box-border mr-[4px] mt-[22px] px-2 bg-[#5f97f3] hover:bg-[#1239b5] flex items-center justify-center">

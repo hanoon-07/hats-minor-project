@@ -110,10 +110,10 @@ const LeftDiv = ({state = 2, setState, setAnimState}) => {
 
   else if(state == 2) {
     
-    const contactData = [{name: 'Hanoon', gitUrl: 'https://github.com/hanoon-07', img: <img></img>, info: 'Tom spearheaded the compiler module, ensuring seamless integration.'}, 
-      {name: 'Amarnath', gitUrl: 'https://github.com/Amar-rep', img: <img></img>, info: 'Tom spearheaded the compiler module, ensuring seamless integration.'},
-      {name: 'Tom', gitUrl: 'https://github.com/tsn67', img: <img></img>, info: 'Tom spearheaded the compiler module, ensuring seamless integration.'},
-      {name: 'Swalih', gitUrl: 'https://github.com/swalihAsarafu', img: <img></img>, info: 'Tom spearheaded the compiler module, ensuring seamless integration.'}
+    const contactData = [{name: 'Hanoon', gitUrl: 'https://github.com/hanoon-07', img: <img></img>, info: 'created the student module along with all related features.'}, 
+      {name: 'Amarnath', gitUrl: 'https://github.com/Amar-rep', img: <img></img>, info: 'designed and developed the complete session, login, and registration management system.'},
+      {name: 'Tom', gitUrl: 'https://github.com/tsn67', img: <img></img>, info: 'developed the teacher module and its associated functionalities.'},
+      {name: 'Swalih', gitUrl: 'https://github.com/swalihAsarafu', img: <img></img>, info: 'designed the database and implemented its models.'}
     ]
     
     return <>

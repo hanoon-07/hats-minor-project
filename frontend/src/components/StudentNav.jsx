@@ -8,30 +8,32 @@ export const StudentNav = ({
   name,
   initial,
 }) => {
-//   const navBarDiv = useRef(null);
-//   const navigate = useNavigate();
+  const navBarDiv = useRef(null);
+  const navigate = useNavigate();
   
 
-//   const handleLogOut = async () => {
-//     console.log("Logging out");
-//     try {
-//       const response = await axios.post(
-//         "http://localhost:3000/logout",
-//         {},
-//         {
-//           withCredentials: true,
-//         }
-//       );
-//       // console.log(response);
-//       if (response.data?.success == true) {
-//         navigate("/login");
-//       }
-//       //  console.log(response);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const handleLogOut = async () => {
+    console.log("Logging out");
+    try {
+      const response = await axios.post(
+        "https://hats-minor-project-production.up.railway.app/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(response);
+      if (response.data?.success == true) {
+        navigate("/login");
+      }
+      //  console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+
+  
 
   return (
     <AnimatePresence>

@@ -13,7 +13,7 @@ export const PoweredByAnim = ({setAnimState}) => {
     useEffect(() => {
 
         const timeOUt = setTimeout(() => {
-            setAnimState((prev) => ((prev + 1) % 4));
+            setAnimState((prev) => ((prev + 1) % 2));
         }, 6000);
 
         return () => {
