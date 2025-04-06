@@ -40,7 +40,7 @@ function Output() {
   }
 
   return <div className='bg-black rounded-md w-full p-3 max-h-[80%] min-h-[70%] overflow-y-scroll pb-5'>
-    {results.stdOut.map(getItem)}
+    {results.stdOut.slice(0, 3).map(getItem)}
   </div>
 
 }
