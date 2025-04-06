@@ -56,14 +56,26 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
-  const { examId } = useParams();
+  const { examId, studentId } = useParams();
   const navigate = useNavigate();
   const socket = useRef();
 
-  const rollNo = 43;
+  const [rollNo, setRollNo] = useState(null);
   const [duration, setDuration] = useState(0);
   const [valid, setvalid] = useState(false);
   const [rejoin, setRejoin] = useState(false);
+
+  const getStudentRollNo = async () => {
+    try {
+      const response = await axios.get('https://hats-minor-project-production.up.railway.app/getStudentInfo', {
+        params: {sid: studentId}
+      });
+      setRollNo(response.data.roll_no);
+    } catch(error) {
+      console.log(`error in fetching student rollNO!`);
+    }
+  }
+
 
   useEffect(() => {
     var data = null;
@@ -119,7 +131,7 @@ function Exampage() {
     getExamDetails();
     //successfull data fetching from backend
     //error is not handled, will do later
-
+    getStudentRollNo();
     
     
   }, []);

@@ -7,6 +7,8 @@ export const getInfoOfStudent = async (req,res)=>{
         res.json(allStudentDetails)
 }
 
+
+
 export const getResultsOfStudent = async (req, res) => {
         try {
             const studentId = parseInt(req.query.sid, 10);
