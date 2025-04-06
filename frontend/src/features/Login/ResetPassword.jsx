@@ -17,7 +17,7 @@ const ResetPasswordPage = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/reset-password",
+        "https://hats-minor-project-production.up.railway.app/reset-password",
         {token, newPassword}
       );
       //  console.log(response);

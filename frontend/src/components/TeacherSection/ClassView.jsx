@@ -31,7 +31,7 @@ export const ClassView = ({ classId, classroomName, subjectName,socket, setExamS
 
   async function getClassCode() {
     try {
-      const response = await axios.get("http://localhost:3000/getClassCode", {
+      const response = await axios.get("https://hats-minor-project-production.up.railway.app/getClassCode", {
         params: {
           classId: classId,
         },
@@ -87,7 +87,7 @@ export const ClassView = ({ classId, classroomName, subjectName,socket, setExamS
   async function getExamData() {
     setLoadingExams(true);
     try {
-      const response = await axios.get("http://localhost:3000/getExams", {
+      const response = await axios.get("https://hats-minor-project-production.up.railway.app/getExams", {
         params: {
           classId: classId,
         },
@@ -129,7 +129,7 @@ export const ClassView = ({ classId, classroomName, subjectName,socket, setExamS
     setLoadingStudents(true);
     try {
       const response = await axios.get(
-        "http://localhost:3000/getClassStudents",
+        "https://hats-minor-project-production.up.railway.app/getClassStudents",
         {
           params: {
             classId: classId,

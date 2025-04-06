@@ -69,7 +69,7 @@ function Exampage() {
     var data = null;
     async function getExamDetails() {
       const response = await axios.get(
-        `http://localhost:3000/exam?examId=${examId}`
+        `https://hats-minor-project-production.up.railway.app/exam?examId=${examId}`
       );
       
       //console.log(response.data.duration);
@@ -130,7 +130,7 @@ function Exampage() {
     const timer1 = setTimeout(() => {
       setLoaded(true);
     }, 2000);
-    socket.current = io("http://localhost:3000", {
+    socket.current = io("https://hats-minor-project-production.up.railway.app", {
       withCredentials: true,
       transports: ["websocket", "polling"],
     });

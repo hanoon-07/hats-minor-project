@@ -33,7 +33,7 @@ const Profile = ({teacherId}) => {
       try {
         setLoading(true);
         setError(null);
-        await axios.put(`http://localhost:3000/updateTeacherData`, {
+        await axios.put(`https://hats-minor-project-production.up.railway.app/updateTeacherData`, {
           id: teacherId,
           name: updateData.name,
           email: updateData.email,

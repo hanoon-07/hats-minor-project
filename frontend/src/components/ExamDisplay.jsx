@@ -13,7 +13,7 @@ export const ExamDisplay = ({id, rollNo}) => {
     const fetchExams = async (classId) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/getExamsInClass/?classId=${classId}`
+          `https://hats-minor-project-production.up.railway.app/getExamsInClass/?classId=${classId}`
         );
         setExams(response.data);
       } catch (error) {

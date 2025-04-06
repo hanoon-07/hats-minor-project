@@ -31,7 +31,7 @@ export const TeacherNavBar = ({selected = 'classes', setSelected, setOpen, clear
       console.log("Logging out");
       try {
         const response = await axios.post(
-          "http://localhost:3000/logout",
+          "https://hats-minor-project-production.up.railway.app/logout",
           {},
           {
             withCredentials: true,

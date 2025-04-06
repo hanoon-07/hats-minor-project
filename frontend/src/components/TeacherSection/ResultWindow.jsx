@@ -32,7 +32,7 @@ export const ResultWindow = ({examId, setShow}) => {
         async function getExamData() {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:3000/getResult', {
+                const response = await axios.get('https://hats-minor-project-production.up.railway.app/getResult', {
                     params: {
                         examId: examId
                     }

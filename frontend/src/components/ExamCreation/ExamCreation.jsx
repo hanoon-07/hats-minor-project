@@ -104,7 +104,7 @@ function About({classId, setCreateExam, setNewState}) {
     setLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:3000/createExam", examDetails, {
+      const response = await axios.post("https://hats-minor-project-production.up.railway.app/createExam", examDetails, {
         headers: { "Content-Type": "application/json" },
       });
       
