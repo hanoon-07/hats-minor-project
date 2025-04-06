@@ -71,7 +71,7 @@ const Profile = ({teacherId}) => {
         setLoading(true);
         setError(null);
         const response = await axios.get(
-          `http://localhost:3000/getTeacherData`,
+          `https://hats-minor-project-production.up.railway.app/getTeacherData`,
           {
             params: {id: teacherId},
           }
