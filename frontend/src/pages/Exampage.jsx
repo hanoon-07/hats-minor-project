@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import {LoadingRing} from '../../src/components/animation/LoadingRing'
 
-import Codeflowanim from "../components/animation/codeflowanim";
+import Codeflowanim from "../components/animation/Codeflowanim";
 import { Controller } from "../features/ExamMonitoring/Controller";
 import { ExamPauseWindow } from "../components/ExamPauseWindow";
 

@@ -3,7 +3,7 @@ import Popanim from '../components/animation/Popanim';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Codeflowanim from '../components/animation/codeflowanim';
+import Codeflowanim from '../components/animation/Codeflowanim';
 
 function AfterSubmissionpage() {
     
