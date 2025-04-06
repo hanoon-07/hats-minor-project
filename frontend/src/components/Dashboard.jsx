@@ -34,6 +34,7 @@ function Dashboard({id, changer}) {
 
   if (loading) {
     return <LoadingRing/>;
+    
   }
 
   return (
