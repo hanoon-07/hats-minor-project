@@ -38,10 +38,12 @@ function Classes() {
 
   const getAllClassDetails = async () => {
     try {
-     
+      console.log(studentId);
       const response = await axios.get(
         `https://hats-minor-project-production.up.railway.app/allClassInfo?studentId=${studentId}`
-      );
+      , {
+        withCredentials: true
+      });
       if (response.data.msg) {
         setData([]);
         setLoading(0)
