@@ -70,7 +70,8 @@ function Exampage() {
       const response = await axios.get('https://hats-minor-project-production.up.railway.app/getStudentInfo', {
         params: {sid: studentId}
       });
-      setRollNo(response.data.roll_no);
+      console.log(response.data.data);
+      setRollNo(response.data.data.roll_no);
     } catch(error) {
       console.log(`error in fetching student rollNO!`);
     }
@@ -178,7 +179,7 @@ function Exampage() {
       //console.log("Socket disconnected");
     };
 
-  }, [rejoin]);
+  }, [rejoin, rollNo]);
 
   const [isOpen, setIsOpen] = useState(true);
   const noOfQues = useSelector((state) => state["exam-data"].questions.length);

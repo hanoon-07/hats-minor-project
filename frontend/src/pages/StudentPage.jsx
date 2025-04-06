@@ -162,7 +162,7 @@ export const StudentPage = () => {
             name={studentData?.data?.name || ""}
             initial={studentData?.data?.name?.[0] || ""}
           />
-          <ExamDisplay id={classId} rollNo={2}/>
+          <ExamDisplay id={classId} rollNo={studentData.roll_no}/>
         </div>
       )}
 
