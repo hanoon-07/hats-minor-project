@@ -11,7 +11,7 @@ const DashClass = ({studentId, changer}) => {
         try {
          
           const response = await axios.get(
-            `http://localhost:3000/someClassInfo?studentId=${studentId}`
+            `https://hats-minor-project-production.up.railway.app/someClassInfo?studentId=${studentId}`
           );
          
           if (response.data.msg) {

@@ -91,7 +91,7 @@ function AfterExamPage({ }) {
 
 
     axios.post(
-      `http://localhost:3000/saveresult`,{results}
+      `https://hats-minor-project-production.up.railway.app/saveresult`,{results}
     ).then(response => {
       console.log('Results saved successfully:', response.data);
       navigate(`/studentPage/${studentId}`, { replace: true });

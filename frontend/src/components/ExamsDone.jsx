@@ -10,7 +10,7 @@ export const ExamDisplay = ({id}) => {
     const fetchExams = async (classId) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/getExamsInClass/?classId=${classId}`
+          `https://hats-minor-project-production.up.railway.app/getExamsInClass/?classId=${classId}`
         );
         setExams(response.data);
         //console.log(response.data);

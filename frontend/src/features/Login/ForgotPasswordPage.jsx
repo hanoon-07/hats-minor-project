@@ -32,7 +32,7 @@ const ForgotPasswordPage = () => {
     dispatch(setLoading(true));
     try {
       const response = await axios.post(
-        "http://localhost:3000/forgot-password",
+        "https://hats-minor-project-production.up.railway.app/forgot-password",
         {email}
       );
       //console.log(response);

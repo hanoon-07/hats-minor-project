@@ -40,7 +40,7 @@ export const Teacher = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/createClass",
+        "https://hats-minor-project-production.up.railway.app/createClass",
         classData,
         {
           headers: {
@@ -71,7 +71,7 @@ export const Teacher = () => {
   async function getClases() {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/getClasses", {
+      const response = await axios.get("https://hats-minor-project-production.up.railway.app/getClasses", {
         params: {
           teacherId: teacherId,
         },

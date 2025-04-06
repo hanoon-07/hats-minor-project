@@ -40,8 +40,10 @@ function Classes({selected,setSelected}) {
     try {
 
       const response = await axios.get(
-        `http://localhost:3000/allClassInfo?studentId=${studentId}`
-      );
+        `https://hats-minor-project-production.up.railway.app/allClassInfo?studentId=${studentId}`
+      , {
+        withCredentials: true
+      });
       if (response.data.msg) {
         setData([]);
         setLoading(0)
@@ -68,7 +70,7 @@ function Classes({selected,setSelected}) {
       //console.log(classCode)
 
       const response = await axios.post(
-        "http://localhost:3000/joinClass",
+        "https://hats-minor-project-production.up.railway.app/joinClass",
         {
           studentId: studentId,
           classCode: classCode,

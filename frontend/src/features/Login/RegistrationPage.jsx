@@ -48,7 +48,7 @@ const OnlyPipeSignupPage = () => {
     //console.log(userDetails);
     try {
       const response = await axios.post(
-        `http://localhost:3000/register/${userDetails.role}`,
+        `https://hats-minor-project-production.up.railway.app/register/${userDetails.role}`,
         userDetails
       );
       navigate("/login");

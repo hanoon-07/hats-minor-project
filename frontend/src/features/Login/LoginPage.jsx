@@ -37,7 +37,7 @@ const LoginPage = () => {
     dispatch(setLoading(true));
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "https://hats-minor-project-production.up.railway.app/login",
         loginDetails,
         {withCredentials: true}
       );

@@ -26,7 +26,7 @@ export const StudentPage = () => {
     const getStudentDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/studentInfo?studentId=${studentId}`
+          `https://hats-minor-project-production.up.railway.app/studentInfo?studentId=${studentId}`
         );
         setStudentData(response.data);
         //console.log("hello stud: ",response.data);
@@ -42,7 +42,7 @@ export const StudentPage = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:3000/allClassInfo?studentId=${studentId}`
+        `https://hats-minor-project-production.up.railway.app/allClassInfo?studentId=${studentId}`
       );
       if (response.data.msg) {
         setData([]);
@@ -65,7 +65,7 @@ export const StudentPage = () => {
       setClassCode("");
 
       const response = await axios.post(
-        "http://localhost:3000/joinClass",
+        "https://hats-minor-project-production.up.railway.app/joinClass",
         {
           studentId: studentId,
           classCode: classCode,
@@ -162,7 +162,7 @@ export const StudentPage = () => {
             name={studentData?.data?.name || ""}
             initial={studentData?.data?.name?.[0] || ""}
           />
-          <ExamDisplay id={classId} rollNo={2}/>
+          <ExamDisplay id={classId} rollNo={studentData.roll_no}/>
         </div>
       )}
 

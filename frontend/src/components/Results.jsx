@@ -21,7 +21,7 @@ function Results({ examId, onClose, studentId, examName }) {
         console.log(examId)
 
         const resultsResponse = await axios.get(
-          `http://localhost:3000/getResultForStudent?sid=${studentId}&eid=${examId}`
+          `https://hats-minor-project-production.up.railway.app/getResultForStudent?sid=${studentId}&eid=${examId}`
         );
         const results = resultsResponse.data;
         console.log('the result for student',results)
@@ -29,7 +29,7 @@ function Results({ examId, onClose, studentId, examName }) {
 
         // Then fetch exam details
         const examResponse = await axios.get(
-          `http://localhost:3000/exam?examId=${examId}`
+          `https://hats-minor-project-production.up.railway.app/exam?examId=${examId}`
         );
         const data = examResponse.data.questionDetails;
         console.log('the exam info is',examResponse.data)

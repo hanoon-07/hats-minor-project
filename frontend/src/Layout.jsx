@@ -14,7 +14,7 @@ function Layout() {
     const checkAuth = async () => {
       try {
         dispatch(setIsCheckingAuth(true));
-        const response = await axios.get("http://localhost:3000/check-auth", {
+        const response = await axios.get("https://hats-minor-project-production.up.railway.app/check-auth", {
           withCredentials: true,
         });
         //console.log("Lay out running ");

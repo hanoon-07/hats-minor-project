@@ -12,6 +12,7 @@ export const ResultWindow = ({examId, setShow}) => {
     const [downloadStatus, setDownloadStatus] = useState(null);
     const [resultData, setResultData] = useState(null);
     const [resultDataDownload, setResultDataDownload] = useState([]);
+    const [initData, setInitData] = useState(null);
 
     useEffect(() => {
         var timer1 = null;
@@ -32,30 +33,62 @@ export const ResultWindow = ({examId, setShow}) => {
         async function getExamData() {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:3000/getResult', {
-                    params: {
-                        examId: examId
-                    }
+                const response = await axios.get('https://hats-minor-project-production.up.railway.app/getResult', {
+                    params: { examId: examId }
                 });
                 
                 console.log(response.data);
-                var downLoadData = [];
+                setInitData(response.data);
+                const mergedResults = {};
                 
-
-                response.data.studentResultInfo.sort((a,b) => parseInt(a.rollNo) - parseInt(b.rollNo));
+                // Merge results with same rollNo
                 response.data.studentResultInfo.forEach((student) => {
-                    downLoadData.push({
-                        Name: student.name,
-                        "Roll Number": student.rollNo,
-                        "University ID": student.universityId,
-                        Score: student.score,
-                        "Test case passed": student.testPassed,
-                        "Total test cases": student.totalTest, 
-                    })
+                    const rollNo = student.rollNo;
+                    if (!mergedResults[rollNo]) {
+                        mergedResults[rollNo] = {
+                            name: student.name,
+                            rollNo: student.rollNo,
+                            universityId: student.universityId,
+                            score: student.score,
+                            testPassed: student.testPassed,
+                            totalTest: student.totalTest,
+                            present: student.present, // ✅ preserve present attribute
+                        };
+                    } else {
+                        mergedResults[rollNo].testPassed += student.testPassed;
+                        mergedResults[rollNo].totalTest += student.totalTest;
+                        mergedResults[rollNo].score += student.score;
+                
+                        // If any student record has present = true, keep it as true
+                        mergedResults[rollNo].present = mergedResults[rollNo].present || student.present;
+                    }
                 });
-                console.log(downLoadData);
+                
+                // Convert merged object to array
+                const mergedArray = Object.values(mergedResults);
+                mergedArray.forEach((element) => {
+                    if(element.testPassed != 0) {
+                        element.score = parseInt(Math.ceil((element.testPassed/element.totalTest) * 100))
+                    }
+                })
+
+                // Sort by roll number
+                mergedArray.sort((a, b) => parseInt(a.rollNo) - parseInt(b.rollNo));
+                
+                // For download data, format keys
+                const downLoadData = mergedArray.map(student => ({
+                    Name: student.name,
+                    "Roll Number": student.rollNo,
+                    "University ID": student.universityId,
+                    Score: student.score,
+                    "Test case passed": student.testPassed,
+                    "Total test cases": student.totalTest,
+                }));
+                
+                // Set states
                 setResultDataDownload(downLoadData);
-                setResultData(response.data);
+                setResultData({ studentResultInfo: mergedArray });
+                
             } catch(error) {
                 console.log('Something went wrong! result fetching!');
             } finally {
@@ -85,18 +118,18 @@ export const ResultWindow = ({examId, setShow}) => {
             <div className="flex-row flex gap-2 justify-between">
               <div className='flex flex-row gap-[30px]'>
                 <div className="flex flex-row gap-2">
-                    <div className="h-[30px] w-[30px] rounded-full bg-[#A8FF53] grid place-content-center">{resultData?resultData.present:'-'}</div>
-                    <p className="text-[#C1C4C7]">{resultData?'present':'-----'}</p>
+                    <div className="h-[30px] w-[30px] rounded-full bg-[#A8FF53] grid place-content-center">{initData?initData.present:'-'}</div>
+                    <p className="text-[#C1C4C7]">{initData?'present':'-----'}</p>
                 </div>
 
                 <div className="flex flex-row gap-2">
-                    <div className="h-[30px] w-[30px] rounded-full bg-[#5F97F3] grid place-content-center">{resultData?resultData.total:'-'}</div>
-                    <p className="text-[#C1C4C7]">{resultData?'total':'-----'}</p>
+                    <div className="h-[30px] w-[30px] rounded-full bg-[#5F97F3] grid place-content-center">{initData?initData.total:'-'}</div>
+                    <p className="text-[#C1C4C7]">{initData?'total':'-----'}</p>
                 </div>
 
                 <div className="flex flex-row gap-2">
-                    <div className="h-[30px] w-[30px] rounded-full bg-[#F43F5E] grid place-content-center">{resultData?(resultData.total - resultData.present):'-'}</div>
-                    <p className="text-[#C1C4C7]">{resultData?'absent':'-----'}</p>
+                    <div className="h-[30px] w-[30px] rounded-full bg-[#F43F5E] grid place-content-center">{initData?(initData.total - initData.present):'-'}</div>
+                    <p className="text-[#C1C4C7]">{initData?'absent':'-----'}</p>
                 </div>
               </div>
 

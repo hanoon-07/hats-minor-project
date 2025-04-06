@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import {LoadingRing} from '../../src/components/animation/LoadingRing'
 
-import Codeflowanim from "../components/animation/codeflowanim";
+import Codeflowanim from "../components/animation/Codeflowanim";
 import { Controller } from "../features/ExamMonitoring/Controller";
 import { ExamPauseWindow } from "../components/ExamPauseWindow";
 
@@ -57,21 +57,34 @@ function Exampage() {
   //   { input: ["1 2 3", "3 4 1", "2 8 3"], output: ["1 2 3", "3 4 1", "2 8 3"] },
   // ];
 
+  const { examId, studentId } = useParams();
 
-  const { examId } = useParams();
   const navigate = useNavigate();
   const socket = useRef();
 
-  const rollNo = 43;
+  const [rollNo, setRollNo] = useState(null);
   const [duration, setDuration] = useState(0);
   const [valid, setvalid] = useState(false);
   const [rejoin, setRejoin] = useState(false);
+
+  const getStudentRollNo = async () => {
+    try {
+      const response = await axios.get('https://hats-minor-project-production.up.railway.app/getStudentInfo', {
+        params: {sid: studentId}
+      });
+      console.log(response.data.data);
+      setRollNo(response.data.data.roll_no);
+    } catch(error) {
+      console.log(`error in fetching student rollNO!`);
+    }
+  }
+
 
   useEffect(() => {
     var data = null;
     async function getExamDetails() {
       const response = await axios.get(
-        `http://localhost:3000/exam?examId=${examId}`
+        `https://hats-minor-project-production.up.railway.app/exam?examId=${examId}`
       );
       
       //console.log(response.data.duration);
@@ -121,7 +134,7 @@ function Exampage() {
     getExamDetails();
     //successfull data fetching from backend
     //error is not handled, will do later
-
+    getStudentRollNo();
     
     
   }, []);
@@ -132,7 +145,7 @@ function Exampage() {
     const timer1 = setTimeout(() => {
       setLoaded(true);
     }, 2000);
-    socket.current = io("http://localhost:3000", {
+    socket.current = io("https://hats-minor-project-production.up.railway.app", {
       withCredentials: true,
       transports: ["websocket", "polling"],
     });
@@ -166,7 +179,7 @@ function Exampage() {
       //console.log("Socket disconnected");
     };
 
-  }, [rejoin]);
+  }, [rejoin, rollNo]);
 
   const [isOpen, setIsOpen] = useState(true);
   const noOfQues = useSelector((state) => state["exam-data"].questions.length);

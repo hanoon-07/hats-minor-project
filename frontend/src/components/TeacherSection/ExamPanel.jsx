@@ -52,7 +52,7 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
     // convertToPDFandDownload();
     async function getResultData() {
       try {
-        const response = await axios.get('http://localhost:3000/getResult', {
+        const response = await axios.get('https://hats-minor-project-production.up.railway.app/getResult', {
           params: {
             examId: examId
           }
@@ -67,13 +67,13 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
     async function getFullData() {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3000/getExamData/", {
+        const response = await axios.get("https://hats-minor-project-production.up.railway.app/getExamData/", {
           params: { examId: examId },
         });
         setExamName(response.data.examData.name);
         setDuration(response.data.examData.duration);
         const response1 = await axios.get(
-          "http://localhost:3000/getClassStudents",
+          "https://hats-minor-project-production.up.railway.app/getClassStudents",
           {
             params: { classId: classId },
           }
@@ -123,7 +123,7 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = io("http://localhost:3000", {
+    socket.current = io("https://hats-minor-project-production.up.railway.app", {
       withCredentials: true,
       transports: ["websocket.currentRef", "polling"]
     });

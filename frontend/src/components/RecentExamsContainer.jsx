@@ -23,7 +23,7 @@ const RecentExamsContainer = ({id,changer}) => {
       const fetchRecentExam = async (id) => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/getRecentExams/?sid=${id}`
+            `https://hats-minor-project-production.up.railway.app/getRecentExams/?sid=${id}`
           );
        
           setRecentExam(response.data);

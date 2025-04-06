@@ -19,7 +19,7 @@ function Dashboard({id, changer}) {
     const fetchName = async (id) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/getStudentInfo/?sid=${id}`
+          `https://hats-minor-project-production.up.railway.app/getStudentInfo/?sid=${id}`
         );
         setName(response.data.data.name);
         setLoading(0)
