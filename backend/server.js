@@ -4,6 +4,7 @@ import { createServer } from "http";
 import { Server } from "socket.io"
 import dotenv from 'dotenv'
 
+//testing npm i
 const PORT = process.env.port || 3000;
 dotenv.config();
 
