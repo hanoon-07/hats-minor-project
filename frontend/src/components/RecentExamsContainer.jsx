@@ -21,12 +21,8 @@ const RecentExamsContainer = ({id, changer}) => {
           const response = await axios.get(
             `https://hats-minor-project-production.up.railway.app/getRecentExams/?sid=${id}`
           );
-<<<<<<< HEAD
           console.log(response)
        
-=======
-          console.log(response.data);
->>>>>>> e4a0541 (initial case)
           setRecentExam(response.data);
         } catch (error) {
           console.error("Error fetching exams:", error);

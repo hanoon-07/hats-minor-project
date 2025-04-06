@@ -12,11 +12,7 @@ const DashClass = ({studentId, changer}) => {
           const response = await axios.get(
             `https://hats-minor-project-production.up.railway.app/someClassInfo?studentId=${studentId}`
           );
-<<<<<<< HEAD
           console.log(response)
-=======
-          console.log(response.data);
->>>>>>> e4a0541 (initial case)
          
           if (response.data.msg) {
             setData([]);

@@ -33,8 +33,8 @@ function Dashboard({id, changer}) {
 
 
   if (loading) {
-    // return <LoadingRing/>;
-    return <div>loading 1</div>
+    return <LoadingRing/>;
+    
   }
 
   return (
