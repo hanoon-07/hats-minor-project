@@ -13,6 +13,7 @@ const DashClass = ({studentId, changer}) => {
           const response = await axios.get(
             `https://hats-minor-project-production.up.railway.app/someClassInfo?studentId=${studentId}`
           );
+          console.log(response)
          
           if (response.data.msg) {
             setData([]);

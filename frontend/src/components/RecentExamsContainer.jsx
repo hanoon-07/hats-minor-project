@@ -25,6 +25,7 @@ const RecentExamsContainer = ({id,changer}) => {
           const response = await axios.get(
             `https://hats-minor-project-production.up.railway.app/getRecentExams/?sid=${id}`
           );
+          console.log(response)
        
           setRecentExam(response.data);
         

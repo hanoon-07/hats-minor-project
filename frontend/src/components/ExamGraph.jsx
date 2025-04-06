@@ -32,12 +32,14 @@ const ExamGraph = ({
         const examResponse = await axios.get(
           `https://hats-minor-project-production.up.railway.app/getPast6Scores/?sid=${id}`
         );
+        console.log(examResponse)
         setPastExam(examResponse.data);
 
         // Fetch class average scores
         const resultResponse = await axios.get(
           `https://hats-minor-project-production.up.railway.app/getPast6Average`
         );
+        console.log(resultResponse)
         setPastResult(resultResponse.data);
 
       } catch (error) {
