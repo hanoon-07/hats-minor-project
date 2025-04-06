@@ -7,7 +7,7 @@ export const getInfoOfStudent = async (req,res)=>{
         res.json(allStudentDetails)
 }
 
-
+//testing okay to commit
 
 export const getResultsOfStudent = async (req, res) => {
         try {

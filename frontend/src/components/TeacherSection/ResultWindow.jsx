@@ -134,12 +134,12 @@ export const ResultWindow = ({examId, setShow}) => {
               </div>
 
               <div className='flex flex-row gap-2'>
-                <div onClick={() => {setDownloadStatus('pdf'); convertToPDFandDownload(resultDataDownload, `${resultData.examName}.pdf`)}} className='w-[173px] h-[30px] cursor-pointer box-border px-2 translate-y-1 outline outline-0 outline-white hover:outline-1 bg-[#272a2e] rounded-sm flex flex-row items-center gap-4'>
+                <div onClick={() => {setDownloadStatus('pdf'); convertToPDFandDownload(resultDataDownload, `${initData.examName}.pdf`)}} className='w-[173px] h-[30px] cursor-pointer box-border px-2 translate-y-1 outline outline-0 outline-white hover:outline-1 bg-[#272a2e] rounded-sm flex flex-row items-center gap-4'>
                     <p className='text-yellow-400'>download as pdf</p>
                     <PDFlogo />
                 </div>
 
-                <div  onClick={() => {setDownloadStatus('xlsx'); convertToXLSXandDownload(resultDataDownload, `${resultData.examName}.xlsx`)}} className='w-[170px] gap-4 cursor-pointer h-[30px] box-border px-2 translate-y-1 outline outline-0 outline-white hover:outline-1 bg-[#272a2e] rounded-sm flex flex-row items-center'>
+                <div  onClick={() => {setDownloadStatus('xlsx'); convertToXLSXandDownload(resultDataDownload, `${initData.examName}.xlsx`)}} className='w-[170px] gap-4 cursor-pointer h-[30px] box-border px-2 translate-y-1 outline outline-0 outline-white hover:outline-1 bg-[#272a2e] rounded-sm flex flex-row items-center'>
                     <p className='text-[#A8FF53]'>download as xlsx</p>
                     <XLSXlogo />
                 </div>
