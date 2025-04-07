@@ -12,6 +12,7 @@ const ResultTable = ({ resultData }) => {
             { Header: 'Score', accessor: 'score' },
             { Header: 'Test Cases Passed', accessor: 'testPassed' },
             { Header: 'Total Test Cases', accessor: 'totalTest' },
+            { Header: 'Partial Output', accessor: 'partialOutput'}
         ],
         []
     );

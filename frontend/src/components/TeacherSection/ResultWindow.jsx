@@ -53,6 +53,7 @@ export const ResultWindow = ({examId, setShow}) => {
                             testPassed: student.testPassed,
                             totalTest: student.totalTest,
                             present: student.present, // ✅ preserve present attribute
+                            partialOutput: student.partialOutput
                         };
                     } else {
                         mergedResults[rollNo].testPassed += student.testPassed;
@@ -83,6 +84,7 @@ export const ResultWindow = ({examId, setShow}) => {
                     Score: student.score,
                     "Test case passed": student.testPassed,
                     "Total test cases": student.totalTest,
+                    
                 }));
                 
                 // Set states

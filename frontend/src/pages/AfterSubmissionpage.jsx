@@ -85,7 +85,7 @@ function AfterSubmissionpage() {
                             },
                             {
                                 headers: {
-                                    Authorization: "Bearer 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",
+                                    Authorization: "Bearer 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",
                                     "HTTP-Referer": "", 
                                     "X-Title": "", 
                                     "Content-Type": "application/json",
