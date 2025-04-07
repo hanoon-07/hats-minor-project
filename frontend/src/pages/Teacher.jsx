@@ -183,13 +183,17 @@ export const Teacher = () => {
                       transition={{duration: (index + 1) * 0.04}}
                       className="w-[250px] h-[150px] rounded-md bg-[#272a2e] hover:bg-[#212327] p-4 flex flex-col gap-2 justify-around"
                     >
-                      <p className="font-semibold text-lg text-[#c1c4c7]">
+                      <p className="font-semibold text-lg text-[#c1c4c7] pl-2">
                         {item.className}
+                      </p>
+
+                      <p className="font-semibold text-lg text-gray-500 pl-2">
+                        {item.subject}
                       </p>
 
                       <div className="flex flex-row gap-4 items-center">
                         <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#132B52] relative translate-x-2">
-                          <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#3B82F6] absolute left-[-5px] top-[0px]">
+                          <div className="w-[40px] h-[40px] grid place-content-center rounded-md bg-[#3B82F6] absolute left-[-5px] top-[0px]">
                             <p className="font-semibold text-white text-lg">
                               {item.studentCount}
                             </p>
@@ -200,18 +204,7 @@ export const Teacher = () => {
                         </p>
                       </div>
 
-                      <div className="flex flex-row gap-4 items-center">
-                        <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#132B52] relative translate-x-2">
-                          <div className="w-[40px] h-[40px] grid place-content-center rounded-full bg-[#2A7D67] absolute left-[-5px] top-[0px]">
-                            <p className="font-semibold text-white text-lg">
-                              1
-                            </p>
-                          </div>
-                        </div>
-                        <p className="font-medium text-md text-[#c1c4c7]">
-                          upcoming exams
-                        </p>
-                      </div>
+                     
                     </motion.div>
                   );
                 })}
@@ -226,11 +219,7 @@ export const Teacher = () => {
                   }}
                   extraStyleDiv={" rounded-sm"}
                 />
-                <Movebutton
-                  label={"delete class"}
-                  direction={"left"}
-                  extraStyleDiv={" rounded-sm"}
-                />
+                
               </div>
             </div>
           </div>

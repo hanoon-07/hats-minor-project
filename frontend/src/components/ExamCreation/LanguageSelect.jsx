@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const langArray = ["java", "python", "javascript", "c++", "c"];
+const langArray = ["java", "python", "c++", "c"];
 
 function LanguageSelect({examDetails, handleLanguageCheck}) {
   return (

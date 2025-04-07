@@ -1,5 +1,5 @@
 import axios, { getAdapter } from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { selectClassId } from "../../redux/classSelector";
 import { useSelector } from "react-redux";
 import { LoadingRing } from "../animation/LoadingRing";
@@ -11,6 +11,7 @@ import { StopButton } from "./StopButton";
 import { WaitingStudentsInfo } from "./WaitingStudentsInfo";
 import { convertToXLSXandDownload } from "../../features/ExamResultDownload/ConvertXLSX.js";
 import { convertToPDFandDownload } from "../../features/ExamResultDownload/ConvertPDF.js";
+import { current } from "@reduxjs/toolkit";
 
 
 export const ExamPanel = ({ examId = 22, setSelected }) => {
@@ -208,6 +209,8 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
     return tempArr;
   }
 
+  
+
   return (
     <div className="h-full w-full bg-[#15171A]">
       {loading && <LoadingRing />}
@@ -261,21 +264,27 @@ export const ExamPanel = ({ examId = 22, setSelected }) => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-row gap-2 items-center">
               <div className="h-[24px] w-[24px] rounded-full bg-[#A8FF53] grid place-content-center">
-                <p className="text-black font-normal">0</p>
+                <p className="text-black font-normal">{
+          studentData.filter(student => student.status === 'active').length
+        }</p>
               </div>
               <p className="text-[#C1C4C7] ">on exam</p>
             </div>
 
             <div className="flex flex-row gap-2 items-center">
               <div className="h-[24px] w-[24px] rounded-full bg-[#5F97F3] grid place-content-center">
-                <p className="text-black font-normal">0</p>
+                <p className="text-black font-normal">{
+          studentData.filter(student => student.status === 'submit').length
+        }</p>
               </div>
               <p className="text-[#C1C4C7] ">completed</p>
             </div>
 
             <div className="flex flex-row gap-2 items-center">
               <div className="h-[24px] w-[24px] rounded-full bg-[#F43F5E] grid place-content-center">
-                <p className="text-black font-normal">0</p>
+                <p className="text-black font-normal">{
+          studentData.filter(student => student.status === 'not joined').length
+        }</p>
               </div>
               <p className="text-[#C1C4C7] ">not joined</p>
             </div>
